@@ -9,13 +9,15 @@ const useFirestore = (collections) => {
     async function fetch() {
       const querySnapshot = await getDocs(collection(db, collections));
       let documents = [];
+
       querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
         documents.push({ ...doc.data(), id: doc.id });
       });
       setDocs(documents);
     }
     fetch();
-    return () => {};
+    return () => fetch();
   }, [collections]);
 
   return { docs };
