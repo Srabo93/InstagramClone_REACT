@@ -39,28 +39,6 @@ const useStorage = (file) => {
         setUrl(url);
       }
     );
-
-    // const storageRef = ref(storage, file.name);
-    // const uploadTask = uploadBytesResumable(storageRef, file);
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     let percentage =
-    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //     setProgress(percentage);
-    //   },
-    //   (err) => {
-    //     setError(err);
-    //   },
-    //   async () => {
-    //     const url = await getDownloadURL(uploadTask.snapshot.ref);
-    //     await setDoc(doc(db, "images", file.name), {
-    //       url,
-    //       createdAt: serverTimestamp(),
-    //     });
-    //     setUrl(url);
-    //   }
-    // );
   }, [file]);
   return { progress, error, url };
 };

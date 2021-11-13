@@ -39,6 +39,22 @@ body {
   font-size: 0.8rem;
 }
 
+.buttons {
+  display: block;
+  border: 2px solid var(--primary);
+  border-radius: 8%;
+  margin: 5px auto;
+  line-height: 30px;
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.buttons:hover {
+  color: whitesmoke;
+  background-color: var(--primary);
+  cursor: pointer;
+}
 /* upload form styles */
 .progress-bar {
   height: 5px;
@@ -73,6 +89,7 @@ label:hover {
 input[type="file"] {
   text-decoration: none;
 }
+
 /* image grid styles */
 .img-grid {
   display: grid;

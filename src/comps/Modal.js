@@ -6,9 +6,16 @@ const Modal = ({ displaySetImg, onCloseBackdrop }) => {
       onCloseBackdrop(null);
     }
   };
+  const onDeleteButton = (event) => {
+    console.log(event.target.previousSibling);
+    console.log(displaySetImg);
+  };
   return (
     <div className="backdrop" onClick={onClickBackdrop}>
       <img src={displaySetImg} alt="enlarged pic" />
+      <button className="buttons" onClick={onDeleteButton}>
+        Delete
+      </button>
     </div>
   );
 };
