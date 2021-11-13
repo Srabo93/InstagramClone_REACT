@@ -6,13 +6,14 @@ import Modal from "./comps/Modal";
 
 function App() {
   const [selectedImg, setSelectedImg] = useState(null);
+
   return (
     <div className="App">
       <Title />
       <UploadForm />
       <ImageGrid selectImg={setSelectedImg} />
       {selectedImg && (
-        <Modal displaySetImg={selectedImg} closeBackdrop={setSelectedImg} />
+        <Modal displaySetImg={selectedImg} onCloseBackdrop={setSelectedImg} />
       )}
     </div>
   );

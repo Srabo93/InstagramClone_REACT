@@ -1,9 +1,9 @@
 import React from "react";
 
-const Modal = ({ displaySetImg, closeBackdrop }) => {
+const Modal = ({ displaySetImg, onCloseBackdrop }) => {
   const onClickBackdrop = (event) => {
     if (event.target.classList.contains("backdrop")) {
-      closeBackdrop(null);
+      onCloseBackdrop(null);
     }
   };
   return (
