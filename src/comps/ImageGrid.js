@@ -1,7 +1,7 @@
 import React from "react";
-import useFirestore from "../hooks/useFirestore";
+import useFirestore from "../hooks/FirebaseHandler/useFirestore";
 
-const ImageGrid = ({ selectImg }) => {
+const ImageGrid = ({ selectImgData }) => {
   const { docs } = useFirestore("images");
 
   return (
@@ -11,7 +11,7 @@ const ImageGrid = ({ selectImg }) => {
           <div
             className="img-wrap"
             key={doc.id}
-            onClick={() => selectImg(doc.url)}
+            onClick={() => selectImgData(doc)}
           >
             <img src={doc.url} alt="firepic" />
           </div>
