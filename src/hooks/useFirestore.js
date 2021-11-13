@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
+import { collection, orderBy, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase/config";
 
 const useFirestore = (collections) => {
@@ -7,14 +7,17 @@ const useFirestore = (collections) => {
 
   useEffect(() => {
     const q = query(collection(db, collections));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let documents = [];
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-        documents.push({ ...doc.data(), id: doc.id });
-      });
-      setDocs(documents);
-    });
+    const unsubscribe = onSnapshot(
+      q,
+      orderBy("createdAt", "asc"),
+      (querySnapshot) => {
+        let documents = [];
+        querySnapshot.forEach((doc) => {
+          documents.push({ ...doc.data(), id: doc.id });
+        });
+        setDocs(documents);
+      }
+    );
     return () => unsubscribe();
   }, [collections]);
   return { docs };
