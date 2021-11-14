@@ -5,6 +5,7 @@ import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 //Storage
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import { motion } from "framer-motion";
 
 const Modal = ({ displayImg, onCloseBackdrop }) => {
   const onClickBackdrop = (event) => {
@@ -31,12 +32,27 @@ const Modal = ({ displayImg, onCloseBackdrop }) => {
     onCloseBackdrop(null);
   };
   return (
-    <div className={classes.backdrop} onClick={onClickBackdrop}>
-      <img src={displayImg.url} alt="enlarged pic" />
-      <button className="buttons" onClick={deleteHanlder}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className={classes.backdrop}
+      onClick={onClickBackdrop}
+    >
+      <motion.img
+        initial={{ y: "-100vh" }}
+        animate={{ y: 0 }}
+        src={displayImg.url}
+        alt="enlarged pic"
+      />
+      <motion.button
+        initial={{ y: "-100vh" }}
+        animate={{ y: 0 }}
+        className="buttons"
+        onClick={deleteHanlder}
+      >
         Delete
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 };
 

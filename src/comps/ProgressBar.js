@@ -3,6 +3,7 @@ import classes from "./ProgressBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import useStorage from "../hooks/useFirebase/useStorage";
+import { motion } from "framer-motion";
 
 const ProgressBar = ({ file, setFile }) => {
   const { url, progress } = useStorage(file);
@@ -15,10 +16,11 @@ const ProgressBar = ({ file, setFile }) => {
 
   return (
     <React.Fragment>
-      <div
+      <motion.div
         className={classes.progress_bar}
-        style={{ width: progress + "%" }}
-      ></div>
+        initial={{ width: 0 }}
+        animate={{ width: progress + "%" }}
+      ></motion.div>
       <FontAwesomeIcon icon={faUpload} className={classes.uploadIcon} />
     </React.Fragment>
   );

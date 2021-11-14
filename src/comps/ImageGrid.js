@@ -1,6 +1,7 @@
 import React from "react";
 import useFirestore from "../hooks/useFirebase/useFirestore";
 import classes from "./ImageGrid.module.css";
+import { motion } from "framer-motion";
 
 const ImageGrid = ({ selectImgData }) => {
   const { docs } = useFirestore("images");
@@ -9,13 +10,21 @@ const ImageGrid = ({ selectImgData }) => {
     <div className={classes.img_grid}>
       {docs &&
         docs.map((doc) => (
-          <div
+          <motion.div
+            layout
+            whileHover={{ opacity: 1 }}
             className={classes.img_wrap}
             key={doc.id}
             onClick={() => selectImgData(doc)}
           >
-            <img src={doc.url} alt="firepic" />
-          </div>
+            <motion.img
+              src={doc.url}
+              alt="firepic"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+            />
+          </motion.div>
         ))}
     </div>
   );
