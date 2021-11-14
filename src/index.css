@@ -93,6 +93,11 @@ input[type="file"] {
   text-decoration: none;
 }
 
+.uploadIcon {
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+
 /* image grid styles */
 .img-grid {
   display: grid;
