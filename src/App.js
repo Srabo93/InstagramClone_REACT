@@ -6,7 +6,7 @@ import Modal from "./comps/Modal";
 
 function App() {
   const [imgData, setImgData] = useState(null);
-  console.log(imgData);
+
   return (
     <div className="App">
       <Title />
