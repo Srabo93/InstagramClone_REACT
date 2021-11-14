@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import classes from "./ProgressBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import useStorage from "../hooks/FirebaseHandler/useStorage";
+import useStorage from "../hooks/useFirebase/useStorage";
 
 const ProgressBar = ({ file, setFile }) => {
   const { url, progress } = useStorage(file);
@@ -12,8 +13,11 @@ const ProgressBar = ({ file, setFile }) => {
   }, [url, setFile]);
   return (
     <div>
-      <div className="progress-bar" style={{ width: progress + "%" }}></div>
-      <FontAwesomeIcon icon={faUpload} className="uploadIcon" />
+      <div
+        className={classes.progress_bar}
+        style={{ width: progress + "%" }}
+      ></div>
+      <FontAwesomeIcon icon={faUpload} className={classes.uploadIcon} />
     </div>
   );
 };

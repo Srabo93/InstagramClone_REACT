@@ -1,4 +1,5 @@
 import React from "react";
+import classes from "./Modal.module.css";
 //FireStore
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
@@ -7,7 +8,7 @@ import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const Modal = ({ displayImg, onCloseBackdrop }) => {
   const onClickBackdrop = (event) => {
-    if (event.target.classList.contains("backdrop")) {
+    if (event.target.classList.contains("Modal_backdrop__1RPMV")) {
       onCloseBackdrop(null);
     }
   };
@@ -30,7 +31,7 @@ const Modal = ({ displayImg, onCloseBackdrop }) => {
     onCloseBackdrop(null);
   };
   return (
-    <div className="backdrop" onClick={onClickBackdrop}>
+    <div className={classes.backdrop} onClick={onClickBackdrop}>
       <img src={displayImg.url} alt="enlarged pic" />
       <button className="buttons" onClick={deleteHanlder}>
         Delete

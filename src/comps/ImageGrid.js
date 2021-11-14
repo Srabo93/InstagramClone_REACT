@@ -1,15 +1,16 @@
 import React from "react";
-import useFirestore from "../hooks/FirebaseHandler/useFirestore";
+import useFirestore from "../hooks/useFirebase/useFirestore";
+import classes from "./ImageGrid.module.css";
 
 const ImageGrid = ({ selectImgData }) => {
   const { docs } = useFirestore("images");
 
   return (
-    <div className="img-grid">
+    <div className={classes.img_grid}>
       {docs &&
         docs.map((doc) => (
           <div
-            className="img-wrap"
+            className={classes.img_wrap}
             key={doc.id}
             onClick={() => selectImgData(doc)}
           >

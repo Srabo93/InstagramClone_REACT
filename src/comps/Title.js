@@ -1,10 +1,11 @@
+import React from "react";
+import classes from "./Title.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhotoVideo } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 
 const Title = () => {
   return (
-    <div className="title">
+    <div className={classes.title}>
       <h1>
         ClonesterGram <FontAwesomeIcon icon={faPhotoVideo} />
       </h1>
