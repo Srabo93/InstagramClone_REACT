@@ -41,7 +41,8 @@ body {
 
 .buttons {
   display: block;
-  border: 2px solid var(--primary);
+  border: 2px solid white;
+  background-color: white;
   border-radius: 8%;
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
   margin: 5px auto;
@@ -52,7 +53,7 @@ body {
 }
 
 .buttons:hover {
-  color: whitesmoke;
+  color: white;
   background-color: var(--primary);
   cursor: pointer;
   border: 2px solid whitesmoke;
@@ -139,5 +140,5 @@ input[type="file"] {
   max-height: 80%;
   margin: 60px auto;
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
-  border-radius: 3px solid white;
+  border: 3px solid white;
 }
