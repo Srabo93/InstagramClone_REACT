@@ -13,9 +13,11 @@ const useStorage = (file) => {
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
 
+  const randomId = Math.floor(Math.random() * (50 - 1) + 50);
+
   useEffect(() => {
     const storage = getStorage();
-    const storageRef = ref(storage, "images/" + file.name);
+    const storageRef = ref(storage, "images/" + randomId + file.name);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -35,7 +37,7 @@ const useStorage = (file) => {
           url,
           createdAt: serverTimestamp(),
         });
-        console.log("Written ID:", docRef.id);
+
         setUrl(url);
       }
     );
