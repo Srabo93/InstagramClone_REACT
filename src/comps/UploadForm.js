@@ -1,6 +1,8 @@
 import React from "react";
-import ProgressBar from "./ProgressBar";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from "./ProgressBar";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -22,7 +24,7 @@ const UploadForm = () => {
     <form className="upload-form">
       <label>
         <input type="file" onChange={onChangeHandler} />
-        <span>+</span>
+        <FontAwesomeIcon icon={faImage} />
       </label>
       <div className="output">
         {error && <div className="error">{error}</div>}
