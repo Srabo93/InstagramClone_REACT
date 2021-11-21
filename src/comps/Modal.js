@@ -15,9 +15,8 @@ const Modal = ({ displayImg, onCloseBackdrop }) => {
   };
 
   const deleteHanlder = () => {
-    //Firestore
     deleteDoc(doc(db, "images", displayImg.id));
-    //Storage
+
     const storage = getStorage();
 
     const desertRef = ref(storage, displayImg.url);
