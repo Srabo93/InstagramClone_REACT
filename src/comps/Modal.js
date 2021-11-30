@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 const Modal = ({ displayImg, onCloseBackdrop }) => {
   const onClickBackdrop = (event) => {
-    if (event.target.classList.contains("Modal_backdrop__1RPMV")) {
+    if (event.target.classList.contains("Modal_backdrop__1DLHX")) {
       onCloseBackdrop(null);
     }
   };

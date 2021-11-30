@@ -34,3 +34,10 @@
   cursor: pointer;
   border: 2px solid whitesmoke;
 }
+
+@media (min-width: 768px) {
+  .backdrop img {
+    max-width: 40%;
+    max-height: 60%;
+  }
+}
