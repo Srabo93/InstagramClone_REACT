@@ -7,7 +7,7 @@ const Title = () => {
   return (
     <div className={classes.title}>
       <h1>
-        ClonesterGram <FontAwesomeIcon icon={faPhotoVideo} />
+        InstagramClone <FontAwesomeIcon icon={faPhotoVideo} />
       </h1>
       <h2>Your Pictures</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
