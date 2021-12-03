@@ -19,6 +19,7 @@ const ImageGrid = ({ selectImgData }) => {
           >
             <motion.img
               src={doc.url}
+              n
               alt="firepic"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

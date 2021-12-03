@@ -41,4 +41,6 @@ label:hover {
 
 input[type="file"] {
   text-decoration: none;
+  position: absolute;
+  top: -10;
 }
