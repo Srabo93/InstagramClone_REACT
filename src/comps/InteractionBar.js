@@ -8,13 +8,19 @@ const InteractionBar = () => {
     <div className={classes.bar}>
       <ul className={classes.actionList}>
         <li>
-          <FontAwesomeIcon icon={faHeart} size="lg" />
+          <a>
+            <FontAwesomeIcon icon={faHeart} size="lg" />
+          </a>
         </li>
         <li>
-          <FontAwesomeIcon icon={faComment} size="lg" />
+          <a>
+            <FontAwesomeIcon icon={faComment} size="lg" />
+          </a>
         </li>
         <li>
-          <FontAwesomeIcon icon={faShare} size="lg" />
+          <a>
+            <FontAwesomeIcon icon={faShare} size="lg" />
+          </a>
         </li>
       </ul>
     </div>
