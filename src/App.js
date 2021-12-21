@@ -11,8 +11,8 @@ function App() {
     <div className="App">
       <Title />
       <UploadForm />
-      {/* <ImageGrid selectImgData={setImgData} />
-      {imgData && <Modal displayImg={imgData} onCloseBackdrop={setImgData} />} */}
+      {<ImageGrid selectImgData={setImgData} />}
+      {imgData && <Modal displayImg={imgData} onCloseBackdrop={setImgData} />}
     </div>
   );
 }

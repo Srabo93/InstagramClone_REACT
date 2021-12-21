@@ -1,16 +1,19 @@
 import React from "react";
 import classes from "./Title.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhotoVideo } from "@fortawesome/free-solid-svg-icons";
+import CameraIcon from "@mui/icons-material/Camera";
 
 const Title = () => {
   return (
     <div className={classes.title}>
       <h1>
-        InstagramClone <FontAwesomeIcon icon={faPhotoVideo} />
+        PhotoGallery{" "}
+        <span>
+          <CameraIcon fontSize="large" />
+        </span>
       </h1>
+
       <h2>Your Pictures</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Share your Pictures with the World.</p>
     </div>
   );
 };

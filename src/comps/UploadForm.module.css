@@ -37,6 +37,7 @@ label {
 label:hover {
   background: var(--primary);
   color: white;
+  cursor: pointer;
 }
 
 input[type="file"] {

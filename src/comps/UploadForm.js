@@ -1,9 +1,8 @@
 import React from "react";
-import classes from "./UploadForm.module.css";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "./ProgressBar";
+import { useState } from "react";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import classes from "./UploadForm.module.css";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -25,7 +24,7 @@ const UploadForm = () => {
     <form className={classes.upload_form}>
       <label>
         <input type="file" onChange={onChangeHandler} />
-        <FontAwesomeIcon icon={faImage} />
+        <CloudUploadIcon />
       </label>
       <div className={classes.output}>
         {error && <div className={classes.error}>{error}</div>}

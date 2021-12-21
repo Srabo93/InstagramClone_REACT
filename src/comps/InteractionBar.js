@@ -1,6 +1,4 @@
 import React from "react";
-import { faComment, faHeart, faShare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classes from "./InteractionBar.module.css";
 
 const InteractionBar = () => {
@@ -8,19 +6,13 @@ const InteractionBar = () => {
     <div className={classes.bar}>
       <ul className={classes.actionList}>
         <li>
-          <a>
-            <FontAwesomeIcon icon={faHeart} size="lg" />
-          </a>
+          <a></a>
         </li>
         <li>
-          <a>
-            <FontAwesomeIcon icon={faComment} size="lg" />
-          </a>
+          <a></a>
         </li>
         <li>
-          <a>
-            <FontAwesomeIcon icon={faShare} size="lg" />
-          </a>
+          <a></a>
         </li>
       </ul>
     </div>
