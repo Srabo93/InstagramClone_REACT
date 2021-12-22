@@ -1,29 +1,26 @@
 import React from "react";
-import classes from "./Modal.module.css";
-import InteractionBar from "./InteractionBar";
+import { Backdrop } from "@mui/material";
 
-const Modal = ({ displayImg, onCloseBackdrop }) => {
-  const onClickBackdrop = (event) => {
-    if (event.target.classList.contains("Modal_backdrop__1DLHX")) {
-      onCloseBackdrop(null);
+const Modal = ({ imgDocs, open, onSetBackdrop }) => {
+  const handleClose = (event) => {
+    if (event.target.classList.contains("MuiBackdrop-root")) {
+      onSetBackdrop(false);
     }
   };
-
   return (
-    <div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className={classes.backdrop}
-      onClick={onClickBackdrop}
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open}
+      onClick={handleClose}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+      }}
     >
-      <img
-        initial={{ y: "-100vh" }}
-        animate={{ y: 0 }}
-        src={displayImg.url}
-        alt="enlarged pic"
-      />
-      <InteractionBar />
-    </div>
+      {/* <div className="backdrop"> */}
+      <img src={imgDocs.url} style={{ maxWidth: "50%" }} className="img" />
+      {/* </div> */}
+    </Backdrop>
   );
 };
 

@@ -2,15 +2,24 @@ import React from "react";
 import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 
-const ImageGrid = ({ selectImgData }) => {
+const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
   const { docs } = useFirestore("images");
 
+  const modulHandler = (doc) => {
+    onSetImg(doc);
+    onSetBackdrop(true);
+  };
   return (
     <React.Fragment>
       <ImageList variant="masonry" cols={3} gap={8}>
         {docs.map((doc) => (
           <ImageListItem key={doc.id}>
-            <img src={doc.url} srcSet={doc.url} loading="lazy" />
+            <img
+              src={doc.url}
+              srcSet={doc.url}
+              loading="lazy"
+              onClick={() => modulHandler(doc)}
+            />
           </ImageListItem>
         ))}
       </ImageList>
