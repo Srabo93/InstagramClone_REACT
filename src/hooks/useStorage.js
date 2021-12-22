@@ -37,7 +37,6 @@ const useStorage = (file) => {
           url,
           createdAt: serverTimestamp(),
         });
-        console.log(docRef);
         setUrl(url);
       }
     );

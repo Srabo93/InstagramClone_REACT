@@ -5,14 +5,13 @@ import ImageGrid from "./comps/ImageGrid";
 import Modal from "./comps/Modal";
 
 function App() {
-  const [imgData, setImgData] = useState(null);
+  // const [imgData, setImgData] = useState(null);
 
   return (
     <div className="App">
       <Title />
       <UploadForm />
-      {<ImageGrid selectImgData={setImgData} />}
-      {imgData && <Modal displayImg={imgData} onCloseBackdrop={setImgData} />}
+      <ImageGrid />
     </div>
   );
 }

@@ -1,23 +1,20 @@
 import React from "react";
 import useFirestore from "../hooks/useFirestore";
-import classes from "./ImageGrid.module.css";
+import { ImageList, ImageListItem } from "@mui/material";
 
 const ImageGrid = ({ selectImgData }) => {
   const { docs } = useFirestore("images");
 
   return (
-    <div className={classes.img_grid}>
-      {docs &&
-        docs.map((doc) => (
-          <div
-            className={classes.img_wrap}
-            key={doc.id}
-            onClick={() => selectImgData(doc)}
-          >
-            <img src={doc.url} alt="firepic" />
-          </div>
+    <React.Fragment>
+      <ImageList variant="masonry" cols={3} gap={8}>
+        {docs.map((doc) => (
+          <ImageListItem key={doc.id}>
+            <img src={doc.url} srcSet={doc.url} loading="lazy" />
+          </ImageListItem>
         ))}
-    </div>
+      </ImageList>
+    </React.Fragment>
   );
 };
 export default ImageGrid;

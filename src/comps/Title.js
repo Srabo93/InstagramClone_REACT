@@ -6,10 +6,7 @@ const Title = () => {
   return (
     <div className={classes.title}>
       <h1>
-        PhotoGallery{" "}
-        <span>
-          <CameraIcon fontSize="large" />
-        </span>
+        PhotoGallery <CameraIcon fontSize="large" />
       </h1>
 
       <h2>Your Pictures</h2>

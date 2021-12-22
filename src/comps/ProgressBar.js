@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import classes from "./ProgressBar.module.css";
-
 import useStorage from "../hooks/useStorage";
+import { LinearProgress } from "@mui/material";
 
 const ProgressBar = ({ file, setFile }) => {
   const { url, progress } = useStorage(file);
@@ -14,7 +13,7 @@ const ProgressBar = ({ file, setFile }) => {
 
   return (
     <React.Fragment>
-      <div className={classes.progress_bar}></div>
+      <LinearProgress variant="determinate" value={progress} color="success" />
     </React.Fragment>
   );
 };
