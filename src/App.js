@@ -1,5 +1,5 @@
 /**
- * TODO Comment Codebase, Hide API KEY, develop Theme Provider
+ * TODO Comment Codebase, develop Theme Provider
  * TODO add Framer Motion, Add Shadows
  */
 

@@ -17,7 +17,11 @@ const Modal = ({ imgDocs, open, onSetBackdrop }) => {
         justifyContent: "center",
       }}
     >
-      <img src={imgDocs.url} style={{ maxWidth: "50%" }} className="img" />
+      <img
+        src={imgDocs.url}
+        style={{ maxHeight: "80%", maxWidth: "60%" }}
+        className="img"
+      />
     </Backdrop>
   );
 };

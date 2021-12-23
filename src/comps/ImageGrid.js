@@ -15,6 +15,7 @@ const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
         {docs.map((doc) => (
           <ImageListItem key={doc.id}>
             <img
+              style={{ boxShadow: "3px 5px 7px rgba(0,0,0,0.5)" }}
               src={doc.url}
               srcSet={doc.url}
               loading="lazy"
