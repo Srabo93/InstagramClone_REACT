@@ -8,7 +8,7 @@
 /coverage
 
 # API's
-dir_to_ignore/firebase
+src/firebase
 
 # production
 /build
