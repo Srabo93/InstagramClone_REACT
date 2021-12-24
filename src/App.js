@@ -1,12 +1,13 @@
 /**
+ * TODO Upload Form Feedback Styling has to be added
  * TODO Comment Codebase, develop Theme Provider
- * TODO add Framer Motion, Add Shadows
+ * TODO add Framer Motion
  */
 
 import React from "react";
 import { useState } from "react";
-import Title from "./comps/Title/Title";
-import UploadForm from "./comps/UploadForm/UploadForm";
+import Title from "./comps/Title";
+import UploadForm from "./comps/UploadForm";
 import ImageGrid from "./comps/ImageGrid";
 import Modal from "./comps/Modal";
 import { Container } from "@mui/material";
