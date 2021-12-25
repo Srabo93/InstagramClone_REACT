@@ -1,15 +1,14 @@
 /**
- * TODO Upload Form Feedback Styling has to be added
- * TODO Comment Codebase, develop Theme Provider
+ * TODO Comment Codebase, develop Dark mode toggle
  * TODO add Framer Motion
  */
 
 import React from "react";
 import { useState } from "react";
-import Title from "./comps/Title";
-import UploadForm from "./comps/UploadForm";
-import ImageGrid from "./comps/ImageGrid";
-import Modal from "./comps/Modal";
+import Title from "./components/Title";
+import UploadForm from "./components/UploadForm";
+import ImageGrid from "./components/ImageGrid";
+import Modal from "./components/Modal";
 import { Container } from "@mui/material";
 
 function App() {

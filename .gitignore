@@ -7,9 +7,6 @@
 # testing
 /coverage
 
-# API's
-src/API
-
 # production
 /build
 

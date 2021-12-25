@@ -2,17 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { red } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: red[500],
+      main: "#efb6b2",
     },
-    common: {
-      main: red[500],
+    secondary: {
+      main: "#4e4e4e",
     },
+    error: {
+      main: "#ff4a4a",
+    },
+  },
+  typography: {
+    fontFamily: ["Noto"].join(","),
   },
 });
 

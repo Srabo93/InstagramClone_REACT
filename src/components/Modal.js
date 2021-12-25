@@ -20,7 +20,7 @@ const Modal = ({ imgDocs, open, onSetBackdrop }) => {
       <img
         src={imgDocs.url}
         style={{ maxHeight: "80%", maxWidth: "60%" }}
-        className="img"
+        alt="randomimg"
       />
     </Backdrop>
   );

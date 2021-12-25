@@ -13,13 +13,17 @@ const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
     <React.Fragment>
       <ImageList variant="masonry" cols={3} gap={8}>
         {docs.map((doc) => (
-          <ImageListItem key={doc.id}>
+          <ImageListItem key={doc.id} sx={{ borderRadius: 16 }}>
             <img
-              style={{ boxShadow: "3px 5px 7px rgba(0,0,0,0.5)" }}
+              style={{
+                boxShadow: "3px 5px 7px rgba(0,0,0,0.5)",
+                borderRadius: "5px",
+              }}
               src={doc.url}
               srcSet={doc.url}
               loading="lazy"
               onClick={() => modulHandler(doc)}
+              alt="randomimg"
             />
           </ImageListItem>
         ))}

@@ -1,10 +1,11 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
 import { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import { styled } from "@mui/material/styles";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Box from "@mui/material/Box";
+import { Alert } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -27,7 +28,15 @@ const UploadForm = () => {
     }
   };
   return (
-    <Box sx={{ margin: 6, display: "flex", justifyContent: "center" }}>
+    <Box
+      sx={{
+        margin: 6,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <form>
         <label htmlFor="icon-button-file">
           <Input
@@ -44,12 +53,12 @@ const UploadForm = () => {
             <PhotoCamera fontSize="large" />
           </IconButton>
         </label>
-        <div>
-          {error && <div>{error}</div>}
-          {file && <div> {file.name} </div>}
-          {file && <ProgressBar file={file} setFile={setFile} />}
-        </div>
       </form>
+      <Box>
+        {error && <Alert severity="error">{error}</Alert>}
+        {file && <Alert severity="success">{file.name}</Alert>}
+        {file && <ProgressBar file={file} setFile={setFile} />}
+      </Box>
     </Box>
   );
 };
