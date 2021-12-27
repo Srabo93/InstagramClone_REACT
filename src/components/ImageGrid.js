@@ -2,7 +2,7 @@ import React from "react";
 import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 
-const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
+const ImageGrid = ({ onSetImg, onSetBackdrop, onIsClicked }) => {
   const { docs } = useFirestore("images");
 
   const modulHandler = (doc) => {

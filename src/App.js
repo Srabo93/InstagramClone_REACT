@@ -1,5 +1,4 @@
 /**
- * TODO Comment Codebase, develop Dark mode toggle
  * TODO add Framer Motion
  */
 import React from "react";
