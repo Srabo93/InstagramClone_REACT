@@ -9,6 +9,7 @@ const Title = () => {
       <Typography variant="h5" color="primary">
         PhotoGallery <CameraIcon color="primary" fontSize="large" />
       </Typography>
+
       <Box sx={{ textAlign: "center", padding: 6 }}>
         <Typography variant="h3" color="secondary" sx={{ letterSpacing: 6 }}>
           YOUR PICTURES

@@ -2,24 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#efb6b2",
-    },
-    secondary: {
-      main: "#4e4e4e",
-    },
-    error: {
-      main: "#ff4a4a",
-    },
-  },
-  typography: {
-    fontFamily: ["Noto"].join(","),
-  },
-});
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./UI/themeContext";
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
