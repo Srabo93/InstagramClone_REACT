@@ -13,10 +13,9 @@ const useStorage = (file) => {
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
 
-  const randomId = Math.floor(Math.random() * (50 - 1) + 50);
-
   useEffect(() => {
     const storage = getStorage();
+    const randomId = Math.floor(Math.random() * (50 - 1) + 50);
     const storageRef = ref(storage, "images/" + randomId + file.name);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
