@@ -40,7 +40,7 @@ const useStorage = (file) => {
         setUrl(url);
       }
     );
-  }, [file, randomId]);
+  }, [file]);
   return { progress, error, url };
 };
 
