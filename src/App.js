@@ -1,5 +1,4 @@
 /**
- * *UPLOAD DOESENT WORK INCLUDING FEEDBACK
  * TODO Animations ?
  * TODO Remove Action !
  * TODO Optimize Performance
