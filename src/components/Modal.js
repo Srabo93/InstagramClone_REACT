@@ -21,7 +21,12 @@ const Modal = ({ imgDocs, open, onSetBackdrop, checked }) => {
       >
         <img
           src={imgDocs.url}
-          style={{ maxHeight: "80%", maxWidth: "60%" }}
+          style={{
+            maxHeight: "80%",
+            maxWidth: "60%",
+            opacity: "1",
+            cursor: "inherit",
+          }}
           alt="randomimg"
         />
       </Backdrop>
