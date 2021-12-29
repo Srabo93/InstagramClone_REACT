@@ -55,9 +55,9 @@ const UploadForm = () => {
           </IconButton>
         </label>
       </form>
-      <Box>
+      <Box sx={{ maxWidt: "lg" }}>
         {error && <Alert severity="error">{error}</Alert>}
-        {file && <Alert severity="success">{file.name}</Alert>}
+        {file && <Alert severity="success">{file.name} is Uploading...</Alert>}
         {file && <ProgressBar file={file} setFile={setFile} />}
       </Box>
     </Box>
