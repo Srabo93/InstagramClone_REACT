@@ -11,14 +11,8 @@ export const theme = createTheme({
     error: {
       main: "#ff4a4a",
     },
-    bg: {
-      dark: "#388e3c",
-      light: "#e3f2fd",
-    },
   },
   typography: {
     fontFamily: ["Noto"].join(","),
   },
 });
-
-export const darkTheme = createTheme({});
