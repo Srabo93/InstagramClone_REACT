@@ -1,18 +1,29 @@
 import { createTheme } from "@mui/material";
 
-export const theme = createTheme({
+export const themeOptions = createTheme({
   palette: {
+    type: "light",
     primary: {
-      main: "#efb6b2",
+      main: "#d01173",
     },
     secondary: {
-      main: "#4e4e4e",
+      main: "#9e979a",
     },
     error: {
-      main: "#ff4a4a",
+      main: "rgba(230,11,16,0.91)",
+    },
+    success: {
+      main: "rgba(76,175,80,0.9)",
     },
   },
   typography: {
-    fontFamily: ["Noto"].join(","),
+    fontFamily: "Noto Serif",
+    fontWeightBold: 700,
+    h1: {
+      fontSize: "6rem",
+    },
+  },
+  shape: {
+    borderRadius: 4,
   },
 });

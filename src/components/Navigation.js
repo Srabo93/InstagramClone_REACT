@@ -7,26 +7,35 @@ const Navigation = () => {
     <Box sx={{ flexGrow: 1, flexWrap: "wrap", minWidth: "sm" }}>
       <AppBar position="fixed">
         <Toolbar>
-          <CameraIcon color="secondary" fontSize="large" sx={{ mr: 2 }} />
+          <CameraIcon fontSize="large" sx={{ mr: 2 }} />
           <Typography
             variant="h5"
             component="div"
-            color="secondary"
             sx={{ flexGrow: 1, letterSpacing: 5 }}
           >
             PhotoGallery
           </Typography>
           <Button
-            variant="text"
-            sx={{ fontWeight: "bold", letterSpacing: 2 }}
-            color="secondary"
+            variant="outlined"
+            color="inherit"
+            sx={{
+              fontWeight: "bold",
+              letterSpacing: 2,
+              margin: 1,
+              borderRadius: 4,
+            }}
           >
             Login
           </Button>
           <Button
-            variant="text"
-            sx={{ fontWeight: "bold", letterSpacing: 2 }}
-            color="secondary"
+            variant="outlined"
+            color="inherit"
+            sx={{
+              fontWeight: "bold",
+              letterSpacing: 2,
+              margin: 1,
+              borderRadius: 4,
+            }}
           >
             Sign Up
           </Button>
