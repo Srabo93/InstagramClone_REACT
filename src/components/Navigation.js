@@ -1,7 +1,6 @@
 import React from "react";
 import CameraIcon from "@mui/icons-material/Camera";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
-
 const Navigation = () => {
   return (
     <Box sx={{ flexGrow: 1, flexWrap: "wrap", minWidth: "sm" }}>
@@ -18,6 +17,7 @@ const Navigation = () => {
           <Button
             variant="outlined"
             color="inherit"
+            size="small"
             sx={{
               fontWeight: "bold",
               letterSpacing: 2,
@@ -30,6 +30,7 @@ const Navigation = () => {
           <Button
             variant="outlined"
             color="inherit"
+            size="small"
             sx={{
               fontWeight: "bold",
               letterSpacing: 2,
