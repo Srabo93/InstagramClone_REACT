@@ -1,6 +1,8 @@
 import React from "react";
 import CameraIcon from "@mui/icons-material/Camera";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import LeftDrawer from "./LeftDrawer";
+
 const Navigation = () => {
   return (
     <Box sx={{ flexGrow: 1, flexWrap: "wrap", minWidth: "sm" }}>
@@ -14,6 +16,7 @@ const Navigation = () => {
           >
             PhotoGallery
           </Typography>
+          <LeftDrawer />
           <Button
             variant="outlined"
             color="inherit"

@@ -4,12 +4,9 @@ import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 /**
  * TODO refactor the 'toggleDrawer' func into right side {optional disable the close on menue click}
  * TODO refactor the JSX apropiate to the display of the right side
@@ -17,47 +14,20 @@ import MailIcon from "@mui/icons-material/Mail";
  */
 const SwipeableTemporaryDrawer = () => {
   const [state, setState] = useState({
-    top: false,
-    left: false,
-    bottom: false,
     right: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
     setState({ ...state, [anchor]: open });
   };
 
   const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
+    <Box role="presentation" onClick={toggleDrawer(anchor, false)}>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {["Profile", "Favorites", "Upload", "Logout"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -67,10 +37,12 @@ const SwipeableTemporaryDrawer = () => {
   );
 
   return (
-    <div>
-      {["left", "right", "top", "bottom"].map((anchor) => (
+    <React.Fragment>
+      {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Button color="inherit" onClick={toggleDrawer(anchor, true)}>
+            Menu
+          </Button>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
@@ -81,7 +53,7 @@ const SwipeableTemporaryDrawer = () => {
           </SwipeableDrawer>
         </React.Fragment>
       ))}
-    </div>
+    </React.Fragment>
   );
 };
 export default SwipeableTemporaryDrawer;
