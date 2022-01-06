@@ -34,15 +34,15 @@ const SwipeableTemporaryDrawer = () => {
     <Box role="presentation" onClick={toggleDrawer(anchor, false)}>
       <List>
         {menu.map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to={`/${text.toLowerCase()}`}
-            >
+          <Link
+            style={{ textDecoration: "none", color: "inherit" }}
+            to={`/${text.toLowerCase()}`}
+          >
+            <ListItem button key={text}>
+              <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
               <ListItemText primary={text} />
-            </Link>
-          </ListItem>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </Box>
