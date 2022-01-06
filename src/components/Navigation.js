@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import CameraIcon from "@mui/icons-material/Camera";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import LeftDrawer from "./LeftDrawer";
@@ -17,21 +18,12 @@ const Navigation = () => {
             PhotoGallery
           </Typography>
           <LeftDrawer />
-          <Button
-            variant="outlined"
-            color="inherit"
-            size="small"
-            sx={{
-              fontWeight: "bold",
-              letterSpacing: 2,
-              margin: 1,
-              borderRadius: 4,
-            }}
-          >
+          <Button color="inherit" sx={{ fontStyle: "bold", letterSpacing: 2 }}>
             Login
           </Button>
         </Toolbar>
       </AppBar>
+      <Outlet />
     </Box>
   );
 };

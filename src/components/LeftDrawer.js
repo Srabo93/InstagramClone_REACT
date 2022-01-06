@@ -5,8 +5,8 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -48,7 +48,7 @@ const SwipeableTemporaryDrawer = () => {
         <React.Fragment key={anchor}>
           <Button
             color="inherit"
-            sx={{ fontStyle: "bold" }}
+            sx={{ fontStyle: "bold", letterSpacing: 2 }}
             onClick={toggleDrawer(anchor, true)}
           >
             Menu
