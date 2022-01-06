@@ -30,19 +30,6 @@ const Navigation = () => {
           >
             Login
           </Button>
-          <Button
-            variant="outlined"
-            color="inherit"
-            size="small"
-            sx={{
-              fontWeight: "bold",
-              letterSpacing: 2,
-              margin: 1,
-              borderRadius: 4,
-            }}
-          >
-            Sign Up
-          </Button>
         </Toolbar>
       </AppBar>
     </Box>

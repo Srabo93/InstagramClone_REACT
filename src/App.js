@@ -1,6 +1,7 @@
 /**
- * TODO Drawer implement via component
  * TODO Optimize Performance
+ * TODO ADD SUBPAGES / ADD ROUTER
+ * TODO IMPLEMENT LOG IN / SIGN UP / ADD USECONTEXT
  * TODO Comment
  */
 import React from "react";
@@ -22,7 +23,6 @@ function App() {
     <ThemeProvider theme={themeOptions}>
       <Container maxWidth="md">
         <Navigation />
-
         <Title />
         <UploadForm />
         <ImageGrid onSetImg={setImgData} onSetBackdrop={setBackdrop} />
