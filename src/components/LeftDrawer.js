@@ -7,28 +7,34 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-/**
- * TODO refactor the 'toggleDrawer' func into right side {optional disable the close on menue click}
- * TODO refactor the JSX apropiate to the display of the right side
- * TODO adjust the Code to the Display needed
- */
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 const SwipeableTemporaryDrawer = () => {
   const [state, setState] = useState({
     right: false,
   });
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anchor, open) => () => {
     setState({ ...state, [anchor]: open });
   };
+
+  const icons = [
+    <AccountCircleIcon />,
+    <FavoriteIcon />,
+    <CloudUploadIcon />,
+    <LogoutIcon />,
+  ];
+  const menu = ["Profile", "Favorites", "Upload", "Logout"];
 
   const list = (anchor) => (
     <Box role="presentation" onClick={toggleDrawer(anchor, false)}>
       <List>
-        {["Profile", "Favorites", "Upload", "Logout"].map((text, index) => (
+        {menu.map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon>
-              {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-            </ListItemIcon>
+            <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -40,7 +46,11 @@ const SwipeableTemporaryDrawer = () => {
     <React.Fragment>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button color="inherit" onClick={toggleDrawer(anchor, true)}>
+          <Button
+            color="inherit"
+            sx={{ fontStyle: "bold" }}
+            onClick={toggleDrawer(anchor, true)}
+          >
             Menu
           </Button>
           <SwipeableDrawer
