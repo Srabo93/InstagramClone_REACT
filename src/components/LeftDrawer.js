@@ -35,10 +35,11 @@ const SwipeableTemporaryDrawer = () => {
       <List>
         {menu.map((text, index) => (
           <Link
+            key={text}
             style={{ textDecoration: "none", color: "inherit" }}
             to={`/${text.toLowerCase()}`}
           >
-            <ListItem button key={text}>
+            <ListItem button>
               <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
