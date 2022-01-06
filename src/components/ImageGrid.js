@@ -1,16 +1,18 @@
 import React from "react";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 
 const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
   const { docs } = useFirestore("images");
 
-  const modulHandler = (doc) => {
-    onSetImg(doc);
-    onSetBackdrop(true);
-  };
-
+  const modulHandler = useCallback(
+    (doc) => {
+      onSetImg(doc);
+      onSetBackdrop(true);
+    },
+    [onSetImg, onSetBackdrop]
+  );
   const renderImgGrid = useMemo(
     () =>
       docs.map((doc) => (
@@ -24,23 +26,12 @@ const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
           />
         </ImageListItem>
       )),
-    [docs]
+    [docs, modulHandler]
   );
 
   return (
     <React.Fragment>
       <ImageList variant="masonry" cols={3} gap={8}>
-        {/* {docs.map((doc) => (
-          <ImageListItem key={doc.id} sx={{ borderRadius: 16 }}>
-            <img
-              src={doc.url}
-              srcSet={doc.url}
-              loading="lazy"
-              onClick={() => modulHandler(doc)}
-              alt="randomimg"
-            />
-          </ImageListItem>
-        ))} */}
         {renderImgGrid}
       </ImageList>
     </React.Fragment>

@@ -1,9 +1,13 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import CameraIcon from "@mui/icons-material/Camera";
-import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import { Outlet, Link } from "react-router-dom";
 import LeftDrawer from "./LeftDrawer";
+import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import CameraIcon from "@mui/icons-material/Camera";
 
+/**
+ *TODO Maybe rework the Router links into reusable UI components
+ *
+ */
 const Navigation = () => {
   return (
     <Box sx={{ flexGrow: 1, flexWrap: "wrap", minWidth: "sm" }}>
@@ -11,15 +15,26 @@ const Navigation = () => {
         <Toolbar>
           <CameraIcon fontSize="large" sx={{ mr: 2 }} />
           <Typography
+            color="inherit"
             variant="h5"
             component="div"
-            sx={{ flexGrow: 1, letterSpacing: 5 }}
+            sx={{
+              flexGrow: 1,
+              letterSpacing: 5,
+            }}
           >
-            PhotoGallery
+            <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
+              PhotoGallery
+            </Link>
           </Typography>
           <LeftDrawer />
           <Button color="inherit" sx={{ fontStyle: "bold", letterSpacing: 2 }}>
-            Login
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to="/login"
+            >
+              Login
+            </Link>
           </Button>
         </Toolbar>
       </AppBar>
