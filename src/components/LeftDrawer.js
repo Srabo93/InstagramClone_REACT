@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
@@ -35,7 +36,12 @@ const SwipeableTemporaryDrawer = () => {
         {menu.map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
-            <ListItemText primary={text} />
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to={`/${text.toLowerCase()}`}
+            >
+              <ListItemText primary={text} />
+            </Link>
           </ListItem>
         ))}
       </List>

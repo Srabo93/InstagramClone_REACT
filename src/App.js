@@ -12,6 +12,7 @@ import Profile from "./routes/Profile";
 import Favorites from "./routes/Favorites";
 import Upload from "./routes/Upload";
 import Login from "./routes/Login";
+import Logout from "./routes/Logout";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -28,6 +29,7 @@ function App() {
             <Route path="favorites" element={<Favorites />} />
             <Route path="upload" element={<Upload />} />
             <Route path="login" element={<Login />} />
+            <Route path="logout" element={<Logout />} />
           </Route>
         </Routes>
       </Container>

@@ -4,10 +4,6 @@ import LeftDrawer from "./LeftDrawer";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import CameraIcon from "@mui/icons-material/Camera";
 
-/**
- *TODO Maybe rework the Router links into reusable UI components
- *
- */
 const Navigation = () => {
   return (
     <Box sx={{ flexGrow: 1, flexWrap: "wrap", minWidth: "sm" }}>
