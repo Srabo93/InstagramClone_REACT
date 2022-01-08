@@ -1,7 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../API/firebase";
+import LoadingCircle from "../UI/LoadingCircle";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,43 +15,54 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
+//TODO Error Handling needed
+//TODO Refactor into Hooks !
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const navigate = useNavigate();
+
+  const emailHandler = (e) => {
+    setEmail(e.target.value);
+  };
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
+  };
+  const repeatPasswordHandler = (e) => {
+    setRepeatPassword(e.target.value);
+  };
+  console.log(email, password, repeatPassword);
   const authorization = auth;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
+    const trimPW = password.trim();
+    const trimrepeatPW = repeatPassword.trim();
     if (isLogin) {
-      console.log({
-        email: data.get("email"),
-        password: data.get("password"),
-      });
       console.log("User would be signed in");
     } else {
-      setUserData({
-        email: data.get("email"),
-        password: data.get("password"),
-      });
-      createUserWithEmailAndPassword(
-        authorization,
-        userData.email,
-        userData.password
-      )
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log(user);
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          // ..
-        });
+      if (trimPW === trimrepeatPW) {
+        setIsLoading(true);
+        createUserWithEmailAndPassword(authorization, email, trimPW)
+          .then((userCredential) => {
+            // Signed in
+            setIsLoading(false);
+            const user = userCredential.user;
+            console.log(user);
+            navigate("/profile");
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setIsLoading(false);
+            console.log(errorCode, errorMessage);
+            // ..
+          });
+      }
     }
   };
 
@@ -88,6 +101,7 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             {isLogin ? "Login" : "Sign Up"}
           </Typography>
+          {isLoading && <LoadingCircle />}
           <Box
             component="form"
             noValidate
@@ -103,6 +117,7 @@ const Login = () => {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={emailHandler}
             />
             <TextField
               margin="normal"
@@ -113,6 +128,7 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={passwordHandler}
             />
             {!isLogin && (
               <TextField
@@ -123,6 +139,7 @@ const Login = () => {
                 label="Repeat Password"
                 type="password"
                 id="repeat_password"
+                onChange={repeatPasswordHandler}
               />
             )}
             <Button
