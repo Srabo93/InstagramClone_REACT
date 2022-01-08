@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +12,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const Login = () => {
+  const [signUp, setSignUp] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -19,6 +21,10 @@ const Login = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
+  };
+
+  const signUpHandler = () => {
+    setSignUp((prevState) => !prevState);
   };
 
   return (
@@ -50,7 +56,7 @@ const Login = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {!signUp ? "Login" : "Sign Up"}
           </Typography>
           <Box
             component="form"
@@ -78,13 +84,24 @@ const Login = () => {
               id="password"
               autoComplete="current-password"
             />
+            {signUp && (
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="repeat_password"
+                label="Repeat Password"
+                type="password"
+                id="repeat_password"
+              />
+            )}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {!signUp ? "Login" : "Sign Up"}
             </Button>
             <Grid container>
               <Grid item xs sx={{ mb: 2 }}>
@@ -93,8 +110,8 @@ const Login = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body3">
-                  {"Don't have an account? Sign Up"}
+                <Link href="#" variant="body3" onClick={signUpHandler}>
+                  {!signUp ? "Don't have an account? Sign Up" : "Login!"}
                 </Link>
               </Grid>
             </Grid>
