@@ -1,7 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { auth } from "../API/firebase";
 import LoadingCircle from "../UI/LoadingCircle";
 import Avatar from "@mui/material/Avatar";
@@ -25,6 +29,10 @@ const Login = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const navigate = useNavigate();
 
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
+
   const emailHandler = (e) => {
     setEmail(e.target.value);
   };
@@ -42,7 +50,27 @@ const Login = () => {
     const trimPW = password.trim();
     const trimrepeatPW = repeatPassword.trim();
     if (isLogin) {
-      console.log("User would be signed in");
+      setIsLoading(true);
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          setIsLoading(false);
+          const user = userCredential.user;
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              const uid = user.accessToken;
+              console.log(uid);
+              navigate("/profile");
+              // ...
+            } else {
+              // User is signed off
+            }
+          });
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          const errorMessage = error.message;
+          alert(errorMessage);
+        });
     } else {
       if (trimPW === trimrepeatPW) {
         setIsLoading(true);
@@ -64,10 +92,6 @@ const Login = () => {
           });
       }
     }
-  };
-
-  const switchAuthModeHandler = () => {
-    setIsLogin((prevState) => !prevState);
   };
 
   return (
