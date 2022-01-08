@@ -1,5 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../API/firebase";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,19 +14,47 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const Login = () => {
-  const [signUp, setSignUp] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [userData, setUserData] = useState({});
+  const authorization = auth;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    if (isLogin) {
+      console.log({
+        email: data.get("email"),
+        password: data.get("password"),
+      });
+      console.log("User would be signed in");
+    } else {
+      setUserData({
+        email: data.get("email"),
+        password: data.get("password"),
+      });
+      createUserWithEmailAndPassword(
+        authorization,
+        userData.email,
+        userData.password
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          // ..
+        });
+    }
   };
 
-  const signUpHandler = () => {
-    setSignUp((prevState) => !prevState);
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
   };
 
   return (
@@ -56,7 +86,7 @@ const Login = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {!signUp ? "Login" : "Sign Up"}
+            {isLogin ? "Login" : "Sign Up"}
           </Typography>
           <Box
             component="form"
@@ -84,7 +114,7 @@ const Login = () => {
               id="password"
               autoComplete="current-password"
             />
-            {signUp && (
+            {!isLogin && (
               <TextField
                 margin="normal"
                 required
@@ -101,7 +131,7 @@ const Login = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {!signUp ? "Login" : "Sign Up"}
+              {isLogin ? "Login" : "Sign Up"}
             </Button>
             <Grid container>
               <Grid item xs sx={{ mb: 2 }}>
@@ -110,8 +140,8 @@ const Login = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body3" onClick={signUpHandler}>
-                  {!signUp ? "Don't have an account? Sign Up" : "Login!"}
+                <Link href="#" variant="body3" onClick={switchAuthModeHandler}>
+                  {isLogin ? "Don't have an account? Sign Up!" : "Login!"}
                 </Link>
               </Grid>
             </Grid>
