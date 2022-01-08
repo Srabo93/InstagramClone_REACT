@@ -18,16 +18,17 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Alert } from "@mui/material";
 
-//TODO Error Handling needed
-//TODO Refactor into Hooks !
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const navigate = useNavigate();
+  const authorization = auth;
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -42,8 +43,6 @@ const Login = () => {
   const repeatPasswordHandler = (e) => {
     setRepeatPassword(e.target.value);
   };
-  console.log(email, password, repeatPassword);
-  const authorization = auth;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -69,7 +68,7 @@ const Login = () => {
         .catch((error) => {
           setIsLoading(false);
           const errorMessage = error.message;
-          alert(errorMessage);
+          setErrorMessage(errorMessage);
         });
     } else {
       if (trimPW === trimrepeatPW) {
@@ -84,14 +83,15 @@ const Login = () => {
             // ...
           })
           .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
+            setErrorMessage(errorMessage);
             setIsLoading(false);
-            console.log(errorCode, errorMessage);
             // ..
           });
       }
+      setErrorMessage("Your Passwords do not match!");
     }
+    setErrorMessage("");
   };
 
   return (
@@ -165,6 +165,11 @@ const Login = () => {
                 id="repeat_password"
                 onChange={repeatPasswordHandler}
               />
+            )}
+            {errorMessage && (
+              <Alert variant="outline" severity="info">
+                {errorMessage}
+              </Alert>
             )}
             <Button
               type="submit"
