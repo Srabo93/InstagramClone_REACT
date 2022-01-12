@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import AuthContext from "../store/auth-context";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
@@ -27,6 +28,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const authorization = auth;
 
@@ -56,10 +58,8 @@ const Login = () => {
           const user = userCredential.user;
           onAuthStateChanged(auth, (user) => {
             if (user) {
-              const uid = user.accessToken;
-              console.log(uid);
+              authCtx.login(user.accessToken, user.email);
               navigate("/profile");
-              // ...
             } else {
               // User is signed off
             }

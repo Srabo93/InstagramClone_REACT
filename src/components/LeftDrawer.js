@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AuthContext from "../store/auth-context";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
@@ -18,17 +19,22 @@ const SwipeableTemporaryDrawer = () => {
     right: false,
   });
 
+  const authCtx = useContext(AuthContext);
+
   const toggleDrawer = (anchor, open) => () => {
     setState({ ...state, [anchor]: open });
   };
 
+  const logoutHandler = () => {
+    authCtx.logout();
+  };
   const icons = [
     <AccountCircleIcon />,
     <FavoriteIcon />,
     <CloudUploadIcon />,
     <LogoutIcon />,
   ];
-  const menu = ["Profile", "Favorites", "Upload", "Logout"];
+  const menu = ["Profile", "Favorites", "Uploads", "Logout"];
 
   const list = (anchor) => (
     <Box role="presentation" onClick={toggleDrawer(anchor, false)}>
@@ -37,12 +43,19 @@ const SwipeableTemporaryDrawer = () => {
           <Link
             key={text}
             style={{ textDecoration: "none", color: "inherit" }}
-            to={`/${text.toLowerCase()}`}
+            to={text !== "Logout" ? `/${text.toLowerCase()}` : "/"}
           >
-            <ListItem button>
-              <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+            {text === "Logout" ? (
+              <ListItem button onClick={logoutHandler}>
+                <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ) : (
+              <ListItem button>
+                <ListItemIcon>{icons[index] ?? icons[index]}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            )}
           </Link>
         ))}
       </List>
