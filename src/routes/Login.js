@@ -46,31 +46,29 @@ const Login = () => {
     setRepeatPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const trimPW = password.trim();
     const trimrepeatPW = repeatPassword.trim();
 
     if (isLogin) {
-      setIsLoading(true);
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          setIsLoading(false);
-          const user = userCredential.user;
-          onAuthStateChanged(auth, (user) => {
-            if (user) {
-              authCtx.login(user.accessToken, user.email);
-              navigate("/profile");
-            } else {
-              // User is signed off
-            }
-          });
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          const errorMessage = error.message;
-          setErrorMessage(errorMessage);
+      try {
+        setIsLoading(true);
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        const user = result.user;
+        const logInUser = await onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setIsLoading(false);
+            authCtx.login(user.accessToken, user.email);
+            navigate("/profile");
+          } else {
+            // User is signed off
+          }
         });
+      } catch (error) {
+        setIsLoading(false);
+        const errorMessage = await error.message;
+        setErrorMessage(errorMessage);
+      }
     } else if (
       trimPW !== trimrepeatPW ||
       trimPW === "" ||
@@ -79,22 +77,23 @@ const Login = () => {
       setErrorMessage("Your Passwords do not match!");
     } else {
       setIsLoading(true);
-      createUserWithEmailAndPassword(authorization, email, trimPW)
-        .then((userCredential) => {
-          // Signed in
-          setIsLoading(false);
-          setErrorMessage("");
-          const user = userCredential.user;
-          authCtx.login(user.accessToken, user.email);
-          navigate("/profile");
-          // ...
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          setErrorMessage(errorMessage);
-          setIsLoading(false);
-          // ..
-        });
+      try {
+        const result = await createUserWithEmailAndPassword(
+          authorization,
+          email,
+          trimPW
+        );
+        const user = await result.user;
+        setIsLoading(false);
+        setErrorMessage("");
+        // Signed in
+        authCtx.login(user.accessToken, user.email);
+        navigate("/profile");
+      } catch (error) {
+        const errorMessage = await error.message;
+        setErrorMessage(errorMessage);
+        setIsLoading(false);
+      }
     }
   };
 
@@ -176,10 +175,10 @@ const Login = () => {
               </Alert>
             )}
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
             >
               {isLogin ? "Login" : "Sign Up"}
             </Button>
