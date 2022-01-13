@@ -53,15 +53,16 @@ const Login = () => {
     if (isLogin) {
       try {
         setIsLoading(true);
-        const result = await signInWithEmailAndPassword(auth, email, password);
-        const user = result.user;
-        const logInUser = await onAuthStateChanged(auth, (user) => {
+        await signInWithEmailAndPassword(auth, email, password);
+        await onAuthStateChanged(auth, (user) => {
           if (user) {
             setIsLoading(false);
             authCtx.login(user.accessToken, user.email);
             navigate("/profile");
           } else {
             // User is signed off
+            authCtx.logout();
+            navigate("/");
           }
         });
       } catch (error) {

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import { auth } from "../API/firebase";
-import { deleteUser, reauthenticateWithCredential } from "firebase/auth";
+import { deleteUser } from "firebase/auth";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -14,28 +14,17 @@ const Profile = () => {
   const user = authCtx.user;
   const navigate = useNavigate();
 
-  const deleteAccountHandler = () => {
-    const promptForCredentials = () => {
+  const deleteAccountHandler = async () => {
+    try {
+      await deleteUser(auth.currentUser);
+      authCtx.logout();
+      navigate("/");
+    } catch (error) {
+      // An error ocurred
+      authCtx.logout();
       navigate("/login");
-    };
-    deleteUser(auth.currentUser)
-      .then(() => {
-        // User deleted.
-        authCtx.logout();
-        navigate("/");
-      })
-      .catch((error) => {
-        // An error ocurred
-        const credential = promptForCredentials();
-        reauthenticateWithCredential(auth.currentUser, credential)
-          .then(() => {
-            // User re-authenticated.
-          })
-          .catch((error) => {
-            // An error ocurred
-            // ...
-          });
-      });
+      console.log(error);
+    }
   };
   return (
     <Container

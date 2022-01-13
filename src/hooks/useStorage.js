@@ -32,7 +32,7 @@ const useStorage = (file) => {
       },
       async () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref);
-        const docRef = await addDoc(collection(db, "images"), {
+        await addDoc(collection(db, "images"), {
           url,
           createdAt: serverTimestamp(),
         });
