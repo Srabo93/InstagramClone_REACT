@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   getStorage,
   ref,
@@ -7,18 +7,25 @@ import {
 } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../API/firebase";
+import AuthContext from "../store/auth-context";
 
 const useStorage = (file) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     const storage = getStorage();
     const randomId = Math.floor(Math.random() * (50 - 1) + 50);
-    const storageRef = ref(storage, "images/" + randomId + file.name);
+    const allImgRef = ref(storage, "allImages/" + randomId + file.name);
+    const userImgref = ref(
+      storage,
+      `images/user/${authCtx.userId}/` + file.name
+    );
 
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const uploadTask = uploadBytesResumable(allImgRef, file);
+    const uploadTask2 = uploadBytesResumable(userImgref, file);
 
     uploadTask.on(
       "state_changed",
@@ -32,14 +39,19 @@ const useStorage = (file) => {
       },
       async () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref);
-        await addDoc(collection(db, "images"), {
+        await addDoc(collection(db, "images", "user", `${authCtx.userId}`), {
+          url,
+          createdAt: serverTimestamp(),
+          createdByUser: authCtx.userId,
+        });
+        await addDoc(collection(db, "allImages"), {
           url,
           createdAt: serverTimestamp(),
         });
         setUrl(url);
       }
     );
-  }, [file]);
+  }, [file, authCtx.userId, authCtx.user]);
   return { progress, error, url };
 };
 

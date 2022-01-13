@@ -57,7 +57,7 @@ const Login = () => {
         await onAuthStateChanged(auth, (user) => {
           if (user) {
             setIsLoading(false);
-            authCtx.login(user.accessToken, user.email);
+            authCtx.login(user.accessToken, user.email, user.uid);
             navigate("/profile");
           } else {
             // User is signed off
@@ -88,7 +88,7 @@ const Login = () => {
         setIsLoading(false);
         setErrorMessage("");
         // Signed in
-        authCtx.login(user.accessToken, user.email);
+        authCtx.login(user.accessToken, user.email, user.uid);
         navigate("/profile");
       } catch (error) {
         const errorMessage = await error.message;
