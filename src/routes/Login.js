@@ -46,10 +46,11 @@ const Login = () => {
     setRepeatPassword(e.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const trimPW = password.trim();
     const trimrepeatPW = repeatPassword.trim();
+
     if (isLogin) {
       setIsLoading(true);
       signInWithEmailAndPassword(auth, email, password)
@@ -70,28 +71,31 @@ const Login = () => {
           const errorMessage = error.message;
           setErrorMessage(errorMessage);
         });
-    } else {
-      if (trimPW === trimrepeatPW) {
-        setIsLoading(true);
-        createUserWithEmailAndPassword(authorization, email, trimPW)
-          .then((userCredential) => {
-            // Signed in
-            setIsLoading(false);
-            const user = userCredential.user;
-            console.log(user);
-            navigate("/profile");
-            // ...
-          })
-          .catch((error) => {
-            const errorMessage = error.message;
-            setErrorMessage(errorMessage);
-            setIsLoading(false);
-            // ..
-          });
-      }
+    } else if (
+      trimPW !== trimrepeatPW ||
+      trimPW === "" ||
+      trimrepeatPW === ""
+    ) {
       setErrorMessage("Your Passwords do not match!");
+    } else {
+      setIsLoading(true);
+      createUserWithEmailAndPassword(authorization, email, trimPW)
+        .then((userCredential) => {
+          // Signed in
+          setIsLoading(false);
+          setErrorMessage("");
+          const user = userCredential.user;
+          authCtx.login(user.accessToken, user.email);
+          navigate("/profile");
+          // ...
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          setErrorMessage(errorMessage);
+          setIsLoading(false);
+          // ..
+        });
     }
-    setErrorMessage("");
   };
 
   return (
