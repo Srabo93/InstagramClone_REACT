@@ -4,7 +4,7 @@ import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 
 const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
-  const { docs } = useFirestore("images");
+  const { docs } = useFirestore("allImages");
 
   const modulHandler = useCallback(
     (doc) => {
