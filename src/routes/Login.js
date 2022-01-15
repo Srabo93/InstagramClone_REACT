@@ -1,6 +1,6 @@
 import React from "react";
 import AuthContext from "../store/auth-context";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
@@ -46,11 +46,7 @@ const Login = () => {
     setRepeatPassword(e.target.value);
   };
 
-  useEffect(() => {
-    handleSubmit();
-    return () => {};
-  }, [handleSubmit]);
-  async function handleSubmit() {
+  const handleSubmit = async () => {
     const trimPW = password.trim();
     const trimrepeatPW = repeatPassword.trim();
 
@@ -100,7 +96,7 @@ const Login = () => {
         setIsLoading(false);
       }
     }
-  }
+  };
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -134,12 +130,7 @@ const Login = () => {
             {isLogin ? "Login" : "Sign Up"}
           </Typography>
           {isLoading && <LoadingCircle />}
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
+          <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required

@@ -1,8 +1,9 @@
 import React from "react";
 import ContainerWrapper from "../UI/ContainerWrapper";
+import FlexBoxContainer from "../UI/FlexBoxContainer";
+import UploadImgGrid from "../components/UploadImgGrid";
 import UploadForm from "../components/UploadForm";
 import { Typography } from "@mui/material";
-import FlexBoxContainer from "../UI/FlexBoxContainer";
 
 const Uploads = () => {
   return (
@@ -14,6 +15,10 @@ const Uploads = () => {
           function on the mainsite!
         </Typography>
         <UploadForm />
+        <Typography variant="h4" sx={{ m: 3 }}>
+          Deine Uploads
+        </Typography>
+        <UploadImgGrid />
       </FlexBoxContainer>
     </ContainerWrapper>
   );
