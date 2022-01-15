@@ -19,13 +19,10 @@ const useStorage = (file) => {
     const storage = getStorage();
     const randomId = Math.floor(Math.random() * (50 - 1) + 50);
     const allImgRef = ref(storage, "allImages/" + randomId + file.name);
-    const userImgref = ref(
-      storage,
-      `images/user/${authCtx.userId}/` + file.name
-    );
+    const userImgref = ref(storage, `images/user/${authCtx.user}/` + file.name);
 
     const uploadImages = uploadBytesResumable(allImgRef, file);
-    const uploadTask2 = uploadBytesResumable(userImgref, file);
+    uploadBytesResumable(userImgref, file);
 
     uploadImages.on(
       "state_changed",
@@ -39,10 +36,10 @@ const useStorage = (file) => {
       },
       async () => {
         const url = await getDownloadURL(uploadImages.snapshot.ref);
-        await addDoc(collection(db, "images", "user", `${authCtx.userId}`), {
+        await addDoc(collection(db, "images", "user", `${authCtx.user}`), {
           url,
           createdAt: serverTimestamp(),
-          createdByUser: authCtx.userId,
+          createdByUser: authCtx.user,
         });
         await addDoc(collection(db, "allImages"), {
           url,
@@ -51,7 +48,7 @@ const useStorage = (file) => {
         setUrl(url);
       }
     );
-  }, [file, authCtx.userId, authCtx.user]);
+  }, [file, authCtx.user]);
   return { progress, error, url };
 };
 

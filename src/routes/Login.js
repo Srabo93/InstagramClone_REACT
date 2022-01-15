@@ -1,6 +1,6 @@
 import React from "react";
 import AuthContext from "../store/auth-context";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
@@ -46,7 +46,11 @@ const Login = () => {
     setRepeatPassword(e.target.value);
   };
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    handleSubmit();
+    return () => {};
+  }, [handleSubmit]);
+  async function handleSubmit() {
     const trimPW = password.trim();
     const trimrepeatPW = repeatPassword.trim();
 
@@ -96,7 +100,7 @@ const Login = () => {
         setIsLoading(false);
       }
     }
-  };
+  }
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
