@@ -6,9 +6,6 @@ const ContainerWrapper = (props) => {
     <Container
       maxWidth="md"
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         marginTop: 10,
       }}
     >
