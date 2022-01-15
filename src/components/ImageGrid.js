@@ -1,6 +1,6 @@
 import React from "react";
 import { useMemo, useCallback } from "react";
-import useFirestore from "../hooks/useFirestore";
+import useFirestore from "../hooks/uploads/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 
 const ImageGrid = ({ onSetImg, onSetBackdrop }) => {

@@ -18,7 +18,7 @@ import Home from "./routes/Home";
 import Navigation from "./components/Navigation";
 import Profile from "./routes/Profile";
 import Favorites from "./routes/Favorites";
-import Upload from "./routes/Upload";
+import Uploads from "./routes/Uploads";
 import Login from "./routes/Login";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
             <Route index element={<Home />} />
             {isLoggedIn && <Route path="profile" element={<Profile />} />}
             {isLoggedIn && <Route path="favorites" element={<Favorites />} />}
-            {isLoggedIn && <Route path="uploads" element={<Upload />} />}
+            {isLoggedIn && <Route path="uploads" element={<Uploads />} />}
             <Route path="login" element={<Login />} />
             <Route path="*" element={<Home />} />
           </Route>

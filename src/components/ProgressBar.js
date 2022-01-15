@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import useStorage from "../hooks/useStorage";
+import useStorage from "../hooks/uploads/useStorage";
 import { LinearProgress } from "@mui/material";
 
 const ProgressBar = ({ file, setFile }) => {

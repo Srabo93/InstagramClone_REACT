@@ -6,8 +6,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../API/firebase";
-import AuthContext from "../store/auth-context";
+import { db } from "../../API/firebase";
+import AuthContext from "../../store/auth-context";
 
 const useStorage = (file) => {
   const [progress, setProgress] = useState(0);
@@ -24,10 +24,10 @@ const useStorage = (file) => {
       `images/user/${authCtx.userId}/` + file.name
     );
 
-    const uploadTask = uploadBytesResumable(allImgRef, file);
+    const uploadImages = uploadBytesResumable(allImgRef, file);
     const uploadTask2 = uploadBytesResumable(userImgref, file);
 
-    uploadTask.on(
+    uploadImages.on(
       "state_changed",
       (snapshot) => {
         let percentage =
@@ -38,7 +38,7 @@ const useStorage = (file) => {
         setError(err);
       },
       async () => {
-        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        const url = await getDownloadURL(uploadImages.snapshot.ref);
         await addDoc(collection(db, "images", "user", `${authCtx.userId}`), {
           url,
           createdAt: serverTimestamp(),

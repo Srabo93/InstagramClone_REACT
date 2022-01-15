@@ -5,21 +5,25 @@ const AuthContext = React.createContext({
   userId: "",
   accessToken: "",
   isLoggedIn: false,
-  login: (accessToken) => {},
+  login: (accessToken, email, uid) => {},
   logout: () => {},
 });
 
 export const AuthContextProvider = (props) => {
   const initialToken = localStorage.getItem("token");
+  const initialUser = localStorage.getItem("user");
   const [accessToken, setAccessToken] = useState(initialToken);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(initialUser);
   const [userId, setUserId] = useState(null);
   const userIsLoggedIn = !!accessToken;
 
   const loginHandler = (token, email, uid) => {
-    setAccessToken(token);
-    localStorage.setItem("token", token);
     const name = email.split("@")[0];
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", name);
+    localStorage.setItem("userId", uid);
+    setUserId(uid);
+    setAccessToken(token);
     setUser(name);
     setUserId(uid);
   };
@@ -27,7 +31,9 @@ export const AuthContextProvider = (props) => {
     setAccessToken(null);
     setUser(null);
     setUserId(null);
+    localStorage.removeItem("userId");
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   const ContextValue = {
