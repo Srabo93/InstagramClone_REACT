@@ -1,27 +1,19 @@
 import React from "react";
+import ContainerWrapper from "../UI/Container";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Avatar, Container, Button } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Avatar, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const authCtx = useContext(AuthContext);
   const user = authCtx.user;
-  const navigate = useNavigate();
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 10,
-      }}
-    >
+    <ContainerWrapper>
       <Card sx={{ maxWidth: "sm", padding: 3, textAlign: "center" }}>
         <Avatar
           alt="Random User"
@@ -44,24 +36,24 @@ const Profile = () => {
             the most important Sites!
           </Typography>
         </CardContent>
-        <Button variant="outlined" color="primary" sx={{ m: 1 }}>
-          <Link
-            to="/uploads"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
+        <Link
+          to="/uploads"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Button variant="outlined" color="primary" sx={{ m: 1 }}>
             Uploads
-          </Link>
-        </Button>
-        <Button variant="outlined" color="primary" sx={{ m: 1 }}>
-          <Link
-            to="/favorites"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
+          </Button>
+        </Link>
+        <Link
+          to="/favorites"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Button variant="outlined" color="primary" sx={{ m: 1 }}>
             Favorites
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </Card>
-    </Container>
+    </ContainerWrapper>
   );
 };
 
