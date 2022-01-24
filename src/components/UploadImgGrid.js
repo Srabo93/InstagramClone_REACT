@@ -12,54 +12,38 @@ const UploadImgGrid = () => {
   const { user } = useContext(AuthContext);
   const { docs } = useUserUploads(`images/user/${user}`);
 
-  function srcset(image, width, height, rows = 1, cols = 1) {
-    return {
-      src: `${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format`,
-      srcSet: `${image}?w=${width * cols}&h=${
-        height * rows
-      }&fit=crop&auto=format&dpr=2 2x`,
-    };
-  }
   return (
     <ImageList
-      sx={{
-        width: "80vw",
-        height: "80vh",
-        // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
-        transform: "translateZ(0)",
-      }}
-      rowHeight={300}
-      gap={1}
+      sx={{ maxWidth: "70vw", maxHeight: "80vh", p: 3 }}
+      cols={4}
+      rowHeight={164}
     >
-      {docs.map((doc) => {
-        const cols = doc.featured ? 2 : 1;
-        const rows = doc.featured ? 2 : 1;
-
-        return (
-          <ImageListItem key={doc.id} cols={cols} rows={rows}>
-            <img
-              {...srcset(doc.url, 150, 100, rows, cols)}
-              alt="random"
-              loading="lazy"
-            />
-            <ImageListItemBar
-              sx={{
-                background:
-                  "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
-                  "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
-              }}
-              title="delete"
-              position="top"
-              actionIcon={
-                <IconButton color="primary" aria-label="label">
-                  <DeleteForeverIcon fontSize="large" />
-                </IconButton>
-              }
-              actionPosition="left"
-            />
-          </ImageListItem>
-        );
-      })}
+      {docs.map((doc) => (
+        <ImageListItem key={doc.id}>
+          <img
+            style={{ width: 200, height: 100, cursor: "default" }}
+            src={doc.url}
+            srcSet={doc.url}
+            alt="randomimg"
+            loading="lazy"
+            sx={{ pt: 1 }}
+          />
+          <ImageListItemBar
+            sx={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+                "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+            }}
+            position="top"
+            actionIcon={
+              <IconButton color="primary" aria-label="label">
+                <DeleteForeverIcon fontSize="large" />
+              </IconButton>
+            }
+            actionPosition="left"
+          />
+        </ImageListItem>
+      ))}
     </ImageList>
   );
 };

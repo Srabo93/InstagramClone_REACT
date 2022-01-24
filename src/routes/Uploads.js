@@ -16,7 +16,7 @@ const Uploads = () => {
         </Typography>
         <UploadForm />
         <Typography variant="h4" sx={{ m: 3 }}>
-          Deine Uploads
+          Your Uploads
         </Typography>
         <UploadImgGrid />
       </FlexBoxContainer>
