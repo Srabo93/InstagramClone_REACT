@@ -14,14 +14,14 @@ const UploadImgGrid = () => {
 
   return (
     <ImageList
-      sx={{ maxWidth: "70vw", maxHeight: "80vh", p: 3 }}
+      sx={{ maxWidth: "800px", maxHeight: "300px", mb: 5 }}
       cols={4}
       rowHeight={164}
     >
       {docs.map((doc) => (
-        <ImageListItem key={doc.id}>
+        <ImageListItem key={doc.id} sx={{ maxWidth: 500, maxHeight: 100 }}>
           <img
-            style={{ width: 200, height: 100, cursor: "default" }}
+            style={{ maxWidth: 200, maxHeight: 100, cursor: "default" }}
             src={doc.url}
             srcSet={doc.url}
             alt="randomimg"

@@ -1,18 +1,19 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import ContainerWrapper from "../UI/ContainerWrapper";
+import FlexBoxContainer from "../UI/FlexBoxContainer";
 const Title = () => {
   return (
-    <Box sx={{ marginTop: 4 }}>
-      <Box sx={{ textAlign: "center", padding: 6 }}>
-        <Typography variant="h2" sx={{ letterSpacing: 6 }}>
+    <ContainerWrapper>
+      <FlexBoxContainer>
+        <Typography variant="h2" sx={{ letterSpacing: 6, textAlign: "center" }}>
           YOUR PICTURES
         </Typography>
-        <Typography variant="h6" sx={{ letterSpacing: 3 }}>
+        <Typography variant="h6" sx={{ letterSpacing: 3, textAlign: "center" }}>
           Share your Pictures with the World.
         </Typography>
-      </Box>
-    </Box>
+      </FlexBoxContainer>
+    </ContainerWrapper>
   );
 };
 
