@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/system";
-const FlexBoxContainer = (props) => {
+const FlexBox = (props) => {
   return (
     <Box
       sx={{
@@ -15,4 +15,4 @@ const FlexBoxContainer = (props) => {
   );
 };
 
-export default FlexBoxContainer;
+export default FlexBox;

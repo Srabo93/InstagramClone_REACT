@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import AuthContext from "../store/auth-context";
 import Title from "../components/Title";
 import UploadForm from "../components/UploadForm";
-import ImageGrid from "../components/ImageGrid";
+import ImageGridMasonry from "../components/ImageGridMasonry";
 import Modal from "../components/Modal";
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
     <React.Fragment>
       <Title />
       {isLoggedIn && <UploadForm />}
-      <ImageGrid onSetImg={setImgData} onSetBackdrop={setBackdrop} />
+      <ImageGridMasonry onSetImg={setImgData} onSetBackdrop={setBackdrop} />
       {backdrop && (
         <Modal imgDocs={imgData} open={backdrop} onSetBackdrop={setBackdrop} />
       )}

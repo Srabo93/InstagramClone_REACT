@@ -1,6 +1,6 @@
 import React from "react";
 import ContainerWrapper from "../UI/ContainerWrapper";
-import FlexBoxContainer from "../UI/FlexBoxContainer";
+import FlexBox from "../UI/FlexBox";
 import UploadImgGrid from "../components/UploadImgGrid";
 import UploadForm from "../components/UploadForm";
 import { Typography } from "@mui/material";
@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 const Uploads = () => {
   return (
     <ContainerWrapper>
-      <FlexBoxContainer>
+      <FlexBox>
         <Typography variant="h2" sx={{ pb: 2, textAlign: "center" }}>
           Upload your Image
         </Typography>
@@ -21,7 +21,7 @@ const Uploads = () => {
           Your Uploads
         </Typography>
         <UploadImgGrid />
-      </FlexBoxContainer>
+      </FlexBox>
     </ContainerWrapper>
   );
 };

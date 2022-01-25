@@ -3,7 +3,7 @@ import { useMemo, useCallback } from "react";
 import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 
-const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
+const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
   const { docs } = useFirestore("allImages");
 
   const modulHandler = useCallback(
@@ -13,6 +13,7 @@ const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
     },
     [onSetImg, onSetBackdrop]
   );
+
   const renderImgGrid = useMemo(
     () =>
       docs.map((doc) => (
@@ -37,4 +38,4 @@ const ImageGrid = ({ onSetImg, onSetBackdrop }) => {
     </React.Fragment>
   );
 };
-export default ImageGrid;
+export default ImageGridMasonry;

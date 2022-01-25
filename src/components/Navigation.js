@@ -1,7 +1,7 @@
 import React from "react";
+import { Outlet, Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
-import { Outlet, Link } from "react-router-dom";
 import LeftDrawer from "./LeftDrawer";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import CameraIcon from "@mui/icons-material/Camera";
