@@ -2,7 +2,7 @@ import React from "react";
 import { Backdrop } from "@mui/material";
 import { Fade } from "@mui/material";
 
-const Modal = ({ imgDocs, open, onSetBackdrop, checked }) => {
+const Modal = ({ imgDocs, open, onSetBackdrop }) => {
   const handleClose = (event) => {
     if (event.target.classList.contains("MuiBackdrop-root")) {
       onSetBackdrop(false);

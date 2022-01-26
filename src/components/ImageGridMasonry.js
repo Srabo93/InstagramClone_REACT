@@ -14,11 +14,18 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
     [onSetImg, onSetBackdrop]
   );
 
+  const style = {
+    boxShadow: "3px 5px 7px rgba(0, 0, 0, 0.5)",
+    borderRadius: "5px",
+    opacity: 0.8,
+    cursor: "pointer",
+  };
   const renderImgGrid = useMemo(
     () =>
       docs.map((doc) => (
         <ImageListItem key={doc.id} sx={{ borderRadius: 16 }}>
           <img
+            style={style}
             src={doc.url}
             srcSet={doc.url}
             loading="lazy"
@@ -27,7 +34,7 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
           />
         </ImageListItem>
       )),
-    [docs, modulHandler]
+    [docs, style, modulHandler]
   );
 
   return (
