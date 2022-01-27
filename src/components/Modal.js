@@ -24,6 +24,8 @@ const Modal = ({ imgDocs, open, onSetBackdrop }) => {
           style={{
             maxHeight: "80%",
             maxWidth: "60%",
+            boxShadow: "3px 5px 7px rgba(255,255,255, 0.3)",
+            borderRadius: "5px",
             opacity: "1",
             cursor: "inherit",
           }}

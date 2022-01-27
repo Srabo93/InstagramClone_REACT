@@ -5,6 +5,7 @@ import Title from "../components/Title";
 import UploadForm from "../components/UploadForm";
 import ImageGridMasonry from "../components/ImageGridMasonry";
 import Modal from "../components/Modal";
+import ContainerWrapper from "../UI/ContainerWrapper";
 
 const Home = () => {
   const [imgData, setImgData] = useState(null);
@@ -12,14 +13,14 @@ const Home = () => {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
   return (
-    <React.Fragment>
+    <ContainerWrapper>
       <Title />
       {isLoggedIn && <UploadForm />}
       <ImageGridMasonry onSetImg={setImgData} onSetBackdrop={setBackdrop} />
       {backdrop && (
         <Modal imgDocs={imgData} open={backdrop} onSetBackdrop={setBackdrop} />
       )}
-    </React.Fragment>
+    </ContainerWrapper>
   );
 };
 

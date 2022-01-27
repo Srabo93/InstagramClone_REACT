@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
-import useUserUploads from "../hooks/useUserUploads";
+import useFirestore from "../hooks/useFirestore";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -10,7 +10,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const UploadImgGrid = () => {
   const { user } = useContext(AuthContext);
-  const { docs } = useUserUploads(`images/user/${user}`);
+  const { docs } = useFirestore(`images/user/${user}`);
 
   return (
     <ImageList

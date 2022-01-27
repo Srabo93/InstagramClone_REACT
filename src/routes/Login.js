@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../API/firebase";
+import ContainerWrapper from "../UI/ContainerWrapper";
 import LoadingCircle from "../UI/LoadingCircle";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -99,101 +100,107 @@ const Login = () => {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
-      <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: "url(https://source.unsplash.com/random)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
+    <ContainerWrapper>
+      <Grid container component="main" sx={{ height: "100vh" }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
           sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            backgroundImage: "url(https://source.unsplash.com/random)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            {isLogin ? "Login" : "Sign Up"}
-          </Typography>
-          {isLoading && <LoadingCircle />}
-          <Box sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={emailHandler}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={passwordHandler}
-            />
-            {!isLogin && (
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              {isLogin ? "Login" : "Sign Up"}
+            </Typography>
+            {isLoading && <LoadingCircle />}
+            <Box sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="repeat_password"
-                label="Repeat Password"
-                type="password"
-                id="repeat_password"
-                onChange={repeatPasswordHandler}
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={emailHandler}
               />
-            )}
-            {errorMessage && (
-              <Alert variant="outline" severity="info">
-                {errorMessage}
-              </Alert>
-            )}
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={handleSubmit}
-            >
-              {isLogin ? "Login" : "Sign Up"}
-            </Button>
-            <Grid container>
-              <Grid item xs sx={{ mb: 2 }}>
-                <Link href="#" variant="body3">
-                  Forgot password?
-                </Link>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={passwordHandler}
+              />
+              {!isLogin && (
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="repeat_password"
+                  label="Repeat Password"
+                  type="password"
+                  id="repeat_password"
+                  onChange={repeatPasswordHandler}
+                />
+              )}
+              {errorMessage && (
+                <Alert variant="outline" severity="info">
+                  {errorMessage}
+                </Alert>
+              )}
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmit}
+              >
+                {isLogin ? "Login" : "Sign Up"}
+              </Button>
+              <Grid container>
+                <Grid item xs sx={{ mb: 2 }}>
+                  <Link href="#" variant="body3">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link
+                    href="#"
+                    variant="body3"
+                    onClick={switchAuthModeHandler}
+                  >
+                    {isLogin ? "Don't have an account? Sign Up!" : "Login!"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body3" onClick={switchAuthModeHandler}>
-                  {isLogin ? "Don't have an account? Sign Up!" : "Login!"}
-                </Link>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
+        </Grid>
       </Grid>
-    </Grid>
+    </ContainerWrapper>
   );
 };
 

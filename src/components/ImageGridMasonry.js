@@ -20,6 +20,7 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
     opacity: 0.8,
     cursor: "pointer",
   };
+
   const renderImgGrid = useMemo(
     () =>
       docs.map((doc) => (
@@ -34,7 +35,7 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
           />
         </ImageListItem>
       )),
-    [docs, style, modulHandler]
+    [docs.url, style, modulHandler]
   );
 
   return (
