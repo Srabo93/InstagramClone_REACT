@@ -8,9 +8,13 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const UploadImgGrid = () => {
+const UploadImgGrid = ({ context }) => {
   const { user } = useContext(AuthContext);
-  const { docs } = useFirestore(`images/user/${user}`);
+  const queryString =
+    context === "favourites"
+      ? `iusers/${user}/favourites`
+      : `users/${user}/uploads`;
+  const { docs } = useFirestore(`users/${user}/uploads`);
 
   return (
     <ImageList

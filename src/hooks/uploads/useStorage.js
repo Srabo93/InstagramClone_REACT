@@ -19,7 +19,10 @@ const useStorage = (file) => {
     const storage = getStorage();
     const randomId = Math.floor(Math.random() * (50 - 1) + 50);
     const allImgRef = ref(storage, "allImages/" + randomId + file.name);
-    const userImgref = ref(storage, `images/user/${authCtx.user}/` + file.name);
+    const userImgref = ref(
+      storage,
+      `images/user/${authCtx.user}/uploads/${file.name}`
+    );
 
     const uploadImages = uploadBytesResumable(allImgRef, file);
     uploadBytesResumable(userImgref, file);
@@ -36,7 +39,7 @@ const useStorage = (file) => {
       },
       async () => {
         const url = await getDownloadURL(uploadImages.snapshot.ref);
-        await addDoc(collection(db, "images", "user", `${authCtx.user}`), {
+        await addDoc(collection(db, "users", `${authCtx.user}`, "uploads"), {
           url,
           createdAt: serverTimestamp(),
           createdByUser: authCtx.user,

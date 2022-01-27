@@ -1,5 +1,6 @@
 /**
  * TODO ADD SUBPAGES
+ * TODO WORK ON FAVORITE AND DELETION (work on Favorite Logic, UseEffect fires of too much)
  * TODO IMPLEMENT RESET PASSWORD
  * TODO ADD PAGINATION
  * TODO Comment
