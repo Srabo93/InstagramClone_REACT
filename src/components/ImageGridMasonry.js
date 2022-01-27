@@ -35,7 +35,7 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
           />
         </ImageListItem>
       )),
-    [docs.url, style, modulHandler]
+    [docs, modulHandler]
   );
 
   return (
