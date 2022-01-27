@@ -19,7 +19,7 @@ const UploadImgGrid = () => {
       rowHeight={164}
     >
       {docs.map((doc) => (
-        <ImageListItem key={doc.id} sx={{ maxWidth: 500, maxHeight: 100 }}>
+        <ImageListItem key={doc.id} sx={{ maxWidth: "md", maxHeight: 100 }}>
           <img
             style={{ maxWidth: 200, maxHeight: 100, cursor: "default" }}
             src={doc.url}

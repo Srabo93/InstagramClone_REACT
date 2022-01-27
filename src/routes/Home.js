@@ -12,9 +12,14 @@ const Home = () => {
   const [backdrop, setBackdrop] = useState(false);
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
+
+  const text = {
+    h2: "Your Pictures",
+    h6: "Share your Pictures with the World",
+  };
   return (
     <ContainerWrapper>
-      <Title />
+      <Title text={text} />
       {isLoggedIn && <UploadForm />}
       <ImageGridMasonry onSetImg={setImgData} onSetBackdrop={setBackdrop} />
       {backdrop && (
