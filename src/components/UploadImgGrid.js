@@ -12,9 +12,10 @@ const UploadImgGrid = ({ context }) => {
   const { user } = useContext(AuthContext);
   const queryString =
     context === "favourites"
-      ? `iusers/${user}/favourites`
+      ? `users/${user}/favourites`
       : `users/${user}/uploads`;
-  const { docs } = useFirestore(`users/${user}/uploads`);
+
+  const { docs } = useFirestore(queryString);
 
   return (
     <ImageList
