@@ -1,5 +1,5 @@
 import React from "react";
-import { useMemo, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import useFirestore from "../hooks/useFirestore";
 import useFavourites from "../hooks/uploads/useFavourites";
 import { ImageList, ImageListItem } from "@mui/material";
@@ -10,19 +10,25 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
   const { docs } = useFirestore("allImages");
   const [favourite, setFavourite] = useState(null);
+
   useFavourites(favourite);
-  const modulHandler = useCallback(
-    (doc) => {
-      onSetImg(doc);
-      onSetBackdrop(true);
-    },
-    [onSetImg, onSetBackdrop]
-  );
+
+  // const modulHandler = useCallback(
+  //   (doc) => {
+  //     onSetImg(doc);
+  //     onSetBackdrop(true);
+  //   },
+  //   [onSetImg, onSetBackdrop]
+  // );
+  const modulHandler = (doc) => {
+    onSetImg(doc);
+    onSetBackdrop(true);
+  };
 
   const style = {
-    boxShadow: "3px 5px 7px rgba(0, 0, 0, 0.5)",
+    boxShadow: "3px 5px 7px rgba(255,255,255, 0.3)",
     borderRadius: "5px",
-    opacity: 1,
+    opacity: "1",
     cursor: "pointer",
   };
 
@@ -39,40 +45,38 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
     // setFavourite(favouriteURL.replace(/^https?:\/\//, ""));
     setFavourite(favouriteURL);
   };
-  const renderImgGrid = useMemo(
-    () =>
-      docs.map((doc) => (
-        <ImageListItem key={doc.id} sx={{ borderRadius: 16 }}>
-          <img
-            style={style}
-            src={doc.url}
-            srcSet={doc.url}
-            loading="lazy"
-            onClick={() => modulHandler(doc)}
-            alt="randomimg"
-          />
-          <ImageListItemBar
-            sx={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
-                "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
-            }}
-            position="top"
-            actionIcon={
-              <IconButton
-                color="primary"
-                aria-label="label"
-                onClick={favouriteHandler}
-              >
-                <FavoriteBorderIcon fontSize="large" />
-              </IconButton>
-            }
-            actionPosition="left"
-          />
-        </ImageListItem>
-      )),
-    [docs, modulHandler]
-  );
+
+  const renderImgGrid = docs.map((doc) => (
+    <ImageListItem key={doc.id}>
+      <img
+        style={style}
+        src={doc.url}
+        srcSet={doc.url}
+        loading="lazy"
+        onClick={() => modulHandler(doc)}
+        alt="randomimg"
+      />
+      <ImageListItemBar
+        sx={{
+          background:
+            "linear-gradient(to bottom, #9e979a 0%, " +
+            "rgba(0,0,0,0) 50%),rgba(0,0,0,0.3) 50%",
+          borderRadius: "5px",
+        }}
+        position="top"
+        actionIcon={
+          <IconButton
+            color="primary"
+            aria-label="label"
+            onClick={favouriteHandler}
+          >
+            <FavoriteBorderIcon fontSize="large" />
+          </IconButton>
+        }
+        actionPosition="left"
+      />
+    </ImageListItem>
+  ));
 
   return (
     <React.Fragment>
