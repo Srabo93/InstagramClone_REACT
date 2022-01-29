@@ -1,7 +1,7 @@
 import React from "react";
-import { useCallback, useState } from "react";
-import useFirestore from "../hooks/useFirestore";
+import { useState } from "react";
 import useFavourites from "../hooks/uploads/useFavourites";
+import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
@@ -10,21 +10,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
   const { docs } = useFirestore("allImages");
   const [favourite, setFavourite] = useState(null);
-
   useFavourites(favourite);
-
-  // const modulHandler = useCallback(
-  //   (doc) => {
-  //     onSetImg(doc);
-  //     onSetBackdrop(true);
-  //   },
-  //   [onSetImg, onSetBackdrop]
-  // );
-  const modulHandler = (doc) => {
-    onSetImg(doc);
-    onSetBackdrop(true);
-  };
-
   const style = {
     boxShadow: "3px 5px 7px rgba(255,255,255, 0.3)",
     borderRadius: "5px",
@@ -32,18 +18,21 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
     cursor: "pointer",
   };
 
+  const modulHandler = (doc) => {
+    onSetImg(doc);
+    onSetBackdrop(true);
+  };
+
   const favouriteHandler = (event) => {
     //URL SOURCE TO THE IMG TO BE SAVED IN THE HOOK
     let favouriteURL =
       event.target.parentElement.parentElement.parentElement.parentElement
         .children[0].currentSrc;
-
+    setFavourite(favouriteURL);
     console.log(
       event.target.parentElement.parentElement.parentElement.parentElement
         .children[0].currentSrc
     );
-    // setFavourite(favouriteURL.replace(/^https?:\/\//, ""));
-    setFavourite(favouriteURL);
   };
 
   const renderImgGrid = docs.map((doc) => (
