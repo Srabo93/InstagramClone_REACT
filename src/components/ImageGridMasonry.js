@@ -1,38 +1,27 @@
 import React from "react";
-import { useState } from "react";
-import useFavourites from "../hooks/uploads/useFavourites";
 import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
   const { docs } = useFirestore("allImages");
-  const [favourite, setFavourite] = useState(null);
-  useFavourites(favourite);
-  const style = {
-    boxShadow: "3px 5px 7px rgba(255,255,255, 0.3)",
-    borderRadius: "5px",
-    opacity: "1",
-    cursor: "pointer",
-  };
 
   const modulHandler = (doc) => {
     onSetImg(doc);
     onSetBackdrop(true);
   };
 
-  const favouriteHandler = (event) => {
-    //URL SOURCE TO THE IMG TO BE SAVED IN THE HOOK
-    let favouriteURL =
-      event.target.parentElement.parentElement.parentElement.parentElement
-        .children[0].currentSrc;
-    setFavourite(favouriteURL);
-    console.log(
-      event.target.parentElement.parentElement.parentElement.parentElement
-        .children[0].currentSrc
-    );
+  // const favouriteHandler = (event) => {
+  //   let favouriteURL =
+  //     event.target.parentElement.parentElement.parentElement.parentElement
+  //       .children[0].currentSrc;
+  // };
+
+  const style = {
+    boxShadow: "3px 5px 7px rgba(255,255,255, 0.3)",
+    borderRadius: "5px",
+    opacity: "1",
+    cursor: "pointer",
   };
 
   const renderImgGrid = docs.map((doc) => (
@@ -53,15 +42,9 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
           borderRadius: "5px",
         }}
         position="top"
-        actionIcon={
-          <IconButton
-            color="primary"
-            aria-label="label"
-            onClick={favouriteHandler}
-          >
-            <FavoriteBorderIcon fontSize="large" />
-          </IconButton>
-        }
+        // actionIcon={
+        //   <FavouriteButtonState favouriteHandler={favouriteHandler} />
+        // }
         actionPosition="left"
       />
     </ImageListItem>
