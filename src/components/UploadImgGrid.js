@@ -1,6 +1,5 @@
 import React from "react";
-import { useContext } from "react";
-import AuthContext from "../store/auth-context";
+import { useAuth } from "../hooks/auth/useAuth";
 import useFirestore from "../hooks/useFirestore";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -9,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const UploadImgGrid = ({ context }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const queryString =
     context === "favourites"
       ? `users/${user}/favourites`

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
-import AuthContext from "../store/auth-context";
+import { useAuth } from "../hooks/auth/useAuth";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
@@ -18,15 +18,14 @@ const SwipeableTemporaryDrawer = () => {
   const [state, setState] = useState({
     right: false,
   });
-
-  const authCtx = useContext(AuthContext);
+  const { logout } = useAuth();
 
   const toggleDrawer = (anchor, open) => () => {
     setState({ ...state, [anchor]: open });
   };
 
   const logoutHandler = () => {
-    authCtx.logout();
+    logout();
   };
   const icons = [
     <AccountCircleIcon />,

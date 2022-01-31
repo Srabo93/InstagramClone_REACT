@@ -7,9 +7,8 @@
  * TODO Comment
  */
 import React from "react";
-import { useContext } from "react";
-import AuthContext from "./store/auth-context";
 import { Routes, Route } from "react-router-dom";
+import { useAuth } from "./hooks/auth/useAuth";
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { themeOptions } from "./UI/themeContext";
@@ -21,17 +20,17 @@ import Uploads from "./routes/Uploads";
 import Login from "./routes/Login";
 
 function App() {
-  const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
+  const { user } = useAuth();
+
   return (
     <ThemeProvider theme={themeOptions}>
       <Container maxWidth="md">
         <Routes>
           <Route path="/" element={<Navigation />}>
             <Route index element={<Home />} />
-            {isLoggedIn && <Route path="profile" element={<Profile />} />}
-            {isLoggedIn && <Route path="favorites" element={<Favorites />} />}
-            {isLoggedIn && <Route path="uploads" element={<Uploads />} />}
+            {user && <Route path="profile" element={<Profile />} />}
+            {user && <Route path="favorites" element={<Favorites />} />}
+            {user && <Route path="uploads" element={<Uploads />} />}
             <Route path="login" element={<Login />} />
             <Route path="*" element={<Home />} />
           </Route>

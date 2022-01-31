@@ -1,13 +1,7 @@
 import React from "react";
-import AuthContext from "../store/auth-context";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { auth } from "../API/firebase";
+import { useAuth } from "../hooks/auth/useAuth";
 import ContainerWrapper from "../UI/ContainerWrapper";
 import LoadingCircle from "../UI/LoadingCircle";
 import Avatar from "@mui/material/Avatar";
@@ -29,9 +23,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
-  const authorization = auth;
+
+  const { registerWithEmailAndPassword, signWithEmailAndPassword } = useAuth();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -54,18 +48,8 @@ const Login = () => {
     if (isLogin) {
       try {
         setIsLoading(true);
-        await signInWithEmailAndPassword(auth, email, password);
-        await onAuthStateChanged(auth, (user) => {
-          if (user) {
-            setIsLoading(false);
-            authCtx.login(user.accessToken, user.email, user.uid);
-            navigate("/profile");
-          } else {
-            // User is signed off
-            authCtx.logout();
-            navigate("/");
-          }
-        });
+        const result = signWithEmailAndPassword(email, password);
+        navigate("/");
       } catch (error) {
         setIsLoading(false);
         const errorMessage = await error.message;
@@ -78,18 +62,11 @@ const Login = () => {
     ) {
       setErrorMessage("Your Passwords do not match!");
     } else {
-      setIsLoading(true);
       try {
-        const result = await createUserWithEmailAndPassword(
-          authorization,
-          email,
-          trimPW
-        );
-        const user = await result.user;
-        setIsLoading(false);
+        setIsLoading(true);
         setErrorMessage("");
-        // Signed in
-        authCtx.login(user.accessToken, user.email, user.uid);
+        const sign = registerWithEmailAndPassword(email, trimPW);
+        console.log(sign);
         navigate("/profile");
       } catch (error) {
         const errorMessage = await error.message;
@@ -97,6 +74,7 @@ const Login = () => {
         setIsLoading(false);
       }
     }
+    setIsLoading(false);
   };
 
   return (

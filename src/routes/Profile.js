@@ -1,7 +1,5 @@
 import React from "react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../store/auth-context";
 import ContainerWrapper from "../UI/ContainerWrapper";
 import FlexBox from "../UI/FlexBox";
 import Card from "@mui/material/Card";
@@ -10,9 +8,6 @@ import Typography from "@mui/material/Typography";
 import { Avatar, Button } from "@mui/material";
 
 const Profile = () => {
-  const authCtx = useContext(AuthContext);
-  const user = authCtx.user;
-
   return (
     <ContainerWrapper>
       <FlexBox>
@@ -28,10 +23,10 @@ const Profile = () => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {user}
+              UserNAME
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Hello there {user}! Thank you very much for Signin up at
+              Hello there USERNAME! Thank you very much for Signin up at
               PhotoGallery, we are a platform where anyone can provide its own
               pictures and gather inspiration by others! We cant wait to see
               what your favorite pictures are and what you will load up! Lets
