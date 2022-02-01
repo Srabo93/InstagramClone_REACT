@@ -1,13 +1,12 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import { useAuth } from "../hooks/auth/useAuth";
+import { useAuth } from "../Auth/AuthContext";
 import LeftDrawer from "./LeftDrawer";
 import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import CameraIcon from "@mui/icons-material/Camera";
 
 const Navigation = () => {
-  const { user } = useAuth();
-
+  const { currentUser } = useAuth();
   return (
     <Box sx={{ flexGrow: 1, flexWrap: "wrap", minWidth: "sm" }}>
       <AppBar position="fixed">
@@ -26,8 +25,8 @@ const Navigation = () => {
               PhotoGallery
             </Link>
           </Typography>
-          {user && <LeftDrawer />}
-          {!user && (
+          {currentUser && <LeftDrawer />}
+          {!currentUser && (
             <Button
               color="inherit"
               sx={{ fontStyle: "bold", letterSpacing: 2 }}

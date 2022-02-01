@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/auth/useAuth";
+import { useAuth } from "../Auth/AuthContext";
 import ContainerWrapper from "../UI/ContainerWrapper";
 import LoadingCircle from "../UI/LoadingCircle";
 import Avatar from "@mui/material/Avatar";
@@ -23,9 +23,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const { signup, login } = useAuth();
   const navigate = useNavigate();
-
-  const { registerWithEmailAndPassword, signWithEmailAndPassword } = useAuth();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -48,7 +47,7 @@ const Login = () => {
     if (isLogin) {
       try {
         setIsLoading(true);
-        const result = signWithEmailAndPassword(email, password);
+        await login(email, trimPW);
         navigate("/");
       } catch (error) {
         setIsLoading(false);
@@ -65,8 +64,7 @@ const Login = () => {
       try {
         setIsLoading(true);
         setErrorMessage("");
-        const sign = registerWithEmailAndPassword(email, trimPW);
-        console.log(sign);
+        await signup(email, trimPW);
         navigate("/profile");
       } catch (error) {
         const errorMessage = await error.message;
@@ -146,7 +144,7 @@ const Login = () => {
                 />
               )}
               {errorMessage && (
-                <Alert variant="outline" severity="info">
+                <Alert variant="outline" severity="error">
                   {errorMessage}
                 </Alert>
               )}
@@ -160,7 +158,11 @@ const Login = () => {
               </Button>
               <Grid container>
                 <Grid item xs sx={{ mb: 2 }}>
-                  <Link href="#" variant="body3">
+                  <Link
+                    href="#"
+                    onClick={() => navigate("/forgot-password")}
+                    variant="body3"
+                  >
                     Forgot password?
                   </Link>
                 </Grid>

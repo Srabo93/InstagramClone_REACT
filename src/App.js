@@ -1,14 +1,11 @@
 /**
- * TODO ADD SUBPAGES
- * TODO IMPLEMENT BASIC CRUD LOGIC, REFACTOR
  * TODO ADD LIKE FUNCTIONALITY
- * TODO IMPLEMENT RESET PASSWORD
  * TODO ADD PAGINATION
  * TODO Comment
  */
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { useAuth } from "./hooks/auth/useAuth";
+import PrivateRoute from "./components/PrivateRoute";
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { themeOptions } from "./UI/themeContext";
@@ -18,20 +15,41 @@ import Profile from "./routes/Profile";
 import Favorites from "./routes/Favorites";
 import Uploads from "./routes/Uploads";
 import Login from "./routes/Login";
+import ForgotPassword from "./routes/ForgotPassword";
 
 function App() {
-  const { user } = useAuth();
-
   return (
     <ThemeProvider theme={themeOptions}>
       <Container maxWidth="md">
         <Routes>
           <Route path="/" element={<Navigation />}>
             <Route index element={<Home />} />
-            {user && <Route path="profile" element={<Profile />} />}
-            {user && <Route path="favorites" element={<Favorites />} />}
-            {user && <Route path="uploads" element={<Uploads />} />}
+            <Route
+              path="profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="favorites"
+              element={
+                <PrivateRoute>
+                  <Favorites />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="uploads"
+              element={
+                <PrivateRoute>
+                  <Uploads />
+                </PrivateRoute>
+              }
+            />
             <Route path="login" element={<Login />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>

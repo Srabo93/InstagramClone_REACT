@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/auth/useAuth";
 import { useState } from "react";
+import { useAuth } from "../Auth/AuthContext";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
@@ -15,17 +15,21 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const SwipeableTemporaryDrawer = () => {
+  const { logout } = useAuth();
   const [state, setState] = useState({
     right: false,
   });
-  const { logout } = useAuth();
 
   const toggleDrawer = (anchor, open) => () => {
     setState({ ...state, [anchor]: open });
   };
 
-  const logoutHandler = () => {
-    logout();
+  const logoutHandler = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      alert(error.message);
+    }
   };
   const icons = [
     <AccountCircleIcon />,

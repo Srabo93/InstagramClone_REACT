@@ -23,7 +23,7 @@ const Profile = () => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              UserNAME
+              USERNAME
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Hello there USERNAME! Thank you very much for Signin up at

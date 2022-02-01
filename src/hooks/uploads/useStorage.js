@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../auth/useAuth";
 import {
   getStorage,
   ref,
@@ -13,15 +12,13 @@ const useStorage = (file) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
-  const { user } = useAuth();
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     const storage = getStorage();
     const randomId = Math.floor(Math.random() * (50 - 1) + 50);
     const allImgRef = ref(storage, "allImages/" + randomId + file.name);
-    const userImgref = ref(
-      storage,
-      `images/user/${user}/uploads/${user.email}`
-    );
+    const userImgref = ref(storage, `user/${user.email}/uploads/`);
 
     const uploadImages = uploadBytesResumable(allImgRef, file);
     uploadBytesResumable(userImgref, file);
@@ -38,7 +35,7 @@ const useStorage = (file) => {
       },
       async () => {
         const url = await getDownloadURL(uploadImages.snapshot.ref);
-        await addDoc(collection(db, "users", `${user}`, "uploads"), {
+        await addDoc(collection(db, "users", `${user.email}`, "uploads"), {
           url,
           createdAt: serverTimestamp(),
           createdByUser: user,
