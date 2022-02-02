@@ -3,12 +3,7 @@ import { Container } from "@mui/material";
 
 const ContainerWrapper = (props) => {
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        marginTop: 10,
-      }}
-    >
+    <Container maxWidth="md" sx={{ marginTop: 10 }}>
       {props.children}
     </Container>
   );
