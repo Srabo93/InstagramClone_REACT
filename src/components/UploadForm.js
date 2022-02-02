@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import uploadStoragev2 from "../hooks/uploads/useUploadStoragev2";
 import ProgressBar from "./ProgressBar";
 import Box from "@mui/material/Box";
 import { Alert } from "@mui/material";
@@ -10,6 +11,13 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 const UploadForm = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
+  const { progress, url } = uploadStoragev2(file);
+
+  useEffect(() => {
+    if (url) {
+      setFile(null);
+    }
+  }, [url]);
 
   const Input = styled("input")({
     display: "none",
@@ -18,6 +26,7 @@ const UploadForm = () => {
   const types = ["image/png", "image/jpeg"];
 
   const onChangeHandler = (e) => {
+    e.preventDefault();
     let selected = e.target.files[0];
 
     if (selected && types.includes(selected.type)) {
@@ -58,7 +67,7 @@ const UploadForm = () => {
       <Box sx={{ maxWidt: "lg" }}>
         {error && <Alert severity="error">{error}</Alert>}
         {file && <Alert severity="success">{file.name} is Uploading...</Alert>}
-        {file && <ProgressBar file={file} setFile={setFile} />}
+        {file && <ProgressBar progress={progress} />}
       </Box>
     </Box>
   );

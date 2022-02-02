@@ -1,16 +1,7 @@
-import React, { useEffect } from "react";
-import useStorage from "../hooks/uploads/useStorage";
+import React from "react";
 import { LinearProgress } from "@mui/material";
 
-const ProgressBar = ({ file, setFile }) => {
-  const { url, progress } = useStorage(file);
-
-  useEffect(() => {
-    if (url) {
-      setFile(null);
-    }
-  }, [url, setFile]);
-
+const ProgressBar = ({ progress }) => {
   return (
     <React.Fragment>
       <LinearProgress variant="determinate" value={progress} color="success" />
