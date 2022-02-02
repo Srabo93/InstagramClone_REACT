@@ -36,9 +36,11 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
       />
       <ImageListItemBar
         sx={{
+          background: "rgb(242,63,251)",
           background:
-            "linear-gradient(to bottom, #9e979a 0%, " +
-            "rgba(0,0,0,0) 50%),rgba(0,0,0,0.3) 50%",
+            "linear-gradient(90deg," +
+            "rgba(242,63,251,0.6311566863073355) 0%," +
+            "rgba(252,70,107,0.863649683506215) 100%",
           borderRadius: "5px",
         }}
         position="top"
