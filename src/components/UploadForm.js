@@ -1,17 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import uploadStoragev2 from "../hooks/uploads/useUploadStoragev2";
+import uploadStorage from "../hooks/uploads/useUploadStorage";
 import ProgressBar from "./ProgressBar";
 import Box from "@mui/material/Box";
 import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import useUploadFirestore from "../hooks/uploads/useUploadFirestore";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
-  const { progress, url } = uploadStoragev2(file);
+  const { progress, url } = uploadStorage(file);
+  useUploadFirestore(url);
 
   useEffect(() => {
     if (url) {

@@ -7,7 +7,7 @@ import {
 } from "firebase/storage";
 import { useAuth } from "../../Auth/AuthContext";
 
-const useUploadStoragev2 = (file) => {
+const useUploadStorage = (file) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
@@ -49,4 +49,4 @@ const useUploadStoragev2 = (file) => {
   return { progress, url, error };
 };
 
-export default useUploadStoragev2;
+export default useUploadStorage;
