@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useAuth } from "../Auth/AuthContext";
 import Title from "../components/Title";
-import UploadForm from "../components/UploadForm";
+import QuickUpload from "../components/QuickUpload";
 import ImageGridMasonry from "../components/ImageGridMasonry";
 import Modal from "../components/Modal";
 import ContainerWrapper from "../UI/ContainerWrapper";
@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <ContainerWrapper>
       <Title text={text} />
-      {currentUser && <UploadForm />}
+      {currentUser && <QuickUpload />}
       <ImageGridMasonry onSetImg={setImgData} onSetBackdrop={setBackdrop} />
       {backdrop && (
         <Modal imgDocs={imgData} open={backdrop} onSetBackdrop={setBackdrop} />

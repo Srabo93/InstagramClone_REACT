@@ -2,9 +2,9 @@ import React from "react";
 import useFirestore from "../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
-  const { docs } = useFirestore("allImages");
+  const { docs } = useFirestore("All_Images");
 
   const modulHandler = (doc) => {
     onSetImg(doc);
@@ -12,9 +12,10 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
   };
 
   // const favouriteHandler = (event) => {
-  //   let favouriteURL =
-  //     event.target.parentElement.parentElement.parentElement.parentElement
-  //       .children[0].currentSrc;
+  //
+  //   // let favouriteURL =
+  //   //   event.target.parentElement.parentElement.parentElement.parentElement
+  //   //     .children[0].currentSrc;
   // };
 
   const style = {
@@ -36,17 +37,14 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop }) => {
       />
       <ImageListItemBar
         sx={{
-          background: "rgb(242,63,251)",
           background:
             "linear-gradient(90deg," +
             "rgba(242,63,251,0.6311566863073355) 0%," +
             "rgba(252,70,107,0.863649683506215) 100%",
-          borderRadius: "5px",
         }}
+        style={{ borderRadius: "5px" }}
         position="top"
-        // actionIcon={
-        //   <FavouriteButtonState favouriteHandler={favouriteHandler} />
-        // }
+        actionIcon={<FavoriteBorderIcon fontSize="large" />}
         actionPosition="left"
       />
     </ImageListItem>

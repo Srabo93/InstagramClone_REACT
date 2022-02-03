@@ -1,26 +1,33 @@
 import React from "react";
 import ContainerWrapper from "../UI/ContainerWrapper";
-import FlexBox from "../UI/FlexBox";
 import UploadImgGrid from "../components/UploadImgGrid";
-import UploadForm from "../components/UploadForm";
-import { Typography } from "@mui/material";
+import DetailedUpload from "../components/DetailedUpload";
 import Title from "../components/Title";
+import { Box } from "@mui/system";
+import { Typography } from "@mui/material";
 
 const Uploads = () => {
   const text = {
     h2: "Upload Your Images",
-    h6: "Thank you for Uploading! By the way feel free to use the upload function on the mainsite!",
+    h6: "Thank you for Uploading! By the way feel free to use the Quickupload function on the mainsite, to skip a more detailed Upload!",
   };
   return (
     <ContainerWrapper>
-      <FlexBox>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Title text={text} />
-        <UploadForm />
-        <Typography variant="h4" sx={{ pb: 2 }}>
+        <DetailedUpload />
+        <Typography variant="h4" sx={{ mt: 5 }}>
           Your Uploads
         </Typography>
         <UploadImgGrid />
-      </FlexBox>
+      </Box>
     </ContainerWrapper>
   );
 };

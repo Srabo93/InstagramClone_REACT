@@ -20,9 +20,7 @@
 //     );
 //   }, [authCtx.user, db]);
 
-//   likePicture = async ()=> {
-
-//   }
+//   likePicture = async () => {};
 //   const favouriteStateOff = (
 //     <IconButton color="primary" aria-label="label" onClick={favouriteHandler}>
 //       <FavoriteBorderIcon fontSize="large" />

@@ -1,7 +1,7 @@
 import React from "react";
 import Title from "../components/Title";
 import ContainerWrapper from "../UI/ContainerWrapper";
-import FlexBox from "../UI/FlexBox";
+import { Box } from "@mui/system";
 import UploadImgGrid from "../components/UploadImgGrid";
 const Favorites = () => {
   const text = {
@@ -10,10 +10,10 @@ const Favorites = () => {
   };
   return (
     <ContainerWrapper>
-      <FlexBox>
+      <Box>
         <Title text={text} />
         <UploadImgGrid context="favourites" />
-      </FlexBox>
+      </Box>
     </ContainerWrapper>
   );
 };

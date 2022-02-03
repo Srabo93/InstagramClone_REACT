@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../Auth/AuthContext";
 import { Container } from "@mui/material";
 import ContainerWrapper from "../UI/ContainerWrapper";
-import FlexBox from "../UI/FlexBox";
+import { Box } from "@mui/system";
 import LoadingCircle from "../UI/LoadingCircle";
 import { Alert } from "@mui/material";
 import { Button, TextField } from "@mui/material";
@@ -44,7 +44,7 @@ const ForgotPassword = () => {
             {message}
           </Alert>
         )}
-        <FlexBox sx={{ mt: 1 }}>
+        <Box sx={{ mt: 1 }}>
           {isLoading && <LoadingCircle />}
           <TextField
             margin="normal"
@@ -65,7 +65,7 @@ const ForgotPassword = () => {
           >
             Reset Password
           </Button>
-        </FlexBox>
+        </Box>
       </Container>
     </ContainerWrapper>
   );

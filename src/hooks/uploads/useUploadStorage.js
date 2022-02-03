@@ -7,7 +7,7 @@ import {
 } from "firebase/storage";
 import { useAuth } from "../../Auth/AuthContext";
 
-const useUploadStorage = (file) => {
+const useUploadStorage = (file, title = false) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
@@ -17,12 +17,13 @@ const useUploadStorage = (file) => {
     if (file === null || undefined) {
       return;
     }
+    const imgTitle = title ? title : file.name;
     const storage = getStorage();
-    const randomId = Math.floor(Math.random() * (50 - 1) + 50);
-    const allImgRef = ref(storage, "allImages/" + randomId + file.name);
+    const randomId = Math.floor(Math.random() * (500 - 1) + 500);
+    const allImgRef = ref(storage, `All_Images/ ${randomId} ${imgTitle}`);
     const userImgref = ref(
       storage,
-      `user/${currentUser.email}/uploads/${file.name}`
+      `Users/${currentUser.email}/uploads/${imgTitle}`
     );
 
     uploadBytesResumable(userImgref, file);
@@ -44,7 +45,7 @@ const useUploadStorage = (file) => {
         setUrl(url);
       }
     );
-  }, [file, currentUser.email]);
+  }, [file, currentUser.email, title]);
 
   return { progress, url, error };
 };

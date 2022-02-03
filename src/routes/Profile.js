@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ContainerWrapper from "../UI/ContainerWrapper";
-import FlexBox from "../UI/FlexBox";
+import { Box } from "@mui/system";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -10,7 +10,9 @@ import { Avatar, Button } from "@mui/material";
 const Profile = () => {
   return (
     <ContainerWrapper>
-      <FlexBox>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
         <Card sx={{ maxWidth: "sm", padding: 3, textAlign: "center" }}>
           <Avatar
             alt="Random User"
@@ -50,7 +52,7 @@ const Profile = () => {
             </Button>
           </Link>
         </Card>
-      </FlexBox>
+      </Box>
     </ContainerWrapper>
   );
 };
