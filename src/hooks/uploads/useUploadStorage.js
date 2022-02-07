@@ -7,17 +7,23 @@ import {
 } from "firebase/storage";
 import { useAuth } from "../../Auth/AuthContext";
 
-const useUploadStorage = (file, title = false) => {
+const useUploadStorage = (file, title = false, options) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
   const { currentUser } = useAuth();
 
   useEffect(() => {
+    let imgTitle = title;
     if (file === null || undefined) {
       return;
     }
-    const imgTitle = title ? title : file.name;
+    if (options === false) {
+      return;
+    }
+    if (title === false) {
+      imgTitle = file.name;
+    }
     const storage = getStorage();
     const randomId = Math.floor(Math.random() * (500 - 1) + 500);
     const allImgRef = ref(storage, `All_Images/ ${randomId} ${imgTitle}`);
@@ -45,7 +51,7 @@ const useUploadStorage = (file, title = false) => {
         setUrl(url);
       }
     );
-  }, [file, currentUser.email, title]);
+  }, [file, currentUser.email, title, options]);
 
   return { progress, url, error };
 };
