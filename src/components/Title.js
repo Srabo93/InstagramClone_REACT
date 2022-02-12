@@ -7,7 +7,7 @@ const Title = (props) => {
   const { h2, h6 } = props.text;
   return (
     <ContainerWrapper>
-      <Box>
+      <Box sx={{ m: 3 }}>
         <Typography
           variant="h2"
           sx={{ letterSpacing: 6, textAlign: "center", pb: 1 }}

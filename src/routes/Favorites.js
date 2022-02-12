@@ -1,9 +1,15 @@
 import React from "react";
+import { useState } from "react";
 import Title from "../components/Title";
 import ContainerWrapper from "../UI/ContainerWrapper";
+import ImageGridMasonry from "../components/ImageGridMasonry";
+import Modal from "../components/Modal";
 import { Box } from "@mui/system";
-import UploadImgGrid from "../components/UploadImgGrid";
+
 const Favorites = () => {
+  const [imgData, setImgData] = useState(null);
+  const [backdrop, setBackdrop] = useState(false);
+
   const text = {
     h2: "Check out your Favourites",
     h6: "Manage your Favourites",
@@ -12,7 +18,18 @@ const Favorites = () => {
     <ContainerWrapper>
       <Box>
         <Title text={text} />
-        <UploadImgGrid context="favourites" />
+        <ImageGridMasonry
+          onSetImg={setImgData}
+          onSetBackdrop={setBackdrop}
+          store={"All_Images"}
+        />
+        {backdrop && (
+          <Modal
+            imgDocs={imgData}
+            open={backdrop}
+            onSetBackdrop={setBackdrop}
+          />
+        )}
       </Box>
     </ContainerWrapper>
   );

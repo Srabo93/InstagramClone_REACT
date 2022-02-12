@@ -2,16 +2,15 @@ import React from "react";
 import { useState } from "react";
 import useUploadFirestore from "../hooks/uploads/useUploadFirestore";
 import useUploadStorage from "../hooks/uploads/useUploadStorage";
-import ProgressBar from "../components/ProgressBar";
+import ProgressBar from "./ProgressBar";
 import ContainerWrapper from "../UI/ContainerWrapper";
 import { Card } from "@mui/material";
 import { Button } from "@mui/material";
 import { Alert } from "@mui/material";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
-import { styled } from "@mui/material/styles";
 
-const DetailedUpload = () => {
+const ProfileUpload = () => {
   const [formValues, setFormValues] = useState({
     title: "",
     description: "",
@@ -19,13 +18,9 @@ const DetailedUpload = () => {
   const [file, setFile] = useState(null);
   const [upload, setUpload] = useState(false);
   const [error, setError] = useState("");
+
   const { url, progress } = useUploadStorage(file, formValues.title, upload);
   useUploadFirestore(url, true, formValues.title, formValues.description);
-
-  const Input = styled("input")({
-    display: "none",
-  });
-  const types = ["image/png", "image/jpeg"];
 
   const handleTextChange = (e) => {
     const { name, value } = e.target;
@@ -33,15 +28,6 @@ const DetailedUpload = () => {
       ...formValues,
       [name]: value,
     });
-  };
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    console.log(selectedFile);
-
-    if (types.includes(selectedFile.type)) {
-      setFile(selectedFile);
-    }
   };
 
   const handleSubmit = (e) => {
@@ -56,7 +42,7 @@ const DetailedUpload = () => {
           {error}
         </Alert>
       )}
-      <form>
+      <form onSubmit={handleSubmit}>
         <Card sx={{ p: 3 }}>
           <Box sx={{ mb: 3, display: "flex", flexDirection: "row" }}>
             <TextField
@@ -77,23 +63,9 @@ const DetailedUpload = () => {
               onChange={handleTextChange}
               required
             />
-            <label
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Input
-                accept="image/*"
-                multiple
-                type="file"
-                onChange={handleFileChange}
-              />
-              <Button size="large" variant="contained" component="span">
-                Select
-              </Button>
-            </label>
+            <Button size="large" variant="contained" component="span">
+              Select
+            </Button>
           </Box>
           <Box sx={{ textAlign: "center" }}>
             {file && <ProgressBar progress={progress} />}
@@ -106,7 +78,7 @@ const DetailedUpload = () => {
               size="medium"
               variant="contained"
               sx={{ m: 2 }}
-              onClick={handleSubmit}
+              type="submit"
             >
               Upload!
             </Button>
@@ -117,4 +89,4 @@ const DetailedUpload = () => {
   );
 };
 
-export default DetailedUpload;
+export default ProfileUpload;

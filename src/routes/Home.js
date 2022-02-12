@@ -1,16 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { useAuth } from "../Auth/AuthContext";
-import Title from "../components/Title";
-import QuickUpload from "../components/QuickUpload";
-import ImageGridMasonry from "../components/ImageGridMasonry";
-import Modal from "../components/Modal";
 import ContainerWrapper from "../UI/ContainerWrapper";
+import Modal from "../components/Modal";
+import Title from "../components/Title";
+import HomeCards from "../UI/HomeCards";
 
 const Home = () => {
   const [imgData, setImgData] = useState(null);
   const [backdrop, setBackdrop] = useState(false);
-  const { currentUser } = useAuth();
+
   const text = {
     h2: "Your Pictures",
     h6: "Share your Pictures with the World",
@@ -18,8 +16,11 @@ const Home = () => {
   return (
     <ContainerWrapper>
       <Title text={text} />
-      {currentUser && <QuickUpload />}
-      <ImageGridMasonry onSetImg={setImgData} onSetBackdrop={setBackdrop} />
+      <HomeCards
+        onSetImg={setImgData}
+        onSetBackdrop={setBackdrop}
+        store={"All_Images"}
+      />
       {backdrop && (
         <Modal imgDocs={imgData} open={backdrop} onSetBackdrop={setBackdrop} />
       )}

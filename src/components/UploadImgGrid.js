@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "../Auth/AuthContext";
 import useFirestore from "../hooks/useFirestore";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -6,25 +7,20 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const UploadImgGrid = ({ context }) => {
-  const user = "bruh";
-  const queryString =
-    context === "favourites"
-      ? `users/${user}/favourites`
-      : `users/${user}/uploads`;
-
-  const { docs } = useFirestore(queryString);
+const UploadImgGrid = () => {
+  const { currentUser } = useAuth();
+  const { docs } = useFirestore(`Users/${currentUser.email}/Uploads`);
 
   return (
     <ImageList
-      sx={{ maxWidth: "800px", maxHeight: "300px", mb: 5 }}
+      sx={{ maxWidth: "800px", maxHeight: "500px", mb: 5 }}
       cols={4}
       rowHeight={164}
     >
       {docs.map((doc) => (
         <ImageListItem key={doc.id} sx={{ maxWidth: "md", maxHeight: 100 }}>
           <img
-            style={{ maxWidth: 200, maxHeight: 100, cursor: "default" }}
+            style={{ maxWidth: 150, maxHeight: 100, cursor: "default" }}
             src={doc.url}
             srcSet={doc.url}
             alt="randomimg"

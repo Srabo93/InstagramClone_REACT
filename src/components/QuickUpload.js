@@ -12,7 +12,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 const QuickUpload = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
-  const { progress, url } = useUploadStorage(file, false, true);
+  const { progress, url } = useUploadStorage(file);
   useUploadFirestore(url);
 
   useEffect(() => {
