@@ -1,5 +1,5 @@
 import React from "react";
-import useFirestore from "../hooks/useFirestore";
+import { useAuth } from "../Auth/AuthContext";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,24 +10,22 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ContainerWrapper from "./ContainerWrapper";
 
-const HomeCards = ({ onSetImg, onSetBackdrop, store }) => {
-  const { docs } = useFirestore(store);
+const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
+  const { currentUser } = useAuth();
 
   const modulHandler = (doc) => {
     onSetImg(doc);
     onSetBackdrop(true);
   };
-
   const renderCards = docs.map((doc) => (
-    <Card sx={{ mb: 2 }}>
+    <Card sx={{ mb: 2 }} key={doc.id}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "primary" }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: "primary.main" }} aria-label="user">
             R
           </Avatar>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={currentUser.email.split("@")[0]}
       />
       <CardMedia
         component="img"
