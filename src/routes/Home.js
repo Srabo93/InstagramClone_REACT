@@ -10,6 +10,8 @@ import {
   endBefore,
 } from "firebase/firestore";
 import { db } from "../API/firebase";
+import { useAuth } from "../Auth/AuthContext";
+import ImageGridMasonry from "../components/ImageGridMasonry";
 import ContainerWrapper from "../UI/ContainerWrapper";
 import Modal from "../components/Modal";
 import Title from "../components/Title";
@@ -25,6 +27,7 @@ const Home = () => {
   const [pageCount, setPageCount] = useState(1);
   const [pageDocs, setPageDocs] = useState([]);
   const [lastPageIndex, setLastPageIndex] = useState(null);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const getAllDocs = async () => {
@@ -65,7 +68,6 @@ const Home = () => {
     let documents = [];
     if (value > page) {
       const nextPagination = async () => {
-        console.log(`value is ${value} and page is ${page}`);
         const next = query(
           collection(db, "All_Images"),
           orderBy("createdAt"),
@@ -85,7 +87,6 @@ const Home = () => {
       nextPagination();
     }
     if (value < page) {
-      console.log(`value is ${value} and page is ${page}`);
       const backPagination = async () => {
         const back = query(
           collection(db, "All_Images"),
@@ -113,25 +114,40 @@ const Home = () => {
   return (
     <ContainerWrapper>
       <Title text={text} />
-      <HomeCards
-        onSetImg={setImgData}
-        onSetBackdrop={setBackdrop}
-        onSetPageCount={setPageCount}
-        docs={pageDocs}
-        currentPage={page}
-      />
-      <Box
-        sx={{
-          m: 3,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Stack spacing={2}>
-          <Pagination count={pageCount} page={page} onChange={handleChange} />
-        </Stack>
-      </Box>
+      {currentUser ? (
+        <React.Fragment>
+          <HomeCards
+            onSetImg={setImgData}
+            onSetBackdrop={setBackdrop}
+            onSetPageCount={setPageCount}
+            docs={pageDocs}
+            currentPage={page}
+          />
+          <Box
+            sx={{
+              m: 3,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Stack spacing={2}>
+              <Pagination
+                count={pageCount}
+                page={page}
+                onChange={handleChange}
+              />
+            </Stack>
+          </Box>
+        </React.Fragment>
+      ) : (
+        <ImageGridMasonry
+          onSetImg={setImgData}
+          onSetBackdrop={setBackdrop}
+          store={"All_Images"}
+        />
+      )}
+
       {backdrop && (
         <Modal imgDocs={imgData} open={backdrop} onSetBackdrop={setBackdrop} />
       )}

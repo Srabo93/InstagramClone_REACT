@@ -1,7 +1,6 @@
 /**
  * TODO UPLOAD ALERTS FUNCTIONALITY
  * TODO ADD LIKE FUNCTIONALITY
- * TODO ADD PAGINATION
  * TODO Comment
  */
 import React from "react";
