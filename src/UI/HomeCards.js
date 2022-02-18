@@ -22,7 +22,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "primary.main" }} aria-label="user">
-            R
+            {currentUser.email.split("")[0].toUpperCase()}
           </Avatar>
         }
         title={currentUser.email.split("@")[0]}
