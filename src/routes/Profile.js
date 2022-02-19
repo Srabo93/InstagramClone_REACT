@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "../Auth/AuthContext";
 import { Link } from "react-router-dom";
 import ContainerWrapper from "../UI/ContainerWrapper";
 import { Box } from "@mui/system";
@@ -8,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Avatar, Button } from "@mui/material";
 
 const Profile = () => {
+  const { currentUser } = useAuth();
   return (
     <ContainerWrapper>
       <Box
@@ -25,14 +27,14 @@ const Profile = () => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              USERNAME
+              {currentUser.email.split("@")[0]}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Hello there USERNAME! Thank you very much for Signin up at
-              PhotoGallery, we are a platform where anyone can provide its own
-              pictures and gather inspiration by others! We cant wait to see
-              what your favorite pictures are and what you will load up! Lets
-              check to the most important Sites!
+              Hello there {currentUser.email.split("@")[0]}! Thank you very much
+              for Signin up at PhotoGallery, we are a platform where anyone can
+              provide its own pictures and gather inspiration by others! We cant
+              wait to see what your favorite pictures are and what you will load
+              up! Lets check to the most important Sites!
             </Typography>
           </CardContent>
           <Link

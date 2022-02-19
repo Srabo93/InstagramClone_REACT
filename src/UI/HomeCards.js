@@ -1,5 +1,7 @@
 import React from "react";
 import { useAuth } from "../Auth/AuthContext";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../API/firebase";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -12,20 +14,28 @@ import ContainerWrapper from "./ContainerWrapper";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const { currentUser } = useAuth();
-
+  console.log(docs);
   const modulHandler = (doc) => {
     onSetImg(doc);
     onSetBackdrop(true);
   };
+
+  const addToFavoritesHandler = async () => {
+    await addDoc(collection(db, "Users", `${currentUser.email}`, `Favorites`), {
+      favoritedBy: currentUser.email,
+      createdAt: serverTimestamp(),
+    });
+  };
+
   const renderCards = docs.map((doc) => (
     <Card sx={{ mb: 2 }} key={doc.id}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "primary.main" }} aria-label="user">
-            {currentUser.email.split("")[0].toUpperCase()}
+            {doc.createdByUser.split("")[0].toUpperCase()}
           </Avatar>
         }
-        title={currentUser.email.split("@")[0]}
+        title={doc.createdByUser.split("@")[0]}
       />
       <CardMedia
         component="img"
@@ -36,7 +46,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         alt="randomImg"
       />
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton onClick={addToFavoritesHandler}>
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">

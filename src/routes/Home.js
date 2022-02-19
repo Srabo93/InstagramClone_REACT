@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   collection,
   query,
-  orderBy,
   startAfter,
   limit,
   getDocs,
@@ -43,11 +42,7 @@ const Home = () => {
     let documents = [];
     const paginationQuery = async () => {
       if (page === 1) {
-        const first = query(
-          collection(db, "All_Images"),
-          orderBy("createdAt"),
-          limit(10)
-        );
+        const first = query(collection(db, "All_Images"), limit(10));
 
         const documentSnapshots = await getDocs(first);
         documentSnapshots.forEach((doc) => {
@@ -70,7 +65,6 @@ const Home = () => {
       const nextPagination = async () => {
         const next = query(
           collection(db, "All_Images"),
-          orderBy("createdAt"),
           startAfter(lastPageIndex),
           limit(10)
         );
@@ -90,7 +84,6 @@ const Home = () => {
       const backPagination = async () => {
         const back = query(
           collection(db, "All_Images"),
-          orderBy("createdAt"),
           endBefore(lastPageIndex),
           limit(10)
         );
