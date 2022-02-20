@@ -14,17 +14,23 @@ import ContainerWrapper from "./ContainerWrapper";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const { currentUser } = useAuth();
-  console.log(docs);
   const modulHandler = (doc) => {
     onSetImg(doc);
     onSetBackdrop(true);
   };
 
-  const addToFavoritesHandler = async () => {
-    await addDoc(collection(db, "Users", `${currentUser.email}`, `Favorites`), {
-      favoritedBy: currentUser.email,
-      createdAt: serverTimestamp(),
-    });
+  const addToFavoritesHandler = async (event) => {
+    let url;
+    if (event.target.id === "") {
+      url = event.target.parentElement.parentElement.id;
+      await addDoc(
+        collection(db, "Users", `${currentUser.email}`, `Favorites`),
+        {
+          url,
+          createdAt: serverTimestamp(),
+        }
+      );
+    }
   };
 
   const renderCards = docs.map((doc) => (
@@ -45,8 +51,12 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         src={doc.url}
         alt="randomImg"
       />
-      <CardActions disableSpacing>
-        <IconButton onClick={addToFavoritesHandler}>
+      <CardActions>
+        <IconButton
+          onClick={addToFavoritesHandler}
+          // value={doc.url}
+          id={doc.url}
+        >
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
