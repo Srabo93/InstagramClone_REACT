@@ -9,18 +9,22 @@ import {
 import { db } from "../API/firebase";
 import { useAuth } from "../Auth/AuthContext";
 
-const useFirestore = (collections, user) => {
+const useFirestore = (collections, config) => {
   const [docs, setDocs] = useState([]);
   const { currentUser } = useAuth();
+
   useEffect(() => {
     let q;
-    if (currentUser !== null) {
+    if (currentUser !== null && collections === "Users") {
       q = query(
         collection(db, collections),
-        where("createdByUser", "==", user)
+        where("createdByUser", "==", config)
       );
-    } else {
-      q = collection(db, collections);
+    } else if (currentUser !== null && collections === "Favorites") {
+      q = query(
+        collection(db, collections),
+        where("likedByUser", "==", currentUser.email)
+      );
     }
 
     const unsubscribe = onSnapshot(
@@ -35,7 +39,7 @@ const useFirestore = (collections, user) => {
       }
     );
     return () => unsubscribe();
-  }, [collections, user, currentUser]);
+  }, [collections, config, currentUser]);
   return { docs };
 };
 

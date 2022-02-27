@@ -23,13 +23,11 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     let url;
     if (event.target.id === "") {
       url = event.target.parentElement.parentElement.id;
-      await addDoc(
-        collection(db, "Users", `${currentUser.email}`, `Favorites`),
-        {
-          url,
-          createdAt: serverTimestamp(),
-        }
-      );
+      await addDoc(collection(db, "Favorites"), {
+        url,
+        likedByUser: currentUser.email,
+        createdAt: serverTimestamp(),
+      });
     }
   };
 
