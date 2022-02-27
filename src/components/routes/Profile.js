@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../../Auth/AuthContext";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 import Card from "@mui/material/Card";

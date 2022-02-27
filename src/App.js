@@ -4,13 +4,13 @@ import PrivateRoute from "./components/PrivateRoute";
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { themeOptions } from "./components/UI/themeContext";
-import Home from "./routes/Home";
+import Home from "./components/routes/Home";
 import Navigation from "./components/Navigation";
-import Profile from "./routes/Profile";
-import Favorites from "./routes/Favorites";
-import Uploads from "./routes/Uploads";
-import Login from "./routes/Login";
-import ForgotPassword from "./routes/ForgotPassword";
+import Profile from "./components/routes/Profile";
+import Favorites from "./components/routes/Favorites";
+import Uploads from "./components/routes/Uploads";
+import Login from "./components/routes/Login";
+import ForgotPassword from "./components/routes/ForgotPassword";
 
 function App() {
   return (

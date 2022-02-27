@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import useUploadStorage from "../hooks/uploads/useUploadStorage";
 import useUploadFirestore from "../hooks/uploads/useUploadFirestore";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./UI/ProgressBar";
 import Box from "@mui/material/Box";
 import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";

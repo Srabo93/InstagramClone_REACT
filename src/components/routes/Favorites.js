@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import Title from "../components/Title";
-import ImageGridMasonry from "../components/ImgGrids/ImageGridMasonry";
-import Modal from "../components/Modal";
+import Title from "../Title";
+import ImageGridMasonry from "../ImgGrids/ImageGridMasonry";
+import Modal from "../UI/Modal";
 import { Box } from "@mui/system";
 
 const Favorites = () => {

@@ -1,7 +1,7 @@
 import React from "react";
-import UploadImgGrid from "../components/ImgGrids/UploadImgGrid";
-import UploadImgFile from "../components/UploadImgFile";
-import Title from "../components/Title";
+import UploadImgGrid from "../ImgGrids/UploadImgGrid";
+import UploadImgFile from "../UploadImgFile";
+import Title from "../Title";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 

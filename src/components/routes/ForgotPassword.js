@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../../Auth/AuthContext";
 import { Container } from "@mui/material";
 import { Box } from "@mui/system";
-import LoadingCircle from "../components/UI/LoadingCircle";
+import LoadingCircle from "../UI/LoadingCircle";
 import { Alert } from "@mui/material";
 import { Button, TextField } from "@mui/material";
 
