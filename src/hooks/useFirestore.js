@@ -1,12 +1,34 @@
 import { useState, useEffect } from "react";
-import { collection, orderBy, onSnapshot, query } from "firebase/firestore";
+import {
+  collection,
+  orderBy,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../API/firebase";
+import { useAuth } from "../Auth/AuthContext";
 
-const useFirestore = (collections) => {
+const useFirestore = (collections, config) => {
   const [docs, setDocs] = useState([]);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    const q = query(collection(db, collections));
+    let q;
+    if (currentUser !== null && collections === "Users") {
+      q = query(
+        collection(db, collections),
+        where("createdByUser", "==", config)
+      );
+    } else if (currentUser !== null && collections === "Favorites") {
+      q = query(
+        collection(db, collections),
+        where("likedByUser", "==", currentUser.email)
+      );
+    } else {
+      q = query(collection(db, collections));
+    }
+
     const unsubscribe = onSnapshot(
       q,
       orderBy("createdAt", "asc"),
@@ -19,7 +41,7 @@ const useFirestore = (collections) => {
       }
     );
     return () => unsubscribe();
-  }, [collections]);
+  }, [collections, config, currentUser]);
   return { docs };
 };
 

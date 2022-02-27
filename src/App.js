@@ -1,27 +1,21 @@
-/**
- * TODO REFACTOR UPLOAD FUNCTIONALITY AND READDATA FROM STORAGE
- * TODO ADD LIKE FUNCTIONALITY
- * TODO ADD PAGINATION
- * TODO Comment
- */
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { themeOptions } from "./UI/themeContext";
-import Home from "./routes/Home";
+import { themeOptions } from "./components/UI/themeContext";
+import Home from "./components/routes/Home";
 import Navigation from "./components/Navigation";
-import Profile from "./routes/Profile";
-import Favorites from "./routes/Favorites";
-import Uploads from "./routes/Uploads";
-import Login from "./routes/Login";
-import ForgotPassword from "./routes/ForgotPassword";
+import Profile from "./components/routes/Profile";
+import Favorites from "./components/routes/Favorites";
+import Uploads from "./components/routes/Uploads";
+import Login from "./components/routes/Login";
+import ForgotPassword from "./components/routes/ForgotPassword";
 
 function App() {
   return (
     <ThemeProvider theme={themeOptions}>
-      <Container maxWidth="md">
+      <Container maxWidth="md" sx={{ mt: 10 }}>
         <Routes>
           <Route path="/" element={<Navigation />}>
             <Route index element={<Home />} />

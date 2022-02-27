@@ -1,17 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import uploadStoragev2 from "../hooks/uploads/useUploadStoragev2";
-import ProgressBar from "./ProgressBar";
+import useUploadStorage from "../hooks/useUploadStorage";
+import useUploadFirestore from "../hooks/useUploadFirestore";
+import ProgressBar from "./UI/ProgressBar";
 import Box from "@mui/material/Box";
 import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-const UploadForm = () => {
+const UploadImgFile = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
-  const { progress, url } = uploadStoragev2(file);
+  const { progress, url } = useUploadStorage(file);
+  useUploadFirestore(url);
 
   useEffect(() => {
     if (url) {
@@ -40,7 +42,7 @@ const UploadForm = () => {
   return (
     <Box
       sx={{
-        margin: 6,
+        margin: 2,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -65,12 +67,20 @@ const UploadForm = () => {
         </label>
       </form>
       <Box sx={{ maxWidt: "lg" }}>
-        {error && <Alert severity="error">{error}</Alert>}
-        {file && <Alert severity="success">{file.name} is Uploading...</Alert>}
+        {error && (
+          <Alert sx={{ m: 1 }} variant="outlined" severity="error">
+            {error}
+          </Alert>
+        )}
+        {file && (
+          <Alert sx={{ m: 1 }} variant="outlined" severity="success">
+            {file.name} is Uploading...
+          </Alert>
+        )}
         {file && <ProgressBar progress={progress} />}
       </Box>
     </Box>
   );
 };
 
-export default UploadForm;
+export default UploadImgFile;

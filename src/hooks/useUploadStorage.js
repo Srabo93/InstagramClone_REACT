@@ -5,28 +5,23 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { useAuth } from "../../Auth/AuthContext";
+import { useAuth } from "../Auth/AuthContext";
 
-const useUploadStoragev2 = (file) => {
+const useUploadStorage = (file) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    if (file === null || undefined) {
+    if (file === null) {
       return;
     }
     const storage = getStorage();
-    const randomId = Math.floor(Math.random() * (50 - 1) + 50);
-    const allImgRef = ref(storage, "allImages/" + randomId + file.name);
-    const userImgref = ref(
-      storage,
-      `user/${currentUser.email}/uploads/${file.name}`
-    );
+    const userImgref = ref(storage, `Uploads/${file.name}`);
 
     uploadBytesResumable(userImgref, file);
-    const uploadImages = uploadBytesResumable(allImgRef, file);
+    const uploadImages = uploadBytesResumable(userImgref, file);
 
     uploadImages.on(
       "state_changed",
@@ -49,4 +44,4 @@ const useUploadStoragev2 = (file) => {
   return { progress, url, error };
 };
 
-export default useUploadStoragev2;
+export default useUploadStorage;

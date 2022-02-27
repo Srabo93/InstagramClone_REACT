@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useAuth } from "../Auth/AuthContext";
-import ContainerWrapper from "../UI/ContainerWrapper";
-import FlexBox from "../UI/FlexBox";
+import { useAuth } from "../../Auth/AuthContext";
+import { Container } from "@mui/material";
+import { Box } from "@mui/system";
 import LoadingCircle from "../UI/LoadingCircle";
 import { Alert } from "@mui/material";
 import { Button, TextField } from "@mui/material";
@@ -31,7 +31,7 @@ const ForgotPassword = () => {
     }
   };
   return (
-    <ContainerWrapper>
+    <Container maxWidth="sm">
       {error && (
         <Alert variant="outline" severity="error">
           {error}
@@ -42,7 +42,7 @@ const ForgotPassword = () => {
           {message}
         </Alert>
       )}
-      <FlexBox sx={{ mt: 1 }}>
+      <Box sx={{ mt: 1 }}>
         {isLoading && <LoadingCircle />}
         <TextField
           margin="normal"
@@ -63,8 +63,8 @@ const ForgotPassword = () => {
         >
           Reset Password
         </Button>
-      </FlexBox>
-    </ContainerWrapper>
+      </Box>
+    </Container>
   );
 };
 
