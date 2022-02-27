@@ -39,7 +39,6 @@ const Login = () => {
   const repeatPasswordHandler = (e) => {
     setRepeatPassword(e.target.value);
   };
-
   const handleSubmit = async () => {
     const trimPW = password.trim();
     const trimrepeatPW = repeatPassword.trim();

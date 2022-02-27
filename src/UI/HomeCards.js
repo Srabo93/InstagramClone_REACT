@@ -9,11 +9,11 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ContainerWrapper from "./ContainerWrapper";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const { currentUser } = useAuth();
+
   const modulHandler = (doc) => {
     onSetImg(doc);
     onSetBackdrop(true);
@@ -52,15 +52,8 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         alt="randomImg"
       />
       <CardActions>
-        <IconButton
-          onClick={addToFavoritesHandler}
-          // value={doc.url}
-          id={doc.url}
-        >
+        <IconButton onClick={addToFavoritesHandler} id={doc.url}>
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
         </IconButton>
       </CardActions>
     </Card>

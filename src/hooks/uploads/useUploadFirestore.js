@@ -11,13 +11,14 @@ const useUploadFirestore = (url) => {
       return;
     }
     const addDocuments = async () => {
-      await addDoc(collection(db, "All_Images"), {
-        url: url,
-        createdByUser: currentUser.email,
-        createdAt: serverTimestamp(),
-      });
-      await addDoc(collection(db, "Users", `${currentUser.email}`, `Uploads`), {
+      // await addDoc(collection(db, "All_Images"), {
+      //   url: url,
+      //   createdByUser: currentUser.email,
+      //   createdAt: serverTimestamp(),
+      // });
+      await addDoc(collection(db, "Users"), {
         url,
+        createdByUser: currentUser.email,
         createdAt: serverTimestamp(),
       });
     };

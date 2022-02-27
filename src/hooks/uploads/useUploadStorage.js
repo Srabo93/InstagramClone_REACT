@@ -18,15 +18,10 @@ const useUploadStorage = (file) => {
       return;
     }
     const storage = getStorage();
-    const randomId = Math.floor(Math.random() * (500 - 1) + 500);
-    const allImgRef = ref(storage, `All_Images/ ${randomId} ${file.name}`);
-    const userImgref = ref(
-      storage,
-      `Users/${currentUser.email}/uploads/${file.name}`
-    );
+    const userImgref = ref(storage, `Uploads/${file.name}`);
 
     uploadBytesResumable(userImgref, file);
-    const uploadImages = uploadBytesResumable(allImgRef, file);
+    const uploadImages = uploadBytesResumable(userImgref, file);
 
     uploadImages.on(
       "state_changed",
