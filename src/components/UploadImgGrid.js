@@ -7,24 +7,27 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { doc, deleteDoc, where } from "firebase/firestore";
 
 const UploadImgGrid = () => {
   const { currentUser } = useAuth();
   const { docs } = useFirestore(`Users`, currentUser.email);
 
-  const deleteHandler = async (event, document) => {
+  const deleteHandler = async (event) => {
     console.log(event.target.value);
-
-    // await deleteDoc(
-    //   doc(db, `Users/${currentUser.email}/Uploads`, event.target.id)
-    // );
-    // const storage = getStorage();
-    // const desertRef = ref(
-    //   storage,
-    //   `Users/${currentUser.email}/uploads/${file.name}`
-    // );
-    // deleteObject(desertRef);
+    // try {
+    //   await deleteDoc(
+    //     doc(
+    //       db,
+    //       `Users/7fIuUFOGmJtFjuZHwdKw`,
+    //       where("url", "==", event.target.id)
+    //     )
+    //   );
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
+
   return (
     <ImageList
       sx={{ maxWidth: "800px", maxHeight: "500px", mb: 5 }}
