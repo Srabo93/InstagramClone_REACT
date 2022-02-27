@@ -25,6 +25,8 @@ const useFirestore = (collections, config) => {
         collection(db, collections),
         where("likedByUser", "==", currentUser.email)
       );
+    } else {
+      q = query(collection(db, collections));
     }
 
     const unsubscribe = onSnapshot(
