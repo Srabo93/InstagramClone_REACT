@@ -5,7 +5,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { useAuth } from "../../Auth/AuthContext";
+import { useAuth } from "../Auth/AuthContext";
 
 const useUploadStorage = (file) => {
   const [progress, setProgress] = useState(0);

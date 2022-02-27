@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../API/firebase";
-import { useAuth } from "../../Auth/AuthContext";
+import { db } from "../API/firebase";
+import { useAuth } from "../Auth/AuthContext";
 
 const useUploadFirestore = (url) => {
   const { currentUser } = useAuth();
