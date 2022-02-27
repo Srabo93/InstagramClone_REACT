@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth/AuthContext";
-import ContainerWrapper from "../UI/ContainerWrapper";
 import LoadingCircle from "../UI/LoadingCircle";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -75,7 +74,7 @@ const Login = () => {
   };
 
   return (
-    <ContainerWrapper>
+    <Box>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -179,7 +178,7 @@ const Login = () => {
           </Box>
         </Grid>
       </Grid>
-    </ContainerWrapper>
+    </Box>
   );
 };
 

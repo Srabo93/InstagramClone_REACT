@@ -9,7 +9,7 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ContainerWrapper from "./ContainerWrapper";
+import { Container } from "@mui/material";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const { currentUser } = useAuth();
@@ -57,7 +57,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     </Card>
   ));
 
-  return <ContainerWrapper>{renderCards}</ContainerWrapper>;
+  return <Container>{renderCards}</Container>;
 };
 
 export default HomeCards;

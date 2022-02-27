@@ -1,8 +1,3 @@
-/**
- * TODO UPLOAD ALERTS FUNCTIONALITY
- * TODO ADD LIKE FUNCTIONALITY
- * TODO Comment
- */
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
@@ -20,7 +15,7 @@ import ForgotPassword from "./routes/ForgotPassword";
 function App() {
   return (
     <ThemeProvider theme={themeOptions}>
-      <Container maxWidth="md">
+      <Container maxWidth="md" sx={{ mt: 10 }}>
         <Routes>
           <Route path="/" element={<Navigation />}>
             <Route index element={<Home />} />

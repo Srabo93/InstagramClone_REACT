@@ -11,7 +11,6 @@ import {
 import { db } from "../API/firebase";
 import { useAuth } from "../Auth/AuthContext";
 import ImageGridMasonry from "../components/ImageGridMasonry";
-import ContainerWrapper from "../UI/ContainerWrapper";
 import Modal from "../components/Modal";
 import Title from "../components/Title";
 import HomeCards from "../UI/HomeCards";
@@ -105,7 +104,7 @@ const Home = () => {
     h6: "Share your Pictures with the World",
   };
   return (
-    <ContainerWrapper>
+    <Box>
       <Title text={text} />
       {currentUser ? (
         <React.Fragment>
@@ -144,7 +143,7 @@ const Home = () => {
       {backdrop && (
         <Modal imgDocs={imgData} open={backdrop} onSetBackdrop={setBackdrop} />
       )}
-    </ContainerWrapper>
+    </Box>
   );
 };
 

@@ -42,7 +42,7 @@ const QuickUpload = () => {
   return (
     <Box
       sx={{
-        margin: 6,
+        margin: 2,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

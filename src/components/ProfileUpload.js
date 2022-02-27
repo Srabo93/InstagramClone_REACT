@@ -3,7 +3,6 @@ import { useState } from "react";
 import useUploadFirestore from "../hooks/uploads/useUploadFirestore";
 import useUploadStorage from "../hooks/uploads/useUploadStorage";
 import ProgressBar from "./ProgressBar";
-import ContainerWrapper from "../UI/ContainerWrapper";
 import { Card } from "@mui/material";
 import { Button } from "@mui/material";
 import { Alert } from "@mui/material";
@@ -36,7 +35,7 @@ const ProfileUpload = () => {
     console.log(formValues, file);
   };
   return (
-    <ContainerWrapper>
+    <Box>
       {error && (
         <Alert sx={{ m: 1 }} variant="outlined" severity="error">
           {error}
@@ -85,7 +84,7 @@ const ProfileUpload = () => {
           </Box>
         </Card>
       </form>
-    </ContainerWrapper>
+    </Box>
   );
 };
 
