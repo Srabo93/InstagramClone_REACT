@@ -1,6 +1,6 @@
 import React from "react";
-import UploadImgGrid from "../components/UploadImgGrid";
-import QuickUpload from "../components/QuickUpload";
+import UploadImgGrid from "../components/ImgGrids/UploadImgGrid";
+import UploadImgFile from "../components/UploadImgFile";
 import Title from "../components/Title";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
@@ -20,7 +20,7 @@ const Uploads = () => {
       }}
     >
       <Title text={text} />
-      <QuickUpload />
+      <UploadImgFile />
       <Typography variant="h4" sx={{ m: 2 }}>
         Your Uploads
       </Typography>

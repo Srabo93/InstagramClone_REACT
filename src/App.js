@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { themeOptions } from "./UI/themeContext";
+import { themeOptions } from "./components/UI/themeContext";
 import Home from "./routes/Home";
 import Navigation from "./components/Navigation";
 import Profile from "./routes/Profile";

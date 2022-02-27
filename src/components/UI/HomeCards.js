@@ -1,7 +1,7 @@
 import React from "react";
-import { useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../../Auth/AuthContext";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../API/firebase";
+import { db } from "../../API/firebase";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";

@@ -9,7 +9,7 @@ import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-const QuickUpload = () => {
+const UploadImgFile = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
   const { progress, url } = useUploadStorage(file);
@@ -83,4 +83,4 @@ const QuickUpload = () => {
   );
 };
 
-export default QuickUpload;
+export default UploadImgFile;

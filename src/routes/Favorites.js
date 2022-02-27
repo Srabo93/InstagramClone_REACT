@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Title from "../components/Title";
-import ImageGridMasonry from "../components/ImageGridMasonry";
+import ImageGridMasonry from "../components/ImgGrids/ImageGridMasonry";
 import Modal from "../components/Modal";
 import { Box } from "@mui/system";
 

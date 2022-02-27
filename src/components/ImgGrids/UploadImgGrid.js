@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuth } from "../Auth/AuthContext";
-import useFirestore from "../hooks/useFirestore";
+import { useAuth } from "../../Auth/AuthContext";
+import useFirestore from "../../hooks/useFirestore";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 

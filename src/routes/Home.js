@@ -10,10 +10,10 @@ import {
 } from "firebase/firestore";
 import { db } from "../API/firebase";
 import { useAuth } from "../Auth/AuthContext";
-import ImageGridMasonry from "../components/ImageGridMasonry";
+import ImageGridMasonry from "../components/ImgGrids/ImageGridMasonry";
 import Modal from "../components/Modal";
 import Title from "../components/Title";
-import HomeCards from "../UI/HomeCards";
+import HomeCards from "../components/UI/HomeCards";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
