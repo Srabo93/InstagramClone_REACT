@@ -11,6 +11,10 @@ const UploadImgGrid = () => {
   const { currentUser } = useAuth();
   const { docs } = useFirestore(`Uploads`, currentUser.email);
 
+  const deleteHandler = (id) => {
+    console.log(id);
+  };
+
   return (
     <ImageList
       sx={{ maxWidth: "800px", maxHeight: "500px", mb: 5 }}
@@ -35,7 +39,10 @@ const UploadImgGrid = () => {
             }}
             position="top"
             actionIcon={
-              <IconButton sx={{ color: "white" }}>
+              <IconButton
+                sx={{ color: "white" }}
+                onClick={() => deleteHandler(doc.id)}
+              >
                 <DeleteForeverIcon />
               </IconButton>
             }

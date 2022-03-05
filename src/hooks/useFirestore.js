@@ -22,8 +22,8 @@ const useFirestore = (collections, config) => {
       );
     } else if (currentUser !== null && collections === "Favorites") {
       q = query(
-        collection(db, collections),
-        where("likedByUser", "==", currentUser.email)
+        collection(db, "Uploads"),
+        where("favorizedByUsers", "array-contains", currentUser.email)
       );
     } else {
       q = query(collection(db, collections));

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../Auth/AuthContext";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../../API/firebase";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -19,14 +19,14 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     onSetBackdrop(true);
   };
 
-  const addToFavoritesHandler = async (event) => {
-    let url;
-    if (event.target.id === "") {
-      url = event.target.parentElement.parentElement.id;
-      await addDoc(collection(db, "Favorites"), {
-        url,
-        likedByUser: currentUser.email,
-        createdAt: serverTimestamp(),
+  const favoritesHandler = async (alreadyLiked) => {
+    if (alreadyLiked.favorizedByUsers.includes(currentUser.email)) {
+      await updateDoc(doc(db, "Uploads", alreadyLiked.id), {
+        favorizedByUsers: [],
+      });
+    } else {
+      await updateDoc(doc(db, "Uploads", alreadyLiked.id), {
+        favorizedByUsers: [currentUser.email],
       });
     }
   };
@@ -50,8 +50,12 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         alt="randomImg"
       />
       <CardActions>
-        <IconButton onClick={addToFavoritesHandler} id={doc.url}>
-          <FavoriteIcon />
+        <IconButton onClick={() => favoritesHandler(doc)}>
+          {doc.favorizedByUsers.includes(currentUser.email) ? (
+            <FavoriteIcon color="primary" />
+          ) : (
+            <FavoriteIcon />
+          )}
         </IconButton>
       </CardActions>
     </Card>

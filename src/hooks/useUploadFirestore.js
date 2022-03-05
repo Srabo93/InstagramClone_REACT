@@ -16,6 +16,7 @@ const useUploadFirestore = (url, file) => {
         fileName: file.name,
         createdByUser: currentUser.email,
         createdAt: serverTimestamp(),
+        favorizedByUsers: [],
       });
     };
 
