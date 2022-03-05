@@ -29,7 +29,7 @@ const Home = () => {
 
   useEffect(() => {
     const getAllDocs = async () => {
-      const queryAllDocs = query(collection(db, `Users/`));
+      const queryAllDocs = query(collection(db, `Uploads/`));
       const allDocs = await getDocs(queryAllDocs);
       const docsAmount = allDocs.docs.length;
       setPageCount(Math.ceil(docsAmount / 10));
@@ -41,7 +41,7 @@ const Home = () => {
     let documents = [];
     const paginationQuery = async () => {
       if (page === 1) {
-        const first = query(collection(db, "Users/"), limit(10));
+        const first = query(collection(db, "Uploads/"), limit(10));
 
         const documentSnapshots = await getDocs(first);
         documentSnapshots.forEach((doc) => {
@@ -63,7 +63,7 @@ const Home = () => {
     if (value > page) {
       const nextPagination = async () => {
         const next = query(
-          collection(db, "Users/"),
+          collection(db, "Uploads/"),
           startAfter(lastPageIndex),
           limit(10)
         );
@@ -82,7 +82,7 @@ const Home = () => {
     if (value < page) {
       const backPagination = async () => {
         const back = query(
-          collection(db, "Users/"),
+          collection(db, "Uploads/"),
           endBefore(lastPageIndex),
           limit(10)
         );
@@ -136,7 +136,7 @@ const Home = () => {
         <ImageGridMasonry
           onSetImg={setImgData}
           onSetBackdrop={setBackdrop}
-          store={"Users"}
+          store={"Uploads"}
         />
       )}
 

@@ -15,7 +15,7 @@ const useFirestore = (collections, config) => {
 
   useEffect(() => {
     let q;
-    if (currentUser !== null && collections === "Users") {
+    if (currentUser !== null && collections === "Uploads") {
       q = query(
         collection(db, collections),
         where("createdByUser", "==", config)

@@ -3,10 +3,13 @@ import { useAuth } from "../../Auth/AuthContext";
 import useFirestore from "../../hooks/useFirestore";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import { ImageListItemBar } from "@mui/material";
+import { IconButton } from "@mui/material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const UploadImgGrid = () => {
   const { currentUser } = useAuth();
-  const { docs } = useFirestore(`Users`, currentUser.email);
+  const { docs } = useFirestore(`Uploads`, currentUser.email);
 
   return (
     <ImageList
@@ -23,6 +26,20 @@ const UploadImgGrid = () => {
             alt="randomimg"
             loading="lazy"
             sx={{ pt: 1 }}
+          />
+          <ImageListItemBar
+            sx={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+                "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+            }}
+            position="top"
+            actionIcon={
+              <IconButton sx={{ color: "white" }}>
+                <DeleteForeverIcon />
+              </IconButton>
+            }
+            actionPosition="left"
           />
         </ImageListItem>
       ))}

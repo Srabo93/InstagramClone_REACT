@@ -13,7 +13,7 @@ const UploadImgFile = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
   const { progress, url } = useUploadStorage(file);
-  useUploadFirestore(url);
+  useUploadFirestore(url, file);
 
   useEffect(() => {
     if (url) {
