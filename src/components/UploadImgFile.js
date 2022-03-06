@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import useUploadStorage from "../hooks/useUploadStorage";
-import useUploadFirestore from "../hooks/useUploadFirestore";
 import ProgressBar from "./UI/ProgressBar";
 import Box from "@mui/material/Box";
 import { Alert } from "@mui/material";
@@ -13,7 +12,6 @@ const UploadImgFile = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
   const { progress, url } = useUploadStorage(file);
-  useUploadFirestore(url, file);
 
   useEffect(() => {
     if (url) {

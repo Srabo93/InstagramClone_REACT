@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import { db } from "../../API/firebase";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { ImageListItemBar } from "@mui/material";
 import { IconButton } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useAuth } from "../../Auth/AuthContext";
 
 const UploadImgGrid = () => {
   const [docs, setDocs] = useState([]);
+  const { currentUser } = useAuth();
+  const storage = getStorage();
 
-  const deleteHandler = (id) => {
-    console.log(id);
+  const deleteHandler = async (id, name) => {
+    await deleteDoc(doc(db, "Uploads", id));
+
+    const desertRef = ref(storage, `Uploads/${currentUser.email}/${name}`);
+    await deleteObject(desertRef);
   };
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, `Uploads/`)),
+      query(
+        collection(db, `Uploads/`),
+        where("createdByUser", "==", currentUser.email)
+      ),
       (snapshot) => {
         let documents = [];
         snapshot.forEach((doc) => {
@@ -26,7 +37,7 @@ const UploadImgGrid = () => {
       }
     );
     return () => unsubscribe();
-  }, []);
+  }, [currentUser.email]);
 
   return (
     <ImageList
@@ -54,7 +65,7 @@ const UploadImgGrid = () => {
             actionIcon={
               <IconButton
                 sx={{ color: "white" }}
-                onClick={() => deleteHandler(doc.id)}
+                onClick={() => deleteHandler(doc.id, doc.fileName)}
               >
                 <DeleteForeverIcon />
               </IconButton>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../Auth/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../API/firebase";
@@ -9,9 +9,12 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import CloseIcon from "@mui/icons-material/Close";
+import Snackbar from "@mui/material/Snackbar";
 import { Container } from "@mui/material";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
+  const [open, setOpen] = useState(false);
   const { currentUser } = useAuth();
 
   const modulHandler = (doc) => {
@@ -23,7 +26,29 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     await setDoc(doc(db, "Favorites", currentUser.uid, "Favorized", id), {
       img: url,
     });
+    setOpen(true);
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="primary"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   const renderCards = docs.map((doc) => (
     <Card sx={{ mb: 2 }} key={doc.id}>
       <CardHeader
@@ -50,7 +75,18 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     </Card>
   ));
 
-  return <Container>{renderCards}</Container>;
+  return (
+    <Container>
+      {renderCards}{" "}
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="To Favorites added"
+        action={action}
+      />
+    </Container>
+  );
 };
 
 export default HomeCards;
