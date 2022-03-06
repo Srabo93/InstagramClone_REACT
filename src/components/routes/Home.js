@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../API/firebase";
 import { useAuth } from "../../Auth/AuthContext";
-import ImageGridMasonry from "../ImgGrids/ImageGridMasonry";
+import HomeImgGrid from "../ImgGrids/HomeImgGrid";
 import Modal from "../UI/Modal";
 import Title from "../Title";
 import HomeCards from "../UI/HomeCards";
@@ -29,7 +29,7 @@ const Home = () => {
 
   useEffect(() => {
     const getAllDocs = async () => {
-      const queryAllDocs = query(collection(db, `Uploads/`));
+      const queryAllDocs = query(collection(db, `Uploads`));
       const allDocs = await getDocs(queryAllDocs);
       const docsAmount = allDocs.docs.length;
       setPageCount(Math.ceil(docsAmount / 10));
@@ -133,11 +133,7 @@ const Home = () => {
           </Box>
         </React.Fragment>
       ) : (
-        <ImageGridMasonry
-          onSetImg={setImgData}
-          onSetBackdrop={setBackdrop}
-          store={"Uploads"}
-        />
+        <HomeImgGrid onSetImg={setImgData} onSetBackdrop={setBackdrop} />
       )}
 
       {backdrop && (

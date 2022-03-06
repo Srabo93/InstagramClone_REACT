@@ -1,10 +1,7 @@
 import React from "react";
-import useFirestore from "../../hooks/useFirestore";
 import { ImageList, ImageListItem } from "@mui/material";
 
-const ImageGridMasonry = ({ onSetImg, onSetBackdrop, store }) => {
-  const { docs } = useFirestore(store);
-
+const FavoritesImgGrid = ({ onSetImg, onSetBackdrop, docs }) => {
   const modulHandler = (doc) => {
     onSetImg(doc);
     onSetBackdrop(true);
@@ -21,8 +18,8 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop, store }) => {
     <ImageListItem key={doc.id}>
       <img
         style={style}
-        src={doc.url}
-        srcSet={doc.url}
+        src={doc.img}
+        srcSet={doc.img}
         loading="lazy"
         onClick={() => modulHandler(doc)}
         alt="randomimg"
@@ -38,4 +35,5 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop, store }) => {
     </React.Fragment>
   );
 };
-export default ImageGridMasonry;
+
+export default FavoritesImgGrid;

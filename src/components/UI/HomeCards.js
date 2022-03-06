@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../Auth/AuthContext";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../API/firebase";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -19,18 +19,11 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     onSetBackdrop(true);
   };
 
-  const favoritesHandler = async (alreadyLiked) => {
-    if (alreadyLiked.favorizedByUsers.includes(currentUser.email)) {
-      await updateDoc(doc(db, "Uploads", alreadyLiked.id), {
-        favorizedByUsers: [],
-      });
-    } else {
-      await updateDoc(doc(db, "Uploads", alreadyLiked.id), {
-        favorizedByUsers: [currentUser.email],
-      });
-    }
+  const favoritesHandler = async (id, url) => {
+    await setDoc(doc(db, "Favorites", currentUser.uid, "Favorized", id), {
+      img: url,
+    });
   };
-
   const renderCards = docs.map((doc) => (
     <Card sx={{ mb: 2 }} key={doc.id}>
       <CardHeader
@@ -46,16 +39,12 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         height="220"
         style={{ cursor: "pointer" }}
         onClick={() => modulHandler(doc)}
-        src={doc.url}
+        src={doc.img}
         alt="randomImg"
       />
       <CardActions>
-        <IconButton onClick={() => favoritesHandler(doc)}>
-          {doc.favorizedByUsers.includes(currentUser.email) ? (
-            <FavoriteIcon color="primary" />
-          ) : (
-            <FavoriteIcon />
-          )}
+        <IconButton onClick={() => favoritesHandler(doc.id, doc.img)}>
+          <FavoriteIcon color="primary" />
         </IconButton>
       </CardActions>
     </Card>

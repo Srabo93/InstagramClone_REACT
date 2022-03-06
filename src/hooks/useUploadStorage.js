@@ -18,7 +18,10 @@ const useUploadStorage = (file) => {
       return;
     }
     const storage = getStorage();
-    const userImgref = ref(storage, `Uploads/${file.name}`);
+    const userImgref = ref(
+      storage,
+      `Uploads/${currentUser.email}/${file.name}`
+    );
 
     uploadBytesResumable(userImgref, file);
     const uploadImages = uploadBytesResumable(userImgref, file);

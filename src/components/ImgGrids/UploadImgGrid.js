@@ -1,6 +1,6 @@
-import React from "react";
-import { useAuth } from "../../Auth/AuthContext";
-import useFirestore from "../../hooks/useFirestore";
+import React, { useState, useEffect } from "react";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../../API/firebase";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { ImageListItemBar } from "@mui/material";
@@ -8,12 +8,25 @@ import { IconButton } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const UploadImgGrid = () => {
-  const { currentUser } = useAuth();
-  const { docs } = useFirestore(`Uploads`, currentUser.email);
+  const [docs, setDocs] = useState([]);
 
   const deleteHandler = (id) => {
     console.log(id);
   };
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      query(collection(db, `Uploads/`)),
+      (snapshot) => {
+        let documents = [];
+        snapshot.forEach((doc) => {
+          documents.push({ ...doc.data(), id: doc.id });
+        });
+        setDocs(documents);
+      }
+    );
+    return () => unsubscribe();
+  }, []);
 
   return (
     <ImageList
@@ -25,8 +38,8 @@ const UploadImgGrid = () => {
         <ImageListItem key={doc.id} sx={{ maxWidth: "md", maxHeight: 150 }}>
           <img
             style={{ maxWidth: 300, maxHeight: 150, cursor: "default" }}
-            src={doc.url}
-            srcSet={doc.url}
+            src={doc.img}
+            srcSet={doc.img}
             alt="randomimg"
             loading="lazy"
             sx={{ pt: 1 }}
