@@ -6,15 +6,17 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
+import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 import Snackbar from "@mui/material/Snackbar";
 import { Container } from "@mui/material";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
-  const [open, setOpen] = useState(false);
+  const [favOpen, setFavOpen] = useState(false);
   const { currentUser } = useAuth();
 
   const modulHandler = (doc) => {
@@ -22,18 +24,21 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     onSetBackdrop(true);
   };
 
+  const copyToClipboardHandler = (url) => {
+    navigator.clipboard.writeText(url);
+  };
+
   const favoritesHandler = async (id, url) => {
     await setDoc(doc(db, "Favorites", currentUser.uid, "Favorized", id), {
       img: url,
     });
-    setOpen(true);
+    setFavOpen(true);
   };
 
-  const handleClose = (event, reason) => {
+  const closeFavNotification = (event, reason) => {
     if (reason === "clickaway") {
-      return;
+      setFavOpen(false);
     }
-    setOpen(false);
   };
 
   const action = (
@@ -42,7 +47,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         size="small"
         aria-label="close"
         color="primary"
-        onClick={handleClose}
+        onClick={closeFavNotification}
       >
         <CloseIcon fontSize="small" />
       </IconButton>
@@ -58,6 +63,9 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
           </Avatar>
         }
         title={doc.createdByUser.split("@")[0]}
+        subheader={new Date(doc.createdAt.seconds * 1000).toLocaleDateString(
+          "en-EN"
+        )}
       />
       <CardMedia
         component="img"
@@ -71,6 +79,16 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         <IconButton onClick={() => favoritesHandler(doc.id, doc.img)}>
           <FavoriteIcon color="primary" />
         </IconButton>
+        <Tooltip
+          disableFocusListener
+          disableTouchListener
+          title="Copy to Clipboard!"
+          placement="right"
+        >
+          <IconButton onClick={() => copyToClipboardHandler(doc.img)}>
+            <ShareIcon color="primary" />
+          </IconButton>
+        </Tooltip>
       </CardActions>
     </Card>
   ));
@@ -79,9 +97,9 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     <Container>
       {renderCards}{" "}
       <Snackbar
-        open={open}
+        open={favOpen}
         autoHideDuration={2000}
-        onClose={handleClose}
+        onClose={closeFavNotification}
         message="To Favorites added"
         action={action}
       />
