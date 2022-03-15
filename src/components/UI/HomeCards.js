@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Auth/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
+import { onSnapshot, query, collection, where } from "firebase/firestore";
 import { db } from "../../API/firebase";
+import AddComment from "../AddComment";
+import DisplayComments from "../DisplayComments";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
+import { CardContent } from "@mui/material";
+import { Collapse } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
+import CommentIcon from "@mui/icons-material/Comment";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
@@ -17,8 +23,10 @@ import { Container } from "@mui/material";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const [favOpen, setFavOpen] = useState(false);
+  const [openCommentSection, setOpenCommentSection] = useState(false);
+  const [getCommentsById, setGetCommentsById] = useState(null);
+  const [comments, setComments] = useState([]);
   const { currentUser } = useAuth();
-
   const modulHandler = (doc) => {
     onSetImg(doc);
     onSetBackdrop(true);
@@ -26,6 +34,28 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
 
   const copyToClipboardHandler = (url) => {
     navigator.clipboard.writeText(url);
+  };
+
+  useEffect(() => {
+    if (getCommentsById === null) return;
+    onSnapshot(
+      query(
+        collection(db, "Uploads", getCommentsById, "Comments"),
+        where("docId", "==", getCommentsById)
+      ),
+      (snapShot) => {
+        let documents = [];
+        snapShot.forEach((doc) => {
+          documents.push({ ...doc.data(), id: doc.id });
+        });
+        setComments(documents);
+      }
+    );
+  }, [getCommentsById]);
+
+  const commentExpandHandler = (id) => {
+    setGetCommentsById(id);
+    setOpenCommentSection((prevState) => !prevState);
   };
 
   const favoritesHandler = async (id, url) => {
@@ -75,7 +105,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
         src={doc.img}
         alt="randomImg"
       />
-      <CardActions>
+      <CardActions disableSpacing>
         <IconButton onClick={() => favoritesHandler(doc.id, doc.img)}>
           <FavoriteIcon color="primary" />
         </IconButton>
@@ -89,7 +119,22 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
             <ShareIcon color="primary" />
           </IconButton>
         </Tooltip>
+        <IconButton
+          sx={{ marginLeft: "auto" }}
+          expand={"false"}
+          onClick={() => commentExpandHandler(doc.id)}
+        >
+          <CommentIcon color="primary" />
+        </IconButton>
       </CardActions>
+      <CardContent>
+        <AddComment docId={doc.id} />
+      </CardContent>
+      <Collapse in={openCommentSection} timeout="auto" unmountOnExit>
+        <CardContent>
+          <DisplayComments comments={comments} cardId={doc.id} />
+        </CardContent>
+      </Collapse>
     </Card>
   ));
 
