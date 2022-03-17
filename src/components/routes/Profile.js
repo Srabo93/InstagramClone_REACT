@@ -9,9 +9,14 @@ import { Avatar, Button } from "@mui/material";
 
 const Profile = () => {
   const { currentUser } = useAuth();
+
   return (
     <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       <Card sx={{ maxWidth: "sm", padding: 3, textAlign: "center" }}>
         <Avatar
@@ -41,6 +46,14 @@ const Profile = () => {
         >
           <Button variant="outlined" color="primary" sx={{ m: 1 }}>
             Uploads
+          </Button>
+        </Link>
+        <Link
+          to="/updateprofile"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Button variant="outlined" color="info" sx={{ m: 1 }}>
+            Edit Profile
           </Button>
         </Link>
         <Link

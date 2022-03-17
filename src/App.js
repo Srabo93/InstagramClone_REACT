@@ -11,6 +11,7 @@ import Favorites from "./components/routes/Favorites";
 import Uploads from "./components/routes/Uploads";
 import Login from "./components/routes/Login";
 import ForgotPassword from "./components/routes/ForgotPassword";
+import ProfileUpdate from "./components/ProfileUpdate";
 
 function App() {
   return (
@@ -24,6 +25,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="updateProfile"
+              element={
+                <PrivateRoute>
+                  <ProfileUpdate />
                 </PrivateRoute>
               }
             />
