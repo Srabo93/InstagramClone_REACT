@@ -23,18 +23,22 @@ import { Container } from "@mui/material";
 
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const [favOpen, setFavOpen] = useState(false);
+  const [favorites, setFavorites] = useState([]);
   const [openCommentSection, setOpenCommentSection] = useState(false);
   const [getCommentsById, setGetCommentsById] = useState(null);
   const [comments, setComments] = useState([]);
   const { currentUser } = useAuth();
-  const modulHandler = (doc) => {
-    onSetImg(doc);
-    onSetBackdrop(true);
-  };
 
-  const copyToClipboardHandler = (url) => {
-    navigator.clipboard.writeText(url);
-  };
+  useEffect(() => {
+    const q = query(collection(db, "Favorites", currentUser.uid, "Favorized"));
+    onSnapshot(q, (querySnapshot) => {
+      const documents = [];
+      querySnapshot.forEach((doc) => {
+        documents.push(doc.data());
+      });
+      setFavorites(documents);
+    });
+  }, [currentUser.uid]);
 
   useEffect(() => {
     if (getCommentsById === null) return;
@@ -53,9 +57,18 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     );
   }, [getCommentsById]);
 
+  const modulHandler = (doc) => {
+    onSetImg(doc);
+    onSetBackdrop(true);
+  };
+
+  const copyToClipboardHandler = (url) => {
+    navigator.clipboard.writeText(url);
+  };
+
   const commentExpandHandler = (id) => {
     setGetCommentsById(id);
-    setOpenCommentSection((prevState) => !prevState);
+    setOpenCommentSection(true);
   };
 
   const favoritesHandler = async (id, url) => {
@@ -107,7 +120,11 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
       />
       <CardActions disableSpacing>
         <IconButton onClick={() => favoritesHandler(doc.id, doc.img)}>
-          <FavoriteIcon color="primary" />
+          {favorites.some((favorite) => favorite.img === doc.img) ? (
+            <FavoriteIcon color="primary" />
+          ) : (
+            <FavoriteIcon />
+          )}
         </IconButton>
         <Tooltip
           disableFocusListener
@@ -116,7 +133,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
           placement="right"
         >
           <IconButton onClick={() => copyToClipboardHandler(doc.img)}>
-            <ShareIcon color="primary" />
+            <ShareIcon color="secondary" />
           </IconButton>
         </Tooltip>
         <IconButton
@@ -124,7 +141,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
           expand={"false"}
           onClick={() => commentExpandHandler(doc.id)}
         >
-          <CommentIcon color="primary" />
+          <CommentIcon color="secondary" />
         </IconButton>
       </CardActions>
       <CardContent>

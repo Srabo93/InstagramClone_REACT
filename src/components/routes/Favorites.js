@@ -17,7 +17,7 @@ const Favorites = () => {
     h2: "Check your Favorites",
   };
   useEffect(() => {
-    const unsubscribe = onSnapshot(
+    onSnapshot(
       query(collection(db, `Favorites/${currentUser.uid}/Favorized`)),
       (snapshot) => {
         let documents = [];
@@ -27,7 +27,6 @@ const Favorites = () => {
         setDocs(documents);
       }
     );
-    return () => unsubscribe();
   }, [currentUser.uid]);
 
   return (
