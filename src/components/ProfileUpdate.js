@@ -1,19 +1,28 @@
 import React, { useState } from "react";
+import UploadProfileImg from "./UploadProfileImg";
 import { Link } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 import { Box } from "@mui/system";
-import { Badge } from "@mui/material";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import { Avatar, Button } from "@mui/material";
-import UploadImgFile from "./UploadImgFile";
+import { useAuth } from "../Auth/AuthContext";
+import { db } from "../API/firebase";
+import { Badge } from "@mui/material";
 
 const ProfileUpdate = () => {
   const [text, setText] = useState("");
-  const [submit, setSubmit] = useState(false);
+  const { currentUser } = useAuth();
 
-  const submitHandler = () => {
-    console.log("submithandler");
+  const submitHandler = async () => {
+    if (text === "") return;
+    await setDoc(doc(db, "Users", currentUser.uid), {
+      name: currentUser.email,
+      description: text,
+    });
+    setText("");
   };
+
   return (
     <Box
       sx={{
@@ -33,11 +42,10 @@ const ProfileUpdate = () => {
             component="div"
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            badgeContent={<UploadImgFile />}
+            badgeContent={<UploadProfileImg />}
           >
             <Avatar
               alt="Random User"
-              src="https://source.unsplash.com/random"
               sx={{
                 width: 240,
                 height: 240,
@@ -45,10 +53,12 @@ const ProfileUpdate = () => {
               }}
             />
           </Badge>
+
           <TextField
             label="Description"
             multiline
             rows={4}
+            value={text}
             placeholder="Tell us something about us!"
             sx={{ mt: 1 }}
             onChange={(e) => setText(e.target.value)}

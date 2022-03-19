@@ -37,7 +37,6 @@ const useUploadStorage = (file) => {
       },
       (err) => {
         setError(err);
-        console.log(`StorageHook2 ${err}`);
       },
       async () => {
         const url = await getDownloadURL(uploadImages.snapshot.ref);

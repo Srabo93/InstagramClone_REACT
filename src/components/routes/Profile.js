@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../Auth/AuthContext";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../API/firebase";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 import Card from "@mui/material/Card";
@@ -8,7 +10,15 @@ import Typography from "@mui/material/Typography";
 import { Avatar, Button } from "@mui/material";
 
 const Profile = () => {
+  const [profileData, setProfileData] = useState([]);
   const { currentUser } = useAuth();
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "Users", currentUser.uid), (doc) => {
+      setProfileData(doc.data());
+    });
+
+    return () => unsub();
+  }, [currentUser.uid]);
 
   return (
     <Box
@@ -21,25 +31,38 @@ const Profile = () => {
       <Card sx={{ maxWidth: "sm", padding: 3, textAlign: "center" }}>
         <Avatar
           alt="Random User"
-          src="https://source.unsplash.com/random"
+          src={profileData.img ?? profileData.img}
           sx={{
             width: 240,
             height: 240,
             margin: "0 auto",
           }}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {currentUser.email.split("@")[0]}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Hello there {currentUser.email.split("@")[0]}! Thank you very much
-            for Signin up at PhotoGallery, we are a platform where anyone can
-            provide its own pictures and gather inspiration by others! We cant
-            wait to see what your favorite pictures are and what you will load
-            up! Lets check to the most important Sites!
-          </Typography>
-        </CardContent>
+        {!profileData && (
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {currentUser.email.split("@")[0]}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Hello there {currentUser.email.split("@")[0]}! Thank you very much
+              for Signin up at PhotoGallery, we are a platform where anyone can
+              provide its own pictures and gather inspiration by others! We cant
+              wait to see what your favorite pictures are and what you will load
+              up! Lets check to the most important Sites!
+            </Typography>
+          </CardContent>
+        )}
+        {profileData && (
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {currentUser.email.split("@")[0]}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {profileData.description}
+            </Typography>
+          </CardContent>
+        )}
+
         <Link
           to="/uploads"
           style={{ textDecoration: "none", color: "inherit" }}
