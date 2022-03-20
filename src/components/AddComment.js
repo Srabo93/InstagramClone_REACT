@@ -13,6 +13,7 @@ const AddComment = ({ docId }) => {
   const { currentUser } = useAuth();
 
   const postCommentHandler = async (id) => {
+    if (comment === "") return;
     const docRef = doc(db, "Users", currentUser.uid);
     const docSnap = await getDoc(docRef);
 
