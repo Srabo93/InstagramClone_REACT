@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Auth/AuthContext";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, limit, setDoc } from "firebase/firestore";
 import { onSnapshot, query, collection, where } from "firebase/firestore";
 import { db } from "../../API/firebase";
 import HomeCardsAvatar from "./HomeCardsAvatar";
@@ -57,7 +57,8 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
     onSnapshot(
       query(
         collection(db, "Uploads", getCommentsById, "Comments"),
-        where("docId", "==", getCommentsById)
+        where("docId", "==", getCommentsById),
+        limit(10)
       ),
       (snapShot) => {
         let documents = [];
@@ -157,7 +158,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
       </CardContent>
       <Collapse in={openCommentSection} timeout="auto" unmountOnExit>
         <CardContent>
-          <DisplayComments comments={comments} cardId={doc.id} />
+          <DisplayComments comments={comments} cardDoc={doc} />
         </CardContent>
       </Collapse>
     </Card>

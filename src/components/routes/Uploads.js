@@ -8,7 +8,6 @@ import { Typography } from "@mui/material";
 const Uploads = () => {
   const text = {
     h2: "Upload Your Images",
-    h6: "Thank you for Uploading!",
   };
   return (
     <Box

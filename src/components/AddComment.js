@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useAuth } from "../Auth/AuthContext";
 import { db } from "../API/firebase";
 import { Box } from "@mui/system";
@@ -15,6 +15,7 @@ const AddComment = ({ docId }) => {
   const postCommentHandler = async (id) => {
     await setDoc(doc(db, "Uploads", id, "Comments", currentUser.uid), {
       createdByUser: currentUser.email,
+      createdAt: serverTimestamp(),
       docId: id,
       comment,
     });

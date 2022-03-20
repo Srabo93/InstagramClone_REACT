@@ -86,6 +86,7 @@ const ProfileUpdate = () => {
           }}
         >
           <Button
+            size="small"
             variant="outlined"
             color="success"
             sx={{ m: 1 }}
@@ -97,7 +98,12 @@ const ProfileUpdate = () => {
             to="/profile"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <Button variant="outlined" color="secondary" sx={{ m: 1 }}>
+            <Button
+              size="small"
+              variant="outlined"
+              color="secondary"
+              sx={{ m: 1 }}
+            >
               Go Back
             </Button>
           </Link>
