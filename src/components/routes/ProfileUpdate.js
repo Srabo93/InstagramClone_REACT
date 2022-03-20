@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UploadProfileImg from "./UploadProfileImg";
+import UploadProfileImg from "../UploadProfileImg";
 import { onSnapshot } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
@@ -7,8 +7,8 @@ import { Box } from "@mui/system";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import { Avatar, Button } from "@mui/material";
-import { useAuth } from "../Auth/AuthContext";
-import { db } from "../API/firebase";
+import { useAuth } from "../../Auth/AuthContext";
+import { db } from "../../API/firebase";
 import { Badge } from "@mui/material";
 
 const ProfileUpdate = () => {

@@ -8,12 +8,14 @@ import Home from "./components/routes/Home";
 import Navigation from "./components/Navigation";
 import Login from "./components/routes/Login";
 import ForgotPassword from "./components/routes/ForgotPassword";
-import ProfileUpdate from "./components/ProfileUpdate";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const Profile = React.lazy(() => import("./components/routes/Profile"));
 const Favorites = React.lazy(() => import("./components/routes/Favorites"));
 const Uploads = React.lazy(() => import("./components/routes/Uploads"));
+const ProfileUpdate = React.lazy(() =>
+  import("./components/routes/ProfileUpdate")
+);
 function App() {
   return (
     <ThemeProvider theme={themeOptions}>
