@@ -14,6 +14,10 @@ In this Instagram-like project my goal was to gather first experience with Fireb
 
 ## Demo
 
-You can sign Up, upload and faovirze Images.
+Functionality of the app: 
+- Authentication 
+- CRUD functionalities
+- Comments
+- Likes
+- 
 Demo: 
-
