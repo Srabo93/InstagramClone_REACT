@@ -20,4 +20,4 @@ Functionality of the app:
 - Comments
 - Likes
 - 
-Demo: 
+Demo: https://photo-gallery-d7cb4.web.app
