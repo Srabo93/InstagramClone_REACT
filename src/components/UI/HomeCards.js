@@ -3,6 +3,7 @@ import { useAuth } from "../../Auth/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
 import { onSnapshot, query, collection, where } from "firebase/firestore";
 import { db } from "../../API/firebase";
+import HomeCardsAvatar from "./HomeCardsAvatar";
 import AddComment from "../AddComment";
 import DisplayComments from "../DisplayComments";
 import Card from "@mui/material/Card";
@@ -12,7 +13,6 @@ import CardActions from "@mui/material/CardActions";
 import { CardContent } from "@mui/material";
 import { Collapse } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -24,10 +24,22 @@ import { Container } from "@mui/material";
 const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const [favOpen, setFavOpen] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [avatars, setAvatars] = useState(null);
   const [openCommentSection, setOpenCommentSection] = useState(false);
   const [getCommentsById, setGetCommentsById] = useState(null);
-  const [comments, setComments] = useState([]);
   const { currentUser } = useAuth();
+
+  useEffect(() => {
+    const q = query(collection(db, "Users"));
+    onSnapshot(q, (querySnapshot) => {
+      const avatars = [];
+      querySnapshot.forEach((doc) => {
+        avatars.push(doc.data());
+      });
+      setAvatars(avatars);
+    });
+  }, [currentUser.uid]);
 
   useEffect(() => {
     const q = query(collection(db, "Favorites", currentUser.uid, "Favorized"));
@@ -100,11 +112,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
   const renderCards = docs.map((doc) => (
     <Card sx={{ mb: 2 }} key={doc.id}>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: "primary.main" }} aria-label="user">
-            {doc.createdByUser.split("")[0].toUpperCase()}
-          </Avatar>
-        }
+        avatar={<HomeCardsAvatar avatars={avatars} doc={doc} />}
         title={doc.createdByUser.split("@")[0]}
         subheader={new Date(doc.createdAt.seconds * 1000).toLocaleDateString(
           "en-EN"

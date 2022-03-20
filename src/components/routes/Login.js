@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Auth/AuthContext";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../API/firebase";
 import LoadingCircle from "../UI/LoadingCircle";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -62,7 +64,17 @@ const Login = () => {
       try {
         setIsLoading(true);
         setErrorMessage("");
-        await signup(email, trimPW);
+        const userData = await signup(email, trimPW);
+        console.log(userData);
+        await setDoc(doc(db, "Users", userData.user.uid), {
+          description: `Hello there ${email.split("@")[0]}! Thank you very much
+          for Signin up at PhotoGallery, we are a platform where anyone can
+          provide its own pictures and gather inspiration by others! We cant
+          wait to see what your favorite pictures are and what you will load
+          up! Lets check to the most important Sites!`,
+          img: "",
+          name: email,
+        });
         navigate("/profile");
       } catch (error) {
         const errorMessage = await error.message;

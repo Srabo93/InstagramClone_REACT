@@ -31,7 +31,7 @@ const Profile = () => {
       <Card sx={{ maxWidth: "sm", padding: 3, textAlign: "center" }}>
         <Avatar
           alt="Random User"
-          src={profileData.img ?? profileData.img}
+          src={profileData?.img}
           sx={{
             width: 240,
             height: 240,
@@ -40,15 +40,8 @@ const Profile = () => {
         />
         {!profileData && (
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {currentUser.email.split("@")[0]}
-            </Typography>
             <Typography variant="body2" color="text.secondary">
-              Hello there {currentUser.email.split("@")[0]}! Thank you very much
-              for Signin up at PhotoGallery, we are a platform where anyone can
-              provide its own pictures and gather inspiration by others! We cant
-              wait to see what your favorite pictures are and what you will load
-              up! Lets check to the most important Sites!
+              If You read This, something went wrong !
             </Typography>
           </CardContent>
         )}

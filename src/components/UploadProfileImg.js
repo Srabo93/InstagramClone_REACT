@@ -10,7 +10,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../Auth/AuthContext";
 import { db } from "../API/firebase";
 
@@ -39,9 +39,13 @@ const UploadProfileImg = () => {
       },
       async () => {
         const url = await getDownloadURL(uploadImages.snapshot.ref);
-        await updateDoc(doc(db, "Users", currentUser.uid), {
-          img: url,
-        });
+        await setDoc(
+          doc(db, "Users", currentUser.uid),
+          {
+            img: url,
+          },
+          { merge: true }
+        );
       }
     );
   }, [file, currentUser.uid, currentUser.email]);

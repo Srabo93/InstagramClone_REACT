@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UploadProfileImg from "./UploadProfileImg";
+import { onSnapshot } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { Box } from "@mui/system";
@@ -12,14 +13,25 @@ import { Badge } from "@mui/material";
 
 const ProfileUpdate = () => {
   const [text, setText] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const { currentUser } = useAuth();
+
+  useEffect(() => {
+    onSnapshot(doc(db, "Users", currentUser.uid), (doc) => {
+      setAvatar(doc.data());
+    });
+  }, [currentUser.uid]);
 
   const submitHandler = async () => {
     if (text === "") return;
-    await setDoc(doc(db, "Users", currentUser.uid), {
-      name: currentUser.email,
-      description: text,
-    });
+    await setDoc(
+      doc(db, "Users", currentUser.uid),
+      {
+        name: currentUser.email,
+        description: text,
+      },
+      { merge: true }
+    );
     setText("");
   };
 
@@ -46,6 +58,7 @@ const ProfileUpdate = () => {
           >
             <Avatar
               alt="Random User"
+              src={avatar?.img}
               sx={{
                 width: 240,
                 height: 240,
