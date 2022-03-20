@@ -29,7 +29,7 @@ function App() {
               }
             />
             <Route
-              path="updateProfile"
+              path="profile/updateprofile"
               element={
                 <PrivateRoute>
                   <ProfileUpdate />
@@ -52,6 +52,9 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="test" element={<div>test</div>}>
+              <Route path="inside" element={<div>lol</div>} />
+            </Route>
             <Route path="login" element={<Login />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="*" element={<Home />} />

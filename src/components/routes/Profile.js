@@ -65,7 +65,7 @@ const Profile = () => {
           </Button>
         </Link>
         <Link
-          to="/updateprofile"
+          to="/profile/updateprofile"
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Button variant="outlined" color="info" sx={{ m: 1 }}>
