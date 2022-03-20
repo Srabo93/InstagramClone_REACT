@@ -80,7 +80,7 @@ const HomeCards = ({ onSetImg, onSetBackdrop, docs }) => {
 
   const commentExpandHandler = (id) => {
     setGetCommentsById(id);
-    setOpenCommentSection(true);
+    setOpenCommentSection((prevState) => !prevState);
   };
 
   const favoritesHandler = async (id, url) => {
