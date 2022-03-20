@@ -19,5 +19,5 @@ Functionality of the app:
 - CRUD functionalities
 - Comments
 - Likes
-- 
-Demo: 
+
+Demo: https://photo-gallery-d7cb4.web.app
