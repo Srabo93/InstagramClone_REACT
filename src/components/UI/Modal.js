@@ -20,7 +20,7 @@ const Modal = ({ imgDocs, open, onSetBackdrop }) => {
         }}
       >
         <img
-          src={imgDocs.url}
+          src={imgDocs.img}
           style={{
             maxHeight: "80%",
             maxWidth: "60%",

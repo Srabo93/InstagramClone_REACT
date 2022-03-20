@@ -1,9 +1,25 @@
-import React from "react";
-import useFirestore from "../../hooks/useFirestore";
+import React, { useEffect, useState } from "react";
 import { ImageList, ImageListItem } from "@mui/material";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../../API/firebase";
 
-const ImageGridMasonry = ({ onSetImg, onSetBackdrop, store }) => {
-  const { docs } = useFirestore(store);
+const HomeImgGrid = ({ onSetImg, onSetBackdrop }) => {
+  const [docs, setDocs] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      query(collection(db, "Uploads")),
+      (snapshot) => {
+        let documents = [];
+        snapshot.forEach((doc) => {
+          documents.push({ ...doc.data(), id: doc.id });
+        });
+        setDocs(documents);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
 
   const modulHandler = (doc) => {
     onSetImg(doc);
@@ -21,8 +37,8 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop, store }) => {
     <ImageListItem key={doc.id}>
       <img
         style={style}
-        src={doc.url}
-        srcSet={doc.url}
+        src={doc.img}
+        srcSet={doc.img}
         loading="lazy"
         onClick={() => modulHandler(doc)}
         alt="randomimg"
@@ -38,4 +54,4 @@ const ImageGridMasonry = ({ onSetImg, onSetBackdrop, store }) => {
     </React.Fragment>
   );
 };
-export default ImageGridMasonry;
+export default HomeImgGrid;

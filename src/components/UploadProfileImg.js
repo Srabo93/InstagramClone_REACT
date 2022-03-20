@@ -1,23 +1,54 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import useUploadStorage from "../hooks/useUploadStorage";
-import ProgressBar from "./UI/ProgressBar";
 import Box from "@mui/material/Box";
-import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+import { useAuth } from "../Auth/AuthContext";
+import { db } from "../API/firebase";
 
-const UploadImgFile = () => {
+const UploadProfileImg = () => {
   const [file, setFile] = useState(null);
-  const [error, setError] = useState(null);
-  const { progress, url } = useUploadStorage(file);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    if (url) {
-      setFile(null);
+    if (file === null) {
+      return;
     }
-  }, [url]);
+    const storage = getStorage();
+    const userImgref = ref(
+      storage,
+      `Users/ProfilePicture_${currentUser.email}/${file.name}`
+    );
+
+    uploadBytesResumable(userImgref, file);
+    const uploadImages = uploadBytesResumable(userImgref, file);
+
+    uploadImages.on(
+      "state_changed",
+      (snapshot) => {},
+      (err) => {
+        console.log(err);
+      },
+      async () => {
+        const url = await getDownloadURL(uploadImages.snapshot.ref);
+        await setDoc(
+          doc(db, "Users", currentUser.uid),
+          {
+            img: url,
+          },
+          { merge: true }
+        );
+      }
+    );
+  }, [file, currentUser.uid, currentUser.email]);
 
   const Input = styled("input")({
     display: "none",
@@ -31,10 +62,8 @@ const UploadImgFile = () => {
 
     if (selected && types.includes(selected.type)) {
       setFile(selected);
-      setError(null);
     } else {
       setFile(null);
-      setError("Please select an image file (png or jpeg)");
     }
   };
   return (
@@ -64,21 +93,8 @@ const UploadImgFile = () => {
           </IconButton>
         </label>
       </form>
-      <Box sx={{ maxWidt: "lg" }}>
-        {error && (
-          <Alert sx={{ m: 1 }} variant="outlined" severity="error">
-            {error}
-          </Alert>
-        )}
-        {file && (
-          <Alert sx={{ m: 1 }} variant="outlined" severity="success">
-            {file.name} is Uploading...
-          </Alert>
-        )}
-        {file && <ProgressBar progress={progress} />}
-      </Box>
     </Box>
   );
 };
 
-export default UploadImgFile;
+export default UploadProfileImg;
