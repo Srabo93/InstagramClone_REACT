@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper } from "@mui/material";
+import { Avatar, Paper } from "@mui/material";
 import { Card } from "@mui/material";
 import { CardContent } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -21,6 +21,9 @@ const DisplayComments = ({ comments, cardDoc }) => {
                     paddingBottom: 1,
                   }}
                 >
+                  {filteredComment.img ?? (
+                    <Avatar src={filteredComment.userImg}></Avatar>
+                  )}
                   <Typography
                     gutterBottom
                     variant="subtitle1"
@@ -33,11 +36,11 @@ const DisplayComments = ({ comments, cardDoc }) => {
                 <Typography variant="paragraph">
                   {filteredComment.comment}
                 </Typography>
-                <Typography variant="caption" sx={{ paddingLeft: 1 }}>
+                {/* <Typography variant="caption" sx={{ paddingLeft: 1 }}>
                   {new Date(
                     filteredComment.createdAt.seconds * 1000
                   ).toLocaleDateString("en-EN")}
-                </Typography>
+                </Typography> */}
               </CardContent>
             </Card>
           </Paper>
