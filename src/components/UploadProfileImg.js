@@ -60,7 +60,7 @@ const UploadProfileImg = () => {
     e.preventDefault();
     let selected = e.target.files[0];
 
-    if (selected && types.includes(selected.type)) {
+    if (selected && types.includes(selected.type) && selected !== undefined) {
       setFile(selected);
     } else {
       setFile(null);
