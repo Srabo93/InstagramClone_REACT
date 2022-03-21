@@ -36,11 +36,6 @@ const DisplayComments = ({ comments, cardDoc }) => {
                 <Typography variant="paragraph">
                   {filteredComment.comment}
                 </Typography>
-                {/* <Typography variant="caption" sx={{ paddingLeft: 1 }}>
-                  {new Date(
-                    filteredComment.createdAt.seconds * 1000
-                  ).toLocaleDateString("en-EN")}
-                </Typography> */}
               </CardContent>
             </Card>
           </Paper>
