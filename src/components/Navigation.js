@@ -22,7 +22,7 @@ const Navigation = () => {
             }}
           >
             <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
-              PhotoGallery
+              {currentUser ? "Home" : "PhotoGallery"}
             </Link>
           </Typography>
           {currentUser && <LeftDrawer />}
