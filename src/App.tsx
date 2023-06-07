@@ -1,7 +1,8 @@
+import Navigation from "./components/Navigation";
 function App() {
   return (
     <>
-      <p>Elo</p>
+      <Navigation />
     </>
   );
 }
