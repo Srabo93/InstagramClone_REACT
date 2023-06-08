@@ -9,8 +9,6 @@ const App = () => {
 
 export default App;
 /**
- * todo: add routes
- *       -basic routes
  * todo: configure Material UI
  *        -theme config
  * todo: configure firebase and call backenddata / maybe rework how the BaaS works, not the best right now

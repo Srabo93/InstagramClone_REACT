@@ -15,11 +15,8 @@ const Navigation = () => {
             component="div"
             sx={{ flexGrow: 1, letterSpacing: 5 }}
           >
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to="/login"
-            >
-              Login || PhotoGallery
+            <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
+              PhotoGallery
             </Link>
           </Typography>
           <DrawerMenu />

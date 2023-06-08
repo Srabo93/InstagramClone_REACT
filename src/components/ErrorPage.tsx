@@ -4,49 +4,48 @@ import { useRouteError } from "react-router";
 
 const ErrorPage = () => {
   const error = useRouteError();
-  if (error) {
-    if (error instanceof ErrorResponse) {
-      return (
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            boxShadow: 1,
-            borderRadius: 2,
-            maxWidth: "40vw",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "50px auto",
-          }}
-        >
-          <Typography variant="h2">Oops!</Typography>
-          <Typography variant="body1">{error.data}</Typography>
-          <Typography variant="body2">{error.statusText}</Typography>
-          <Typography variant="caption">{error.status}</Typography>
-        </Box>
-      );
-    }
-    if (error instanceof Error) {
-      return (
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            boxShadow: 1,
-            borderRadius: 2,
-            maxWidth: "40vw",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "50px auto",
-          }}
-        >
-          <Typography variant="h2">Oops!</Typography>
-          <Typography variant="body1">{error.message}</Typography>
-        </Box>
-      );
-    }
+
+  if (error instanceof ErrorResponse) {
+    return (
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+          maxWidth: "40vw",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "50px auto",
+        }}
+      >
+        <Typography variant="h2">Oops!</Typography>
+        <Typography variant="body1">{error.data}</Typography>
+        <Typography variant="body2">{error.statusText}</Typography>
+        <Typography variant="caption">{error.status}</Typography>
+      </Box>
+    );
+  }
+  if (error instanceof Error) {
+    return (
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+          maxWidth: "40vw",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "50px auto",
+        }}
+      >
+        <Typography variant="h2">Oops!</Typography>
+        <Typography variant="body1">{error.message}</Typography>
+      </Box>
+    );
   }
   return (
     <Box>
