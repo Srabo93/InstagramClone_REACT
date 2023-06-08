@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "db_seeder/faker.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

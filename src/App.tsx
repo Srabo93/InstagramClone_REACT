@@ -12,8 +12,6 @@ const App = () => {
 
 export default App;
 /**
- * todo: configure StateManagement
- *        -workout State and slices for backenddata
  * todo: complete website styling/components
  *        -build components with working data/statemanagement
  */
