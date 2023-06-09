@@ -12,6 +12,9 @@ const App = () => {
 
 export default App;
 /**
+ * todo: create first prototype Page
+ *        - call state globally on App start?
+ *        - add snapshot listener and see how it works with the state
  * todo: complete website styling/components
  *        -build components with working data/statemanagement
  */
