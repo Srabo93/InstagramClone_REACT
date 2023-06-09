@@ -13,6 +13,7 @@ const App = () => {
 export default App;
 /**
  * todo: create first prototype Page
+ *        - add User in State query for Avatar
  *        - call state globally on App start?
  *        - add snapshot listener and see how it works with the state
  * todo: complete website styling/components
