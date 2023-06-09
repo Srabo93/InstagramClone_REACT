@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useAppStore from "../store";
-// import Post from "./Post";
+import Post from "./Post";
 
 const HomePage = () => {
   const fetchPosts = useAppStore((state) => state.getAllPosts);
@@ -17,7 +17,11 @@ const HomePage = () => {
       console.log(error);
     }
   }, [fetchPosts]);
-  return <div style={{ margin: "100px auto" }}>ola{/* <Post /> */}</div>;
+  return (
+    <div style={{ margin: "100px auto" }}>
+      <Post />
+    </div>
+  );
 };
 
 export default HomePage;
