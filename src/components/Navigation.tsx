@@ -1,6 +1,6 @@
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { DrawerMenu } from "./DrawerMenu";
 import { Link, Outlet } from "react-router-dom";
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import CameraIcon from "@mui/icons-material/Camera";
 
 const Navigation = () => {
