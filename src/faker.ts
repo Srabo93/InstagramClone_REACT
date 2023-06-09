@@ -1,5 +1,5 @@
 // import { faker } from "@faker-js/faker";
-// import { addDoc, collection } from "firebase/firestore";
+// import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 // import { db } from "../src/firebase";
 
 /*Seed User Data into db */
@@ -14,7 +14,8 @@
 //   await addDoc(collection(db, "Users2"), {
 //     email: fakemail,
 //     name: fakename,
-//     profile_picture: fakeimg,
+//     profilePicture: fakeimg,
+//     createdAt: serverTimestamp()
 //   });
 // };
 
@@ -31,12 +32,15 @@
 // const fakecaption = faker.lorem.paragraph(2);
 // const fakeimg = faker.image.urlPicsumPhotos();
 // const userId = "DHhPi3Iv3Ykw4KR5CgmI";
+// const faketitle = faker.lorem.string
 
 // const uploadImg = async () => {
 //   await addDoc(collection(db, "Images"), {
+//     title: faketitle,
 //     caption: fakecaption,
 //     imageUrl: fakeimg,
 //     userId: userId,
+//     createdAt: serverTimestamp(),
 //   });
 // };
 
@@ -119,6 +123,7 @@ Seed comments to uploaded Images
 //       comment: fakecomment,
 //       imageId: image,
 //       userId: user,
+//       createdAt: serverTimestamp()
 //     });
 //   };
 //   userArr.forEach((user) => {
