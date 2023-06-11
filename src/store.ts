@@ -52,11 +52,13 @@ const useAppStore = create<AppState>((set) => ({
       const postsWithLikesAndComments = imagesSnapshot.docs.map(
         (doc, index) => {
           const image = doc.data();
+          const imageId = imageIds[index];
           const likes = allLikes[index];
           const comments = allComments[index];
 
           return {
             ...image,
+            imageId,
             likes,
             comments,
           };
