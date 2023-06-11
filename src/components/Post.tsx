@@ -13,7 +13,6 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import useAppStore from "../store";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -30,16 +29,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-const Post = () => {
+const Post = ({ post }) => {
   const [expanded, setExpanded] = React.useState(false);
-
-  const { posts, getAllPosts, isLoading, error } = useAppStore();
-  React.useEffect(() => {
-    (async () => {
-      await getAllPosts();
-      console.log(posts);
-    })();
-  }, []);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -47,55 +38,52 @@ const Post = () => {
 
   return (
     <>
-      {isLoading && <div>...Loading</div>}
-      {posts?.map((post, index: number) => (
-        <Card sx={{ maxWidth: 345 }} key={index}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                R
-              </Avatar>
-            }
-            title="Title to be added"
-            subheader="September 14, 2016, also date"
-          />
-          <CardMedia
-            component="img"
-            height="194"
-            image={post.imageUrl}
-            alt="Paella dish"
-          />
+      <Card sx={{ maxWidth: 345 }}>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+              R
+            </Avatar>
+          }
+          title={post.title}
+          subheader={post.createdAt.toString()}
+        />
+        <CardMedia
+          component="img"
+          height="194"
+          image={post.imageUrl}
+          alt="Paella dish"
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {post.caption}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+            {post.likes.length}
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {post.caption}
-            </Typography>
+            {post.comments.map((comment) => (
+              <Typography paragraph>{comment.comment}</Typography>
+            ))}
           </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-              {post.likes.length}
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </ExpandMore>
-          </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              {post.comments.map((comment) => (
-                <Typography paragraph>{comment.comment}</Typography>
-              ))}
-            </CardContent>
-          </Collapse>
-        </Card>
-      ))}
+        </Collapse>
+      </Card>
     </>
   );
 };

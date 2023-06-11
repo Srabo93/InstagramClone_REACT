@@ -1,19 +1,17 @@
-import { useEffect } from "react";
 import Post from "./Post";
+import useAppStore from "../store";
 
 const HomePage = () => {
-  // useEffect(() => {
-  //   try {
-  //     (async () => {
-  //       await fetchPosts();
-  //     })();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [fetchPosts]);
+  const { posts, isLoading, error } = useAppStore();
+  if (isLoading) return <div>...Loading</div>;
+  if (error) return <div>{error}</div>;
+
+  console.log(posts);
   return (
     <div style={{ margin: "100px auto" }}>
-      <Post />
+      {posts?.map((post) => (
+        <Post post={post} key={post.imageId} />
+      ))}
     </div>
   );
 };
