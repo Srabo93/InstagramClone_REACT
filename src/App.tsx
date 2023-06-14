@@ -23,8 +23,7 @@ export default App;
 /**
  * todo: create first prototype Page
  *        - add User in State query for Avatar
- *        - call state globally on App start?
- *        - add snapshot listener and see how it works with the state
+ *        - work out if you can make zustand handle firebase actions instead useEffect
  * todo: complete website styling/components
  *        -build components with working data/statemanagement
  */
