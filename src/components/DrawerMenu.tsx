@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -50,10 +51,12 @@ export const DrawerMenu = () => {
       <List>
         {["Profile", "Favorites", "Uploads", "Logout"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{icons[index]}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+            <Link to={`/${text}`}>
+              <ListItemButton>
+                <ListItemIcon>{icons[index]}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>

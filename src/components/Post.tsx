@@ -46,7 +46,7 @@ const Post = ({ post }) => {
             </Avatar>
           }
           title={post.title}
-          subheader={post.createdAt.toString()}
+          // subheader={post.createdAt}
         />
         <CardMedia
           component="img"

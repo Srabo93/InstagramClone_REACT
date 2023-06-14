@@ -3,6 +3,7 @@ import useAppStore from "../store";
 
 const HomePage = () => {
   const { posts, isLoading, error } = useAppStore();
+
   if (isLoading) return <div>...Loading</div>;
   if (error) return <div>{error}</div>;
 

@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <ProfilePage />,
       },
       {
-        path: "/upload",
+        path: "/uploads",
         element: <UploadsPage />,
       },
       {
