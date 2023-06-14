@@ -3,18 +3,14 @@ import Navigation from "./components/Navigation";
 import { ThemeProvider } from "@emotion/react";
 import { themeOptions } from "./themeContext";
 import useAppStore from "./store";
-import { faker } from "@faker-js/faker";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../src/firebase";
 
 const App = () => {
   const { getAllPosts } = useAppStore();
-  // React.useEffect(() => {
-  //   (async () => {
-  //     getAllPosts();
-  //     return () => getAllPosts;
-  //   })();
-  // }, []);
+  React.useEffect(() => {
+    (async () => {
+      await getAllPosts();
+    })();
+  }, []);
 
   return (
     <ThemeProvider theme={themeOptions}>

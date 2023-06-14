@@ -19,23 +19,12 @@
 //   });
 // };
 
-/*Seed uploaded Images by User 
-'065eVuGYSEEZ1xpdmD2p',
-'4SNAcjPjJgeohglOSjaA',
-'7lmIRfycnilp01SIsWCN',
-'9jL5qeV9WjBsZGfQMnOJ',
-'GiSKFaWVz2OfE7tWFtZB',
-'LjPND7R2Q794NN3Qr72c',
-'NTnXnzUKnE0mZIhHHxke',
-'OQCIbbJBSjvYlxeHX9E6',
-'RJI1TZthvBOpToM5c4SB',
-'SzHuT8QHkQCNKNUEMiBe',
-'oZxkZewp2sMQMQq0kAfz',
-'qGt9YfyaP6Lhfw8DsYiG',
-'r0FJdbaFPs0eAQj4fqJj',
-'uRIT5cFUo4RJMMT1GYVd',
-'v8TmGMvqcz5iIsxhMfYl' ,   
-*/
+/*Seed uploaded Images by User
+'5glqc1shgA2KLSouXda7'
+'6KHisjk9MDPY4o9HS47v'
+'Cp7l46jO9jllh17fEXXb'
+'yuCvNsf0bAfoppKxpGjC'
+ */
 
 // const fakecaption = faker.lorem.paragraph(2);
 // const fakeimg = faker.image.urlPicsumPhotos();
@@ -57,45 +46,22 @@
 Seed Likes to uploaded Images
  */
 // let users: string[] = [
-// '065eVuGYSEEZ1xpdmD2p',
-// '4SNAcjPjJgeohglOSjaA',
-// '7lmIRfycnilp01SIsWCN',
-// '9jL5qeV9WjBsZGfQMnOJ',
-// 'GiSKFaWVz2OfE7tWFtZB',
-// 'LjPND7R2Q794NN3Qr72c',
-// 'NTnXnzUKnE0mZIhHHxke',
-// 'OQCIbbJBSjvYlxeHX9E6',
-// 'RJI1TZthvBOpToM5c4SB',
-// 'SzHuT8QHkQCNKNUEMiBe',
-// 'oZxkZewp2sMQMQq0kAfz',
-// 'qGt9YfyaP6Lhfw8DsYiG',
-// 'r0FJdbaFPs0eAQj4fqJj',
-// 'uRIT5cFUo4RJMMT1GYVd',
-// 'v8TmGMvqcz5iIsxhMfYl',
+// '5glqc1shgA2KLSouXda7'
+// '6KHisjk9MDPY4o9HS47v'
+// 'Cp7l46jO9jllh17fEXXb'
+// 'yuCvNsf0bAfoppKxpGjC'
 // ];
 // let imageDocs: string[] = [
-// '0yxadolCZEYg8st5m3kK',
-// '1JdRHxz1KlulkmCLJ7w4',
-// '2HX8TBohk1TJUijywd7D',
-// '6fg3Ui2h0HnyG125mOcZ',
-// 'Cda6oK12ZQyl1lCHyUqx',
-// 'TPWcwzb75yM0uGsbS8te',
-// 'TmmezJcpvPE5mNZAxRP0',
-// 'U2mNuaQi1pep7UyEIBNW',
-// 'XOkjhuW0eVHboT2LTmLR',
-// 'aJZnBpQpcrtoDUoGONAN',
-// 'igqx0nr4O0MpJENjcUrv',
-// 'oCcIERnHgHUk4fMLombL',
-// 'ucmhXLYepOMfbcjE9WpX',
-// 'xIFzgyK06brx2Lx0DvgG',
-// 'ysNS38PKz0e7MKv8Wuet',
-// 'zCf7PaFicSAjM6xecDyk',
+// 'FDer7QXQz5jAszrrFHYI'
+// 'L761TtGWGl5rslQcQbiT'
+// 'QgRuvBzV4QQ3meSk9kYA'
+// 'WZKqVMPvLaghqvaJvl4l'
+// 'rY4YJkLpQfKf7aaX0Dxx'
 // ];
 
 // const likeImg = async (imageArr: string[], userArr: string[]) => {
 //   const addLike = async (image: string, user: string) => {
-//     await addDoc(collection(db, "Likes"), {
-//       imageId: image,
+//     await addDoc(collection(db,"Images",image, "Likes"), {
 //       userId: user,
 //     });
 //   };
@@ -109,45 +75,37 @@ Seed Likes to uploaded Images
 /*
 Seed comments to uploaded Images
  */
-// let users: string[] = [
-//   "DHhPi3Iv3Ykw4KR5CgmI",
-//   "Uk20pVU5PnKwDXcQWpn6",
-//   "VE6LBkQ7iHu2iZhJzilp",
-//   "nuVGrGgNNEVHItBSv4s0",
-//   "pnjhcihu9kwEafATSYkW",
-//   "tpCxm4DkqNoDlnBpjCBh",
-//   "uVHbvdJCblybLaodwms8",
-// ];
-// let imageDocs: string[] = [
-//   "SVvLVJTdm3hAshvpWnQY",
-//   "TbNIaSGkA36XflT7NYyP",
-//   "UmMGZhULqLHJn7PbkIiC",
-//   "X289V1deT0mMhDl8AoY9",
-//   "b5YFTOHqckfrOZNTsVcI",
-//   "bhm3QsI8P0fWq6h721ym",
-//   "c90e5mEUsNfd3BjXB2Ku",
-//   "eHFmYpVrOTwssGufwRKD",
-//   "jZ7PXX51aeBTUkRbkV9z",
-//   "ln17t7qsLFAVpq4qsQxm",
-//   "pu9PDUshS0YiKFvxH2w7",
-//   "rSKOaSt7GRhX0VDJqe32",
-//   "u7KTj97QR0OOUB9T8rpv",
-//   "z1gGfZbiBEOMIMdv3x8u",
-// ];
 
-// const fakecomment = faker.lorem.paragraph({ min: 2, max: 4 });
-// const commentImg = async (imageArr: string[], userArr: string[]) => {
-//   const addComment = async (image: string, user: string) => {
-//     await addDoc(collection(db, "Comments"), {
-//       comment: fakecomment,
-//       imageId: image,
-//       userId: user,
-//       createdAt: serverTimestamp()
+//   let users: string[] = [
+//     "5glqc1shgA2KLSouXda7",
+//     "6KHisjk9MDPY4o9HS47v",
+//     "Cp7l46jO9jllh17fEXXb",
+//     "yuCvNsf0bAfoppKxpGjC",
+//   ];
+//   let imageDocs: string[] = [
+//     "1Mxm2mysJxrsvr3gVOa7",
+//     "2CaW45Auo8BnRQN4WGaH",
+//     "FDer7QXQz5jAszrrFHYI",
+//     "L761TtGWGl5rslQcQbiT",
+//     "QgRuvBzV4QQ3meSk9kYA",
+//     "Ro3Gu2IagxbqFg2CVz9i",
+//     "WZKqVMPvLaghqvaJvl4l",
+//     "ZNoYVodhdInAuLELNIOU",
+//     "rY4YJkLpQfKf7aaX0Dxx",
+//   ];
+//   const fakecomment = faker.lorem.paragraph({ min: 2, max: 4 });
+//   const commentImg = async (imageArr: string[], userArr: string[]) => {
+//     const addComment = async (image: string, user: string) => {
+//       await addDoc(collection(db, "Posts", image, "Comments"), {
+//         comment: fakecomment,
+//         imageId: image,
+//         userId: user,
+//         createdAt: serverTimestamp(),
+//       });
+//     };
+//     userArr.forEach((user) => {
+//       imageArr.forEach((image) => {
+//         addComment(image, user);
+//       });
 //     });
 //   };
-//   userArr.forEach((user) => {
-//     imageArr.forEach((image) => {
-//       addComment(image, user);
-//     });
-//   });
-// };

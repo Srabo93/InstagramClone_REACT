@@ -7,11 +7,10 @@ const HomePage = () => {
   if (isLoading) return <div>...Loading</div>;
   if (error) return <div>{error}</div>;
 
-  console.log(posts);
   return (
     <div style={{ margin: "100px auto" }}>
       {posts?.map((post) => (
-        <Post post={post} key={post.imageId} />
+        <Post post={post} key={post.id} />
       ))}
     </div>
   );

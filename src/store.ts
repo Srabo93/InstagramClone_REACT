@@ -1,9 +1,9 @@
 import {
   collection,
-  where,
   query,
   getDocs,
   DocumentData,
+  onSnapshot,
 } from "firebase/firestore";
 import { create } from "zustand";
 import { db } from "./firebase";
@@ -11,61 +11,53 @@ import { db } from "./firebase";
 interface AppState {
   user: object;
   posts: DocumentData[];
+  comments: DocumentData[];
   isLoading: boolean;
-  error: Error | any;
+  error: Error | unknown;
   getAllPosts: () => Promise<void>;
+  getCommentsById: (postId: string) => Promise<void>;
 }
 
-const useAppStore = create<AppState>((set) => ({
+const useAppStore = create<AppState>((set, get) => ({
   user: {},
   posts: [],
+  comments: [],
   isLoading: false,
   error: null,
   getAllPosts: async () => {
     set({ isLoading: true });
 
-    const imagesRef = collection(db, "Images");
-    const imagesSnapshot = await getDocs(imagesRef);
-    const imageIds = imagesSnapshot.docs.map((doc) => doc.id);
-
     try {
-      const likesPromises = imageIds.map(async (imageId) => {
-        const likesQuery = query(
-          collection(db, "Likes"),
-          where("imageId", "==", imageId)
-        );
-        const likesSnapshot = await getDocs(likesQuery);
-        return likesSnapshot.docs.map((doc) => doc.data());
+      const q = query(collection(db, "Posts"));
+      const images: DocumentData[] = [];
+
+      onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach(async (doc) => {
+          images.push({
+            ...doc.data(),
+            id: doc.id,
+          });
+        });
+        set({ posts: images, isLoading: false });
       });
-      const allLikes = await Promise.all(likesPromises);
+    } catch (error) {
+      set({ error: error, isLoading: false });
+    }
+  },
+  getCommentsById: async (postId) => {
+    set({ isLoading: true });
 
-      const commentsPromises = imageIds.map(async (imageId) => {
-        const commentsQuery = query(
-          collection(db, "Comments"),
-          where("imageId", "==", imageId)
-        );
-        const commentsSnapshot = await getDocs(commentsQuery);
-        return commentsSnapshot.docs.map((doc) => doc.data());
+    const commentsData: DocumentData[] = [];
+    try {
+      const q = query(collection(db, "Posts", `${postId}`, "Comments"));
+
+      const commentsSnapshot = await getDocs(q);
+
+      commentsSnapshot.forEach((comment) => {
+        // get().comments.push(comment.data());
+        set((state) => ({ ...state.comments, comment.data() }));
       });
-      const allComments = await Promise.all(commentsPromises);
-
-      const postsWithLikesAndComments = imagesSnapshot.docs.map(
-        (doc, index) => {
-          const image = doc.data();
-          const imageId = imageIds[index];
-          const likes = allLikes[index];
-          const comments = allComments[index];
-
-          return {
-            ...image,
-            imageId,
-            likes,
-            comments,
-          };
-        }
-      );
-
-      set({ posts: postsWithLikesAndComments, isLoading: false });
+      set({ isLoading: false });
     } catch (error) {
       set({ error: error, isLoading: false });
     }
