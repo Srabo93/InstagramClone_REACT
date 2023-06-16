@@ -4,18 +4,46 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 
-const PostLikes = ({ postId }) => {
-  const [likes, setLikes] = useState([]);
-  useEffect(() => {
-    (async () => {
-      let tmp = [];
-      const q = query(collection(db, "Posts", `${postId}`, "Likes"));
-      const likesSnapshot = await getDocs(q);
-      likesSnapshot.forEach((like) => tmp.push(like.data()));
+type PostLikesProps = {
+  postId: string;
+};
 
-      setLikes(tmp);
-    })();
+type Like = {
+  userId: string;
+};
+
+const PostLikes = ({ postId }: PostLikesProps) => {
+  const [likes, setLikes] = useState<Like[]>([]);
+  const [error, setError] = useState<Error | undefined>();
+
+  useEffect(() => {
+    const fetchLikes = async () => {
+      try {
+        const q = query(collection(db, "Posts", `${postId}`, "Likes"));
+        const likesDocuments: Like[] = [];
+
+        const likesSnapshot = await getDocs(q);
+        likesSnapshot.forEach((like) =>
+          likesDocuments.push(like.data() as Like)
+        );
+
+        if (!ignore) {
+          setLikes(likesDocuments);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    let ignore = false;
+    fetchLikes();
+    return () => {
+      ignore = true;
+    };
   }, [postId]);
+
+  if (error) return <div>{error.message}</div>;
+
   return (
     <IconButton aria-label="add to favorites">
       <FavoriteIcon />

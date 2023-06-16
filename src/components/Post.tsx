@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -30,8 +30,21 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-const Post = ({ post }) => {
-  const [expanded, setExpanded] = React.useState(false);
+type PostProps = {
+  post: PostData;
+};
+type PostData = {
+  caption: string;
+  createdAt: { seconds: number; nanoseconds: number };
+  fileName: string;
+  id: string;
+  imageUrl: string;
+  title: string;
+  userId: string;
+};
+
+const Post = ({ post }: PostProps) => {
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -46,7 +59,7 @@ const Post = ({ post }) => {
           </Avatar>
         }
         title={post.title}
-        // subheader={post.createdAt}
+        subheader={new Date(post.createdAt.seconds).toDateString()}
       />
       <CardMedia
         component="img"

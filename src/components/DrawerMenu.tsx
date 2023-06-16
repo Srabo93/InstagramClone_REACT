@@ -51,7 +51,7 @@ export const DrawerMenu = () => {
       <List>
         {["Profile", "Favorites", "Uploads", "Logout"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <Link to={`/${text}`}>
+            <Link style={{ textDecoration: "none" }} to={`/${text}`}>
               <ListItemButton>
                 <ListItemIcon>{icons[index]}</ListItemIcon>
                 <ListItemText primary={text} />

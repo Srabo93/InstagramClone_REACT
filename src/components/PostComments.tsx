@@ -1,41 +1,50 @@
 import { CardContent, Typography } from "@mui/material";
-import { DocumentData, collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import useAppStore from "../store";
+
+type PostCommentsProps = {
+  postId: string;
+};
 
 type Comment = {
   comment: string;
-  createdAt: object;
+  createdAt: { seconds: number; nanoseconds: number };
   imageId: string;
   userId: string;
 };
-const PostComments = ({ postId }) => {
-  //   const [comments, setComments] = useState<Comment[]>([]);
 
-  const { comments, getCommentsById, isLoading, error } = useAppStore();
-  console.log(comments);
+const PostComments = ({ postId }: PostCommentsProps) => {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [error, setError] = useState<Error | undefined>();
 
   useEffect(() => {
-    (() => {
-      getCommentsById(postId);
-    })();
+    const fetchComments = async () => {
+      try {
+        const q = query(collection(db, "Posts", `${postId}`, "Comments"));
+        const commentDocuments: Comment[] = [];
+
+        const commentsSnapshot = await getDocs(q);
+        commentsSnapshot.forEach((comment) =>
+          commentDocuments.push(comment.data() as Comment)
+        );
+
+        if (!ignore) {
+          setComments(commentDocuments);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    let ignore = false;
+    fetchComments();
+    return () => {
+      ignore = true;
+    };
   }, [postId]);
 
-  if (isLoading) return <div>...Loading</div>;
-  if (error) return <div>{error}</div>;
-  //   useEffect(() => {
-  //     (async () => {
-  //       const tmpData: DocumentData[] = [];
-
-  //       const q = query(collection(db, "Posts", `${postId}`, "Comments"));
-
-  //       const commentsSnapshot = await getDocs(q);
-  //       commentsSnapshot.forEach((comment) => tmpData.push(comment.data()));
-
-  //       setComments(tmpData);
-  //     })();
-  //   }, [postId]);
+  if (error) return <div>{error.message}</div>;
 
   return (
     <CardContent>

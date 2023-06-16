@@ -1,17 +1,8 @@
-import React from "react";
 import Navigation from "./components/Navigation";
 import { ThemeProvider } from "@emotion/react";
 import { themeOptions } from "./themeContext";
-import useAppStore from "./store";
 
 const App = () => {
-  const { getAllPosts } = useAppStore();
-  React.useEffect(() => {
-    (async () => {
-      await getAllPosts();
-    })();
-  }, []);
-
   return (
     <ThemeProvider theme={themeOptions}>
       <Navigation />

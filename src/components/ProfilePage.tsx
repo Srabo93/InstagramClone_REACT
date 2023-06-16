@@ -1,5 +1,3 @@
-import React from "react";
-
 const ProfilePage = () => {
   return <div style={{ margin: "100px auto" }}>ProfilePage</div>;
 };
