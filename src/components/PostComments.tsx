@@ -33,7 +33,9 @@ const PostComments = ({ postId }: PostCommentsProps) => {
           setComments(commentDocuments);
         }
       } catch (error) {
-        setError(error);
+        if (error instanceof Error) {
+          setError(error);
+        }
       }
     };
 

@@ -15,7 +15,7 @@ type PostData = {
 
 const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
-  const [error, setError] = useState<Error | undefined>();
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     const fetchPosts = () => {
@@ -35,7 +35,9 @@ const HomePage = () => {
 
         return () => unsubscribe();
       } catch (error) {
-        setError(error);
+        if (error instanceof Error) {
+          setError(error);
+        }
       }
     };
 

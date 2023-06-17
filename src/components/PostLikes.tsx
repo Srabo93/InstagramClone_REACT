@@ -14,7 +14,7 @@ type Like = {
 
 const PostLikes = ({ postId }: PostLikesProps) => {
   const [likes, setLikes] = useState<Like[]>([]);
-  const [error, setError] = useState<Error | undefined>();
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -31,7 +31,9 @@ const PostLikes = ({ postId }: PostLikesProps) => {
           setLikes(likesDocuments);
         }
       } catch (error) {
-        setError(error);
+        if (error instanceof Error) {
+          setError(error);
+        }
       }
     };
 
