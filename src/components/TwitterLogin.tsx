@@ -25,7 +25,7 @@ const TwitterLogin = () => {
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Button onClick={signInWithTwitter} fullWidth variant="contained">
         <TwitterIcon />
-        <Typography>Twitter</Typography>
+        <Typography ml={1}>Twitter</Typography>
       </Button>
       {(authError as React.ReactNode) && (
         <Alert severity="error">{authError as React.ReactNode}</Alert>

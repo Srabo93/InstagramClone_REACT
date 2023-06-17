@@ -25,7 +25,7 @@ const GithubLogin = () => {
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Button onClick={signInWithGithub} variant="contained">
         <GitHubIcon />
-        <Typography>Github</Typography>
+        <Typography ml={1}>Github</Typography>
       </Button>
       {(authError as React.ReactNode) && (
         <Alert severity="error">{authError as React.ReactNode}</Alert>

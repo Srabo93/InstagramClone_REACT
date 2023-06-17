@@ -25,7 +25,7 @@ const GoogleLogin = () => {
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Button onClick={signInWithGoogle} variant="contained">
         <GoogleIcon />
-        <Typography>Google</Typography>
+        <Typography ml={1}>Google</Typography>
       </Button>
       {(authError as React.ReactNode) && (
         <Alert severity="error">{authError as React.ReactNode}</Alert>
