@@ -13,6 +13,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Typography } from "@mui/material";
 
 type Anchor = "right";
 
@@ -51,7 +52,10 @@ export const DrawerMenu = () => {
       <List>
         {["Profile", "Favorites", "Uploads", "Logout"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <Link style={{ textDecoration: "none" }} to={`/${text}`}>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to={`/${text}`}
+            >
               <ListItemButton>
                 <ListItemIcon>{icons[index]}</ListItemIcon>
                 <ListItemText primary={text} />
@@ -69,7 +73,7 @@ export const DrawerMenu = () => {
       {(["right"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <Button color="inherit" onClick={toggleDrawer(anchor, true)}>
-            Menu
+            <Typography>Menu</Typography>
           </Button>
           <Drawer
             anchor={anchor}

@@ -16,10 +16,24 @@ const Navigation = () => {
             sx={{ flexGrow: 1, letterSpacing: 5 }}
           >
             <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
-              PhotoGallery
+              <Typography
+                variant="h5"
+                component="div"
+                sx={{ flexGrow: 1, letterSpacing: 5 }}
+              >
+                PhotoGallery
+              </Typography>
             </Link>
           </Typography>
           <DrawerMenu />
+          <Typography>
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to="/login"
+            >
+              Login
+            </Link>
+          </Typography>
         </Toolbar>
       </AppBar>
       <Outlet />

@@ -18,6 +18,7 @@ export const themeOptions = createTheme({
   typography: {
     fontFamily: "Noto Serif",
     fontWeightBold: 700,
+    fontWeightRegular: 500,
   },
   shape: {
     borderRadius: 4,
