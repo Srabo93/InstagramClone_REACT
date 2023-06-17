@@ -27,7 +27,9 @@ const GithubLogin = () => {
         <GitHubIcon />
         <Typography>Github</Typography>
       </Button>
-      <Alert severity="error">{authError as React.ReactNode}</Alert>
+      {(authError as React.ReactNode) && (
+        <Alert severity="error">{authError as React.ReactNode}</Alert>
+      )}
     </Stack>
   );
 };
