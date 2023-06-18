@@ -65,12 +65,7 @@ const Post = ({ post }: PostProps) => {
         title={post.title}
         subheader={new Date(post.createdAt.seconds).toDateString()}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={post.imageUrl}
-        alt="Paella dish"
-      />
+      <CardMedia component="img" height="194" image={post.imageUrl} />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {post.caption}
