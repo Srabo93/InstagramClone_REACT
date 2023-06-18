@@ -1,8 +1,16 @@
-// import { faker } from "@faker-js/faker";
-// import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-// import { db } from "../src/firebase";
+import { faker } from "@faker-js/faker";
+import {
+  addDoc,
+  updateDoc,
+  getDocs,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "../src/firebase";
 
-/*Seed User Data into db */
+/**
+ * Seed User Data into db
+ * */
 // const fakemail = faker.internet.email();
 // const fakename = faker.person.fullName();
 // const fakeimg = faker.image.urlLoremFlickr({
@@ -13,99 +21,99 @@
 // const addUsers = async () => {
 //   await addDoc(collection(db, "Users2"), {
 //     email: fakemail,
-//     name: fakename,
-//     profilePicture: fakeimg,
-//     createdAt: serverTimestamp()
-//   });
-// };
-
-/*Seed uploaded Images by User
-'5glqc1shgA2KLSouXda7'
-'6KHisjk9MDPY4o9HS47v'
-'Cp7l46jO9jllh17fEXXb'
-'yuCvNsf0bAfoppKxpGjC'
- */
-
-// const fakecaption = faker.lorem.paragraph(2);
-// const fakeimg = faker.image.urlPicsumPhotos();
-// const userId = "DHhPi3Iv3Ykw4KR5CgmI";
-// const faketitle = faker.lorem.title()
-
-// const uploadImg = async () => {
-//   await addDoc(collection(db, "Images"), {
-//     title: faketitle,
-//     caption: fakecaption,
-//     imageUrl: fakeimg,
-//     userId: userId,
-//     fileName: fakeimg,
+//     displayName: fakename,
+//     photoUrl: fakeimg,
 //     createdAt: serverTimestamp(),
 //   });
 // };
 
-/*
-Seed Likes to uploaded Images
+/**
+ * Upload Images by User
  */
-// let users: string[] = [
-// '5glqc1shgA2KLSouXda7'
-// '6KHisjk9MDPY4o9HS47v'
-// 'Cp7l46jO9jllh17fEXXb'
-// 'yuCvNsf0bAfoppKxpGjC'
-// ];
-// let imageDocs: string[] = [
-// 'FDer7QXQz5jAszrrFHYI'
-// 'L761TtGWGl5rslQcQbiT'
-// 'QgRuvBzV4QQ3meSk9kYA'
-// 'WZKqVMPvLaghqvaJvl4l'
-// 'rY4YJkLpQfKf7aaX0Dxx'
-// ];
+//   const fakecaption = faker.lorem.paragraph(2);
+//   const fakeimg = faker.image.urlPicsumPhotos();
+//   const faketitle = faker.lorem.words({ min: 1, max: 3 });
 
-// const likeImg = async (imageArr: string[], userArr: string[]) => {
-//   const addLike = async (image: string, user: string) => {
-//     await addDoc(collection(db,"Images",image, "Likes"), {
+//   const addPosts = async () => {
+//     let userData = [];
+//     const querySnapshot = await getDocs(collection(db, "Users2"));
+//     querySnapshot.forEach((doc) => {
+//       userData.push({ id: doc.id, data: doc.data() });
+//     });
+
+//     userData.forEach(async (user) => {
+//       await addDoc(collection(db, "Posts"), {
+//         title: faketitle,
+//         caption: fakecaption,
+//         imageUrl: fakeimg,
+//         userId: user.id,
+//         user: user.data,
+//         fileName: fakeimg,
+//         createdAt: serverTimestamp(),
+//       });
+//     });
+//   };
+
+/**
+ * Seed Likes to uploaded Images
+ */
+// let usersIds = [];
+// let postIds = [];
+
+// const userSnap = await getDocs(collection(db, "Users2"));
+// userSnap.forEach((doc) => {
+//   usersIds.push(doc.id);
+// });
+
+// const postSnap = await getDocs(collection(db, "Posts"));
+// postSnap.forEach((doc) => {
+//   postIds.push(doc.id);
+// });
+
+// const seedLikes = async () => {
+//   const addLikes = async (post, user) => {
+//     await addDoc(collection(db, "Posts", post, "Likes"), {
 //       userId: user,
 //     });
 //   };
-//   userArr.forEach((user) => {
-//     imageArr.forEach((image) => {
-//       addLike(image, user);
+
+//   postIds.forEach((post) => {
+//     usersIds.forEach((user) => {
+//       addLikes(post, user);
 //     });
 //   });
 // };
 
-/*
-Seed comments to uploaded Images
+/**
+ * Seed Comments to uploaded Images
  */
 
-//   let users: string[] = [
-//     "5glqc1shgA2KLSouXda7",
-//     "6KHisjk9MDPY4o9HS47v",
-//     "Cp7l46jO9jllh17fEXXb",
-//     "yuCvNsf0bAfoppKxpGjC",
-//   ];
-//   let imageDocs: string[] = [
-//     "1Mxm2mysJxrsvr3gVOa7",
-//     "2CaW45Auo8BnRQN4WGaH",
-//     "FDer7QXQz5jAszrrFHYI",
-//     "L761TtGWGl5rslQcQbiT",
-//     "QgRuvBzV4QQ3meSk9kYA",
-//     "Ro3Gu2IagxbqFg2CVz9i",
-//     "WZKqVMPvLaghqvaJvl4l",
-//     "ZNoYVodhdInAuLELNIOU",
-//     "rY4YJkLpQfKf7aaX0Dxx",
-//   ];
+//   let usersData = [];
+//   let postIds = [];
+//   const userSnap = await getDocs(collection(db, "Users2"));
+//   userSnap.forEach((doc) => {
+//     usersData.push({ id: doc.id, data: doc.data() });
+//   });
+//   const postSnap = await getDocs(collection(db, "Posts"));
+//   postSnap.forEach((doc) => {
+//     postIds.push(doc.id);
+//   });
 //   const fakecomment = faker.lorem.paragraph({ min: 2, max: 4 });
-//   const commentImg = async (imageArr: string[], userArr: string[]) => {
-//     const addComment = async (image: string, user: string) => {
-//       await addDoc(collection(db, "Posts", image, "Comments"), {
+
+//   const seedComments = async (posts, users) => {
+//     const addComment = async (post, user) => {
+//       await addDoc(collection(db, "Posts", post, "Comments"), {
 //         comment: fakecomment,
-//         imageId: image,
-//         userId: user,
+//         postId: post,
+//         userId: user.id,
+//         user: user.data,
 //         createdAt: serverTimestamp(),
 //       });
 //     };
-//     userArr.forEach((user) => {
-//       imageArr.forEach((image) => {
-//         addComment(image, user);
+//     users.forEach((user) => {
+//       posts.forEach((post) => {
+//         addComment(post, user);
 //       });
 //     });
 //   };
+//   seedComments(postIds, usersData);
