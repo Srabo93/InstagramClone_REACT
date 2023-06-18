@@ -9,6 +9,7 @@ import {
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
+import PostCommentsSkeleton from "./PostCommentsSkeleton";
 
 type PostCommentsProps = {
   postId: string;
@@ -67,6 +68,7 @@ const PostComments = ({ postId }: PostCommentsProps) => {
 
   return (
     <CardContent sx={{ maxWidth: "100%" }}>
+      {!comments.length && <PostCommentsSkeleton />}
       {comments.map((comment, index: number) => (
         <Box key={comment.id} sx={{ my: 2 }}>
           <Divider />

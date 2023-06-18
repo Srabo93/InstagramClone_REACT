@@ -13,6 +13,7 @@ const App = () => {
 export default App;
 /**
  * todo: create first prototype Page
+ *        - add loading skeletons
  *        - adjust aria labesl
  * todo: complete website styling/components
  *        -build components with working data/statemanagement
