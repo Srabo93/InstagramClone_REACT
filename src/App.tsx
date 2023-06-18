@@ -13,8 +13,7 @@ const App = () => {
 export default App;
 /**
  * todo: create first prototype Page
- *        - add User in State query for Avatar
- *        - work out if you can make zustand handle firebase actions instead useEffect
+ *        - adjust aria labesl
  * todo: complete website styling/components
  *        -build components with working data/statemanagement
  */
