@@ -30,29 +30,30 @@ import { db } from "../src/firebase";
 /**
  * Upload Images by User
  */
-//   const fakecaption = faker.lorem.paragraph(2);
-//   const fakeimg = faker.image.urlPicsumPhotos();
-//   const faketitle = faker.lorem.words({ min: 1, max: 3 });
 
-//   const addPosts = async () => {
-//     let userData = [];
-//     const querySnapshot = await getDocs(collection(db, "Users2"));
-//     querySnapshot.forEach((doc) => {
-//       userData.push({ id: doc.id, data: doc.data() });
-//     });
+// const addPosts = async () => {
+//   let userData = [];
+//   const querySnapshot = await getDocs(collection(db, "Users2"));
+//   querySnapshot.forEach((doc) => {
+//     userData.push({ id: doc.id, data: doc.data() });
+//   });
 
-//     userData.forEach(async (user) => {
-//       await addDoc(collection(db, "Posts"), {
-//         title: faketitle,
-//         caption: fakecaption,
-//         imageUrl: fakeimg,
-//         userId: user.id,
-//         user: user.data,
-//         fileName: fakeimg,
-//         createdAt: serverTimestamp(),
-//       });
+//   userData.forEach(async (user) => {
+//     const fakecaption = faker.lorem.paragraph(2);
+//     const fakeimg = faker.image.urlPicsumPhotos();
+//     const faketitle = faker.lorem.words({ min: 1, max: 3 });
+//     await addDoc(collection(db, "Posts"), {
+//       title: faketitle,
+//       caption: fakecaption,
+//       imageUrl: fakeimg,
+//       userId: user.id,
+//       user: user.data,
+//       fileName: fakeimg,
+//       createdAt: serverTimestamp(),
 //     });
-//   };
+//   });
+// };
+// addPosts();
 
 /**
  * Seed Likes to uploaded Images
