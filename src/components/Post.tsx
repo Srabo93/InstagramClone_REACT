@@ -57,13 +57,13 @@ const Post = ({ post }: PostProps) => {
   };
 
   return (
-    <Card sx={{ maxWidth: "80%", m: 3 }}>
+    <Card sx={{ maxWidth: "80%", minWidth: "80%", m: 3 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} src={post.user.photoUrl}></Avatar>
         }
         title={post.title}
-        subheader={new Date(post.createdAt.seconds).toDateString()}
+        subheader={new Date(post.createdAt.seconds * 1000).toDateString()}
       />
       <CardMedia component="img" height="194" image={post.imageUrl} />
       <CardContent>

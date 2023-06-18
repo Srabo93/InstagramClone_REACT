@@ -75,7 +75,8 @@ const PostComments = ({ postId }: PostCommentsProps) => {
             <Stack>
               <Typography>{comment.user.displayName}</Typography>
               <Typography variant="caption">
-                commented: {new Date(comment.createdAt.seconds).toDateString()}
+                commented:{" "}
+                {new Date(comment.createdAt.seconds * 1000).toDateString()}
               </Typography>
             </Stack>
           </Stack>
