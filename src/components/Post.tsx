@@ -63,6 +63,7 @@ const Post = ({ post }: PostProps) => {
         }
         title={post.title}
         subheader={new Date(post.createdAt.seconds * 1000).toDateString()}
+        sx={{ bgcolor: "primary.200" }}
       />
       <CardMedia
         component="img"

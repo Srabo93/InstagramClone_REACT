@@ -5,7 +5,9 @@ import { themeOptions } from "./themeContext";
 const App = () => {
   return (
     <ThemeProvider theme={themeOptions}>
-      <Navigation />
+      <div style={{ background: "url('../public/background.png')" }}>
+        <Navigation />
+      </div>
     </ThemeProvider>
   );
 };

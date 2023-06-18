@@ -24,7 +24,6 @@ type PostData = {
 const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [error, setError] = useState<Error>();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchPosts = () => {
