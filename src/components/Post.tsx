@@ -57,7 +57,7 @@ const Post = ({ post }: PostProps) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: "80%", m: 3 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} src={post.user.photoUrl}></Avatar>
@@ -73,7 +73,7 @@ const Post = ({ post }: PostProps) => {
       </CardContent>
       <CardActions disableSpacing>
         <PostLikes postId={post.id} />
-        <IconButton aria-label="share">
+        <IconButton sx={{ ml: 3 }} color="primary" aria-label="share">
           <ShareIcon />
         </IconButton>
         <ExpandMore
@@ -81,6 +81,7 @@ const Post = ({ post }: PostProps) => {
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          color="primary"
         >
           <ExpandMoreIcon />
         </ExpandMore>

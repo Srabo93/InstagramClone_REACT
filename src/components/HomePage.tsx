@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Post from "./Post";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
+import { Container } from "@mui/material";
 
 type PostData = {
   caption: string;
@@ -11,6 +12,12 @@ type PostData = {
   imageUrl: string;
   title: string;
   userId: string;
+  user: {
+    displayName: string;
+    email: string;
+    photoUrl: string;
+    createdAt: { seconds: number; nanoseconds: number };
+  };
 };
 
 const HomePage = () => {
@@ -47,11 +54,20 @@ const HomePage = () => {
   if (error) return <div>{error.message}</div>;
 
   return (
-    <div style={{ margin: "100px auto" }}>
+    <Container
+      maxWidth="md"
+      sx={{
+        mt: 10,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {posts?.map((post: PostData) => (
         <Post post={post} key={post.id} />
       ))}
-    </div>
+    </Container>
   );
 };
 

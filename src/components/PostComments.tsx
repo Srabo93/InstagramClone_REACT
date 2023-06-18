@@ -1,4 +1,11 @@
-import { Avatar, Box, CardContent, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  CardContent,
+  Divider,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
@@ -59,10 +66,11 @@ const PostComments = ({ postId }: PostCommentsProps) => {
   if (error) return <div>{error.message}</div>;
 
   return (
-    <CardContent>
+    <CardContent sx={{ maxWidth: "100%" }}>
       {comments.map((comment, index: number) => (
-        <Box key={comment.id}>
-          <Stack spacing={2} direction="row">
+        <Box key={comment.id} sx={{ my: 2 }}>
+          <Divider />
+          <Stack spacing={2} direction="row" sx={{ my: 2 }}>
             <Avatar src={comment.user.photoUrl}></Avatar>
             <Stack>
               <Typography>{comment.user.displayName}</Typography>

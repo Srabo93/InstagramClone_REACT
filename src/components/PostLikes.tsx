@@ -3,6 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
+import { Stack, Typography } from "@mui/material";
 
 type PostLikesProps = {
   postId: string;
@@ -47,10 +48,17 @@ const PostLikes = ({ postId }: PostLikesProps) => {
   if (error) return <div>{error.message}</div>;
 
   return (
-    <IconButton aria-label="add to favorites">
-      <FavoriteIcon />
-      {likes.length}
-    </IconButton>
+    <Stack
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      spacing={0.5}
+    >
+      <IconButton aria-label="add to favorites">
+        <FavoriteIcon />
+      </IconButton>
+      <Typography variant="h5">{likes.length}</Typography>
+    </Stack>
   );
 };
 
