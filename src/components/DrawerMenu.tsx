@@ -69,7 +69,7 @@ export const DrawerMenu = () => {
   );
 
   return (
-    <div>
+    <Box>
       {(["right"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <Button color="inherit" onClick={toggleDrawer(anchor, true)}>
@@ -84,6 +84,6 @@ export const DrawerMenu = () => {
           </Drawer>
         </React.Fragment>
       ))}
-    </div>
+    </Box>
   );
 };

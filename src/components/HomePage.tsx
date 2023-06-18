@@ -52,7 +52,7 @@ const HomePage = () => {
     fetchPosts();
   }, []);
 
-  if (error) return <div>{error.message}</div>;
+  if (error) return <Box>{error.message}</Box>;
 
   return (
     <Container
