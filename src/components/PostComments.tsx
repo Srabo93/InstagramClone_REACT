@@ -1,4 +1,4 @@
-import { CardContent, Typography } from "@mui/material";
+import { Avatar, Box, CardContent, Stack, Typography } from "@mui/material";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
@@ -10,8 +10,15 @@ type PostCommentsProps = {
 type Comment = {
   comment: string;
   createdAt: { seconds: number; nanoseconds: number };
-  imageId: string;
+  id: string;
+  postId: string;
   userId: string;
+  user: {
+    displayName: string;
+    email: string;
+    photoUrl: string;
+    createdAt: { seconds: number; nanoseconds: number };
+  };
 };
 
 const PostComments = ({ postId }: PostCommentsProps) => {
@@ -25,9 +32,12 @@ const PostComments = ({ postId }: PostCommentsProps) => {
         const commentDocuments: Comment[] = [];
 
         const commentsSnapshot = await getDocs(q);
-        commentsSnapshot.forEach((comment) =>
-          commentDocuments.push(comment.data() as Comment)
-        );
+        commentsSnapshot.forEach((comment) => {
+          const updatedComment = comment.data();
+          updatedComment.id = comment.id;
+
+          commentDocuments.push(updatedComment as Comment);
+        });
 
         if (!ignore) {
           setComments(commentDocuments);
@@ -51,9 +61,20 @@ const PostComments = ({ postId }: PostCommentsProps) => {
   return (
     <CardContent>
       {comments.map((comment, index: number) => (
-        <Typography key={index} paragraph>
-          {comment.comment}
-        </Typography>
+        <Box key={comment.id}>
+          <Stack spacing={2} direction="row">
+            <Avatar src={comment.user.photoUrl}></Avatar>
+            <Stack>
+              <Typography>{comment.user.displayName}</Typography>
+              <Typography variant="caption">
+                commented: {new Date(comment.createdAt.seconds).toDateString()}
+              </Typography>
+            </Stack>
+          </Stack>
+          <Typography mt={2} key={index} paragraph>
+            {comment.comment}
+          </Typography>
+        </Box>
       ))}
     </CardContent>
   );

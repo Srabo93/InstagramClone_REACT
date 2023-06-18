@@ -41,6 +41,12 @@ type PostData = {
   imageUrl: string;
   title: string;
   userId: string;
+  user: {
+    displayName: string;
+    email: string;
+    photoUrl: string;
+    createdAt: { seconds: number; nanoseconds: number };
+  };
 };
 
 const Post = ({ post }: PostProps) => {
@@ -54,9 +60,7 @@ const Post = ({ post }: PostProps) => {
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
+          <Avatar sx={{ bgcolor: red[500] }} src={post.user.photoUrl}></Avatar>
         }
         title={post.title}
         subheader={new Date(post.createdAt.seconds).toDateString()}
