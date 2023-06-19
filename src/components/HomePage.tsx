@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Post from "./Post";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import PostSkeleton from "./PostSkeleton";
 
 type PostData = {
