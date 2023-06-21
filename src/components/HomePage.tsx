@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Post from "./Post";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { Box, Container } from "@mui/material";
+import Post from "./Post";
 import PostSkeleton from "./PostSkeleton";
 
 type PostData = {
@@ -24,6 +24,7 @@ type PostData = {
 const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [error, setError] = useState<Error>();
+
 
   useEffect(() => {
     const fetchPosts = () => {

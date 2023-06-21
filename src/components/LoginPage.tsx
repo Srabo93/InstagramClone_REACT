@@ -1,6 +1,4 @@
-import { getAuth } from "firebase/auth";
 import {
-  Button,
   Box,
   Grid,
   Paper,
@@ -9,22 +7,12 @@ import {
   Stack,
 } from "@mui/material";
 import { LoginOutlined } from "@mui/icons-material";
-import { signOut } from "firebase/auth";
 import GithubLogin from "./GithubLogin";
 import GoogleLogin from "./GoogleLogin";
 import TwitterLogin from "./TwitterLogin";
 
 const LoginPage = () => {
-  const auth = getAuth();
 
-  const logOut = async () => {
-    try {
-      await signOut(auth);
-      console.log("logged out");
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <Container maxWidth="md" sx={{ mt: 10 }}>
@@ -71,7 +59,6 @@ const LoginPage = () => {
               <TwitterLogin />
               <GithubLogin />
             </Stack>
-            <Button onClick={logOut}>Logout</Button>
           </Box>
         </Grid>
       </Grid>
