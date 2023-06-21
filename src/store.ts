@@ -1,22 +1,23 @@
-import {
-  collection,
-  query,
-  DocumentData,
-  onSnapshot,
-} from "firebase/firestore";
 import { create } from "zustand";
-import { db } from "./firebase";
 
 interface AppState {
-  user: object;
+  user: { isLoggedIn: boolean, uid: string };
   isLoading: boolean;
   error: Error | unknown;
+  updateUser: (isLoggedIn: boolean, uid: string) => void
 }
 
 const useAppStore = create<AppState>((set) => ({
-  user: {},
+  user: { isLoggedIn: false, uid: '' },
   isLoading: false,
   error: undefined,
+  updateUser: (isLoggedIn: boolean, uid: string) => {
+    set(() => ({
+      user: { isLoggedIn, uid }
+    }))
+  }
+
+
 }));
 
 export default useAppStore;

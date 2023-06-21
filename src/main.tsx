@@ -11,6 +11,7 @@ import FavoritesPage from "./components/FavoritesPage.tsx";
 import HomePage from "./components/HomePage.tsx";
 import LoginPage from "./components/LoginPage.tsx";
 import RegisterPage from "./components/RegisterPage.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,9 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       {
         path: "/profile",
-        element: <ProfilePage />,
+        element: <ProtectedRoute>
+          <ProfilePage />
+        </ProtectedRoute>,
       },
       {
         path: "/uploads",
