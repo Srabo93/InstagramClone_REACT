@@ -1,19 +1,19 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GithubAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { Alert, Button, Stack, Typography } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 const GithubLogin = () => {
   const [authError, setAuthError] = useState<Error | unknown>();
+  const navigate = useNavigate()
   const githubProvider = new GithubAuthProvider();
   const auth = getAuth();
 
   const signInWithGithub = async () => {
     try {
-      const result = await signInWithPopup(auth, githubProvider);
-
-      const user = result.user;
-      console.log(user);
+      await signInWithPopup(auth, githubProvider);
+      navigate('/')
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = error.message;

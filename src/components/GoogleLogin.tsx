@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { Stack, Alert, Button, Typography } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -7,13 +8,13 @@ const GoogleLogin = () => {
   const [authError, setAuthError] = useState<Error | unknown>();
   const googleProvider = new GoogleAuthProvider();
   const auth = getAuth();
+  const navigate = useNavigate()
 
   const signInWithGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider);
+      navigate('/')
 
-      const user = result.user;
-      console.log(user);
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = error.message;
