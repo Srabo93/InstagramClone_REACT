@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -14,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Typography } from "@mui/material";
+import useAppStore from "../store";
 
 type Anchor = "right";
 
@@ -22,19 +25,32 @@ export const DrawerMenu = () => {
     right: false,
   });
 
+  const auth = getAuth();
+  const { updateUser } = useAppStore()
+
+  const logOut = async () => {
+    try {
+      await signOut(auth);
+      updateUser(false, '')
+      console.log("logged out");
+    } catch (error) {
+      updateUser(false, '')
+      console.log(error);
+    }
+  };
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
+      (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (
+          event.type === "keydown" &&
+          ((event as React.KeyboardEvent).key === "Tab" ||
+            (event as React.KeyboardEvent).key === "Shift")
+        ) {
+          return;
+        }
 
-      setState({ ...state, [anchor]: open });
-    };
+        setState({ ...state, [anchor]: open });
+      };
 
   const icons = [
     <AccountCircleIcon />,
@@ -52,20 +68,34 @@ export const DrawerMenu = () => {
       <List>
         {["Profile", "Favorites", "Uploads", "Logout"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <Link
-              style={{ color: "inherit", textDecoration: "none" }}
-              to={`/${text}`}
-            >
-              <ListItemButton>
-                <ListItemIcon>{icons[index]}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </Link>
+            {
+              text === "Logout" ?
+                <Link
+                  style={{ color: "inherit", textDecoration: "none" }}
+                  onClick={logOut}
+                  to=""
+                >
+                  <ListItemButton>
+                    <ListItemIcon>{icons[index]}</ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </Link>
+                :
+                <Link
+                  style={{ color: "inherit", textDecoration: "none" }}
+                  to={`/${text.toLowerCase()}`}
+                >
+                  <ListItemButton>
+                    <ListItemIcon>{icons[index]}</ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </Link>
+            }
           </ListItem>
         ))}
       </List>
       <Divider />
-    </Box>
+    </Box >
   );
 
   return (
