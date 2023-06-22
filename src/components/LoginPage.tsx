@@ -1,19 +1,10 @@
-import {
-  Box,
-  Grid,
-  Paper,
-  Typography,
-  Container,
-  Stack,
-} from "@mui/material";
+import { Box, Grid, Paper, Typography, Container, Stack } from "@mui/material";
 import { LoginOutlined } from "@mui/icons-material";
 import GithubLogin from "./GithubLogin";
 import GoogleLogin from "./GoogleLogin";
 import TwitterLogin from "./TwitterLogin";
 
 const LoginPage = () => {
-
-
   return (
     <Container maxWidth="md" sx={{ mt: 10 }}>
       <Grid container component="main" sx={{ minHeight: "80vh" }}>

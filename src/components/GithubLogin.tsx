@@ -6,14 +6,14 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 
 const GithubLogin = () => {
   const [authError, setAuthError] = useState<Error | unknown>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const githubProvider = new GithubAuthProvider();
   const auth = getAuth();
 
   const signInWithGithub = async () => {
     try {
       await signInWithPopup(auth, githubProvider);
-      navigate('/')
+      navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = error.message;

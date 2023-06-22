@@ -25,7 +25,6 @@ const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [error, setError] = useState<Error>();
 
-
   useEffect(() => {
     const fetchPosts = () => {
       try {

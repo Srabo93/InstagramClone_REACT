@@ -22,9 +22,11 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       {
         path: "/profile",
-        element: <ProtectedRoute>
-          <ProfilePage />
-        </ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/uploads",

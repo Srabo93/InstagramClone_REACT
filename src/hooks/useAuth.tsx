@@ -7,14 +7,14 @@ type AuthUser = {
   email: string;
   photoURL: string;
   uid: string;
-  createdAt: string
-}
+  createdAt: string;
+};
 
 const useAuth = () => {
-  const [authUser, setAuthUser] = useState<AuthUser | undefined>()
-  const [authError, setAuthError] = useState<Error | undefined>()
-  const { updateUser } = useAppStore()
-  const auth = getAuth()
+  const [authUser, setAuthUser] = useState<AuthUser | undefined>();
+  const [authError, setAuthError] = useState<Error | undefined>();
+  const { updateUser } = useAppStore();
+  const auth = getAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -25,29 +25,28 @@ const useAuth = () => {
             email: user.email,
             photoURL: user.photoURL,
             uid: user.uid,
-            createdAt: user.metadata.creationTime
-          } as AuthUser)
-          updateUser(true, user.uid)
+            createdAt: user.metadata.creationTime,
+          } as AuthUser);
+          updateUser(true, user.uid);
         } else {
-          setAuthUser(undefined)
-          updateUser(false, '')
-          console.log("No User Logged In")
+          setAuthUser(undefined);
+          updateUser(false, "");
+          console.log("No User Logged In");
         }
         return () => {
-          unsubscribe
-        }
+          unsubscribe;
+        };
       } catch (error) {
         if (error instanceof Error) {
-          setAuthError(error)
-          setAuthUser(undefined)
-          updateUser(false, '')
+          setAuthError(error);
+          setAuthUser(undefined);
+          updateUser(false, "");
         }
-        console.log(error)
+        console.log(error);
       }
-    })
+    });
+  }, [auth, updateUser]);
+  return [authUser, authError];
+};
 
-  }, [auth, updateUser])
-  return [authUser, authError]
-}
-
-export default useAuth
+export default useAuth;

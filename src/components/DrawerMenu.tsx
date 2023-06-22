@@ -26,15 +26,15 @@ export const DrawerMenu = () => {
   });
 
   const auth = getAuth();
-  const { updateUser } = useAppStore()
+  const { updateUser } = useAppStore();
 
   const logOut = async () => {
     try {
       await signOut(auth);
-      updateUser(false, '')
+      updateUser(false, "");
       console.log("logged out");
     } catch (error) {
-      updateUser(false, '')
+      updateUser(false, "");
       console.log(error);
     }
   };
@@ -68,34 +68,33 @@ export const DrawerMenu = () => {
       <List>
         {["Profile", "Favorites", "Uploads", "Logout"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            {
-              text === "Logout" ?
-                <Link
-                  style={{ color: "inherit", textDecoration: "none" }}
-                  onClick={logOut}
-                  to=""
-                >
-                  <ListItemButton>
-                    <ListItemIcon>{icons[index]}</ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </Link>
-                :
-                <Link
-                  style={{ color: "inherit", textDecoration: "none" }}
-                  to={`/${text.toLowerCase()}`}
-                >
-                  <ListItemButton>
-                    <ListItemIcon>{icons[index]}</ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </Link>
-            }
+            {text === "Logout" ? (
+              <Link
+                style={{ color: "inherit", textDecoration: "none" }}
+                onClick={logOut}
+                to=""
+              >
+                <ListItemButton>
+                  <ListItemIcon>{icons[index]}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </Link>
+            ) : (
+              <Link
+                style={{ color: "inherit", textDecoration: "none" }}
+                to={`/${text.toLowerCase()}`}
+              >
+                <ListItemButton>
+                  <ListItemIcon>{icons[index]}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </Link>
+            )}
           </ListItem>
         ))}
       </List>
       <Divider />
-    </Box >
+    </Box>
   );
 
   return (

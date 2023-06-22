@@ -8,13 +8,12 @@ const TwitterLogin = () => {
   const [authError, setAuthError] = useState<Error | unknown>();
   const twitterProvider = new TwitterAuthProvider();
   const auth = getAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const signInWithTwitter = async () => {
     try {
       await signInWithPopup(auth, twitterProvider);
-      navigate('/')
-
+      navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = error.message;

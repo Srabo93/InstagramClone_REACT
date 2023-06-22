@@ -8,13 +8,12 @@ const GoogleLogin = () => {
   const [authError, setAuthError] = useState<Error | unknown>();
   const googleProvider = new GoogleAuthProvider();
   const auth = getAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/')
-
+      navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = error.message;
