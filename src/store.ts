@@ -1,19 +1,23 @@
 import { create } from "zustand";
 
 interface AppState {
-  user: { isLoggedIn: boolean; uid: string };
-  isLoading: boolean;
-  error: Error | unknown;
-  updateUser: (isLoggedIn: boolean, uid: string) => void;
+  user: AuthUser;
+  updateUser: (user: AuthUser) => void;
 }
 
+type AuthUser = {
+  displayName: string;
+  email: string;
+  photoURL: string;
+  uid: string;
+  createdAt: string;
+};
+
 const useAppStore = create<AppState>((set) => ({
-  user: { isLoggedIn: false, uid: "" },
-  isLoading: false,
-  error: undefined,
-  updateUser: (isLoggedIn: boolean, uid: string) => {
+  user: { displayName: "", email: "", photoURL: "", uid: "", createdAt: "" },
+  updateUser: (user) => {
     set(() => ({
-      user: { isLoggedIn, uid },
+      user: user,
     }));
   },
 }));
