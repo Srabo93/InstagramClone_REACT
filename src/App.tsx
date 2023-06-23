@@ -12,7 +12,7 @@ const App = () => {
     if (authUser) {
       updateUser(authUser as AuthUser);
     }
-  }, []);
+  }, [authUser, updateUser]);
 
   return (
     <ThemeProvider theme={themeOptions}>
@@ -27,7 +27,6 @@ export default App;
 /**
  * TODO: create first prototype Page
  *        - add loading skeletons
- *        - refactor multiple use of types
  *        - refactor components/logic into reusable parts/hooks
  * TODO: complete website styling/components
  *        -build components with working data/statemanagement

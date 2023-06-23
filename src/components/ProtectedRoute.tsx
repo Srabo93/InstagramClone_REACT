@@ -4,7 +4,6 @@ import useAppStore from "../store";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const currentUser = useAppStore((state) => state.user);
-  console.log(currentUser);
   if (!currentUser || !currentUser.uid) {
     return <Navigate to="/login" />;
   }
