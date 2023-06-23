@@ -1,6 +1,6 @@
 import Navigation from "./components/Navigation";
 import { ThemeProvider } from "@emotion/react";
-import { themeOptions } from "./themeContext";
+import { themeOptions, MainContainer } from "./themeContext";
 import useAuth, { AuthUser } from "./hooks/useAuth";
 import useAppStore from "./store";
 import { useEffect } from "react";
@@ -16,9 +16,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={themeOptions}>
-      <div style={{ background: "url('../public/background.png')" }}>
+      <MainContainer>
         <Navigation />
-      </div>
+      </MainContainer>
     </ThemeProvider>
   );
 };

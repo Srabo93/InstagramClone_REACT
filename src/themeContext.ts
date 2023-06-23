@@ -1,4 +1,10 @@
 import { createTheme } from "@mui/material/styles";
+import { styled } from "@mui/system";
+import backgroundImg from "./assets/background.png";
+
+export const MainContainer = styled("div")({
+  background: `url(${backgroundImg})`,
+});
 
 export const themeOptions = createTheme({
   palette: {
