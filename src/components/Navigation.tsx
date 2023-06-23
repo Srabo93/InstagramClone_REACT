@@ -12,15 +12,10 @@ const Navigation = () => {
           <Typography
             color="inherit"
             variant="h5"
-            component="div"
-            sx={{ flexGrow: 1, letterSpacing: 5 }}
+            sx={{ mr: "auto", letterSpacing: 5 }}
           >
             <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
-              <Typography
-                variant="h5"
-                component="div"
-                sx={{ flexGrow: 1, letterSpacing: 5 }}
-              >
+              <Typography variant="h5" sx={{ letterSpacing: 5 }}>
                 PhotoGallery
               </Typography>
             </Link>
