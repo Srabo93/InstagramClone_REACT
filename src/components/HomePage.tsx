@@ -4,22 +4,7 @@ import { db } from "../firebase";
 import { Box, Container } from "@mui/material";
 import Post from "./Post";
 import PostSkeleton from "./PostSkeleton";
-
-type PostData = {
-  caption: string;
-  createdAt: { seconds: number; nanoseconds: number };
-  fileName: string;
-  id: string;
-  imageUrl: string;
-  title: string;
-  userId: string;
-  user: {
-    displayName: string;
-    email: string;
-    photoUrl: string;
-    createdAt: { seconds: number; nanoseconds: number };
-  };
-};
+import { PostData } from "./Post";
 
 const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);

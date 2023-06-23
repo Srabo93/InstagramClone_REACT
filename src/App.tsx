@@ -1,17 +1,10 @@
 import Navigation from "./components/Navigation";
 import { ThemeProvider } from "@emotion/react";
 import { themeOptions } from "./themeContext";
-import useAuth from "./hooks/useAuth";
+import useAuth, { AuthUser } from "./hooks/useAuth";
 import useAppStore from "./store";
 import { useEffect } from "react";
 
-type AuthUser = {
-  displayName: string;
-  email: string;
-  photoURL: string;
-  uid: string;
-  createdAt: string;
-};
 const App = () => {
   const [authUser] = useAuth();
   const { updateUser } = useAppStore();

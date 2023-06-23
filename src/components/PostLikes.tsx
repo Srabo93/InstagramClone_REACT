@@ -9,7 +9,7 @@ type PostLikesProps = {
   postId: string;
 };
 
-type Like = {
+export type Like = {
   userId: string;
 };
 

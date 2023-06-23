@@ -33,7 +33,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 type PostProps = {
   post: PostData;
 };
-type PostData = {
+export type PostData = {
   caption: string;
   createdAt: { seconds: number; nanoseconds: number };
   fileName: string;

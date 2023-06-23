@@ -15,7 +15,7 @@ type PostCommentsProps = {
   postId: string;
 };
 
-type Comment = {
+export type Comment = {
   comment: string;
   createdAt: { seconds: number; nanoseconds: number };
   id: string;
