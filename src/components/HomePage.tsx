@@ -10,34 +10,22 @@ const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [error, setError] = useState<Error>();
 
-  useEffect(() => {
-    const fetchPosts = () => {
-      try {
-        const q = query(collection(db, "Posts"));
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "Posts"), (snapshot) => {
         const postDocuments: PostData[] = [];
-
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            postDocuments.push({
-              ...(doc.data() as PostData),
-              id: doc.id,
-            });
+        snapshot.forEach((doc) => {
+          postDocuments.push({
+            ...(doc.data() as PostData),
+            id: doc.id,
           });
-          setPosts(postDocuments);
         });
 
-        return () => unsubscribe();
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-        }
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
   if (error) return <Box>{error.message}</Box>;
+        setPosts(postDocuments);
+      }),
+    []
+  );
 
   return (
     <Container

@@ -33,37 +33,19 @@ const PostComments = ({ postId }: PostCommentsProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [error, setError] = useState<Error | undefined>();
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const q = query(collection(db, "Posts", `${postId}`, "Comments"));
-        const commentDocuments: Comment[] = [];
-
-        const commentsSnapshot = await getDocs(q);
-        commentsSnapshot.forEach((comment) => {
-          const updatedComment = comment.data();
-          updatedComment.id = comment.id;
-
-          commentDocuments.push(updatedComment as Comment);
-        });
-
-        if (!ignore) {
+  useEffect(
+    () =>
+      onSnapshot(
+        collection(db, "Posts", `${postId}`, "Comments"),
+        (snapshot) => {
+          const commentDocuments: Comment[] = [];
+          snapshot.forEach((comment) => {
+            const updatedComment = comment.data();
+            updatedComment.id = comment.id;
+            commentDocuments.push(updatedComment as Comment);
+          });
           setComments(commentDocuments);
         }
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-        }
-      }
-    };
-
-    let ignore = false;
-    fetchComments();
-    return () => {
-      ignore = true;
-    };
-  }, [postId]);
-
   if (error) return <div>{error.message}</div>;
 
   return (
