@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import Post from "./Post";
 import PostSkeleton from "./PostSkeleton";
 import { PostData } from "./Post";
 
 const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
-  const [error, setError] = useState<Error>();
 
   useEffect(
     () =>
@@ -20,8 +19,6 @@ const HomePage = () => {
             id: doc.id,
           });
         });
-
-  if (error) return <Box>{error.message}</Box>;
         setPosts(postDocuments);
       }),
     []
