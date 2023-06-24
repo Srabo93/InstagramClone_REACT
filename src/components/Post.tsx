@@ -10,7 +10,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Comment from "@mui/icons-material/Comment";
 import PostComments from "./PostComments";
 import PostLikes from "./PostLikes";
 import { Collapse } from "@mui/material";
@@ -40,12 +40,12 @@ export type PostData = {
   id: string;
   imageUrl: string;
   title: string;
-  userId: string;
   user: {
     displayName: string;
     email: string;
     photoUrl: string;
     createdAt: { seconds: number; nanoseconds: number };
+    userId: string;
   };
 };
 
@@ -88,7 +88,7 @@ const Post = ({ post }: PostProps) => {
           aria-label="show more"
           color="primary"
         >
-          <ExpandMoreIcon />
+          <Comment />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
