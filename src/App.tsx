@@ -27,9 +27,10 @@ export default App;
 /**
  * TODO: create first prototype Page
  *        - add loading skeletons
- *        - add comment functionality
  *        - add like functionality
  *        - refactor components/logic into reusable parts/hooks
  * TODO: complete website styling/components
  *        -add Profile Page
+ *
+ WARNING: Fix date display issue, maybe useMemo and mutating recieving data to prevent render issues
  */
