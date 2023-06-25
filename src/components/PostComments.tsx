@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import PostCommentsSkeleton from "./PostCommentsSkeleton";
@@ -36,7 +36,10 @@ const PostComments = ({ postId }: PostCommentsProps) => {
   useEffect(
     () =>
       onSnapshot(
-        collection(db, "Posts", `${postId}`, "Comments"),
+        query(
+          collection(db, "Posts", `${postId}`, "Comments"),
+          orderBy("createdAt", "desc")
+        ),
         (snapshot) => {
           const commentDocuments: Comment[] = [];
           snapshot.forEach((comment) => {
