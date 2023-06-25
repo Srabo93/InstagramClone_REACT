@@ -25,12 +25,16 @@ const App = () => {
 
 export default App;
 /**
- * TODO: create first prototype Page
+ * TODO: General
  *        - add loading skeletons
  *        - add like functionality
  *        - refactor components/logic into reusable parts/hooks
- * TODO: complete website styling/components
+ *        - use Performance Hooks to optimize speed
+ *
+ * TODO: Comments
+ *        - add delete like functionality for single comments
+ *
+ * TODO: Pages
  *        -add Profile Page
  *
- WARNING: Fix date display issue, maybe useMemo and mutating recieving data to prevent render issues
  */
