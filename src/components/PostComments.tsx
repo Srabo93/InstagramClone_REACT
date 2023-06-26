@@ -1,3 +1,6 @@
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
 import {
   Avatar,
   Box,
@@ -6,11 +9,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
 import PostCommentsSkeleton from "./PostCommentsSkeleton";
 import PostAddComment from "./PostAddComment";
+import PostCommentActions from "./PostCommentActions";
 
 type PostCommentsProps = {
   postId: string;
@@ -26,8 +27,10 @@ export type Comment = {
     email: string;
     photoUrl: string;
     createdAt: { seconds: number; nanoseconds: number };
-    userId: string;
+    uid: string;
   };
+  likes?: number;
+  dislikes?: number;
 };
 
 const PostComments = ({ postId }: PostCommentsProps) => {
@@ -58,7 +61,7 @@ const PostComments = ({ postId }: PostCommentsProps) => {
       <PostAddComment postId={postId} />
       {comments.length === 0 && <PostCommentsSkeleton />}
       <CardContent>
-        {comments.map((comment, index: number) => (
+        {comments.map((comment) => (
           <Box key={comment.id} sx={{ my: 2 }}>
             <Divider />
             <Stack spacing={2} direction="row" sx={{ my: 2 }}>
@@ -73,9 +76,10 @@ const PostComments = ({ postId }: PostCommentsProps) => {
                 </Typography>
               </Stack>
             </Stack>
-            <Typography mt={2} key={index} paragraph>
+            <Typography mt={2} paragraph>
               {comment.comment}
             </Typography>
+            <PostCommentActions postId={postId} comment={comment} />
           </Box>
         ))}
       </CardContent>
