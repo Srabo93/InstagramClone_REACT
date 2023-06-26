@@ -28,11 +28,9 @@ export default App;
  * TODO: General
  *        - add loading skeletons
  *        - add like functionality
+ *        - set Authenticated Actions
  *        - refactor components/logic into reusable parts/hooks
  *        - use Performance Hooks to optimize speed
- *
- * TODO: Comments
- *        - add delete like functionality for single comments
  *
  * TODO: Pages
  *        -add Profile Page
