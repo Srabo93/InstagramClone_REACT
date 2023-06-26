@@ -27,7 +27,6 @@ export default App;
 /**
  * TODO: General
  *        - add loading skeletons
- *        - add like functionality
  *        - set Authenticated Actions
  *        - refactor components/logic into reusable parts/hooks
  *        - use Performance Hooks to optimize speed
