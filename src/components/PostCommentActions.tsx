@@ -17,17 +17,17 @@ const PostCommentActions = ({
   const currentUser = useAppStore((state) => state.user);
   const commentRef = doc(db, "Posts", `${postId}`, "Comments", `${comment.id}`);
 
-  const onAddLikeHandler = async () => {
+  const addLikeHandler = async () => {
     await updateDoc(commentRef, {
       likes: increment(1),
     });
   };
-  const onAddDislikeHandler = async () => {
+  const addDislikeHandler = async () => {
     await updateDoc(commentRef, {
       dislikes: increment(1),
     });
   };
-  const onDeleteCommentHandler = async () => {
+  const deleteCommentHandler = async () => {
     await deleteDoc(commentRef);
   };
 
@@ -38,16 +38,16 @@ const PostCommentActions = ({
       aria-label="like / dislike group"
       size="small"
     >
-      <Button onClick={onAddLikeHandler}>
+      <Button onClick={addLikeHandler}>
         <ThumbUpIcon color="secondary" fontSize="small" />
         <Typography sx={{ px: 1 }}>{comment.likes}</Typography>
       </Button>
-      <Button sx={{ px: 1 }} onClick={onAddDislikeHandler}>
+      <Button sx={{ px: 1 }} onClick={addDislikeHandler}>
         <ThumbDownIcon color="secondary" fontSize="small" />
         <Typography sx={{ px: 1 }}>{comment.dislikes}</Typography>
       </Button>
       {comment.user.uid === currentUser.uid && (
-        <Button sx={{ px: 1 }} onClick={onDeleteCommentHandler}>
+        <Button sx={{ px: 1 }} onClick={deleteCommentHandler}>
           <DeleteIcon color="secondary" fontSize="small" />
         </Button>
       )}
