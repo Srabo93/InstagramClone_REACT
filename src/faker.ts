@@ -32,12 +32,12 @@ import { db } from "../src/firebase";
  */
 
 // const addPosts = async () => {
-//   let userData = [];
+//   const userData = [];
 //   const querySnapshot = await getDocs(collection(db, "Users2"));
 //   querySnapshot.forEach((doc) => {
 //     userData.push({ id: doc.id, data: doc.data() });
 //   });
-
+//
 //   userData.forEach(async (user) => {
 //     const fakecaption = faker.lorem.paragraph(2);
 //     const fakeimg = faker.image.urlPicsumPhotos();
@@ -46,8 +46,7 @@ import { db } from "../src/firebase";
 //       title: faketitle,
 //       caption: fakecaption,
 //       imageUrl: fakeimg,
-//       userId: user.id,
-//       user: user.data,
+//       user: { ...user.data, uid: user.id },
 //       fileName: fakeimg,
 //       createdAt: serverTimestamp(),
 //     });
@@ -58,39 +57,46 @@ import { db } from "../src/firebase";
 /**
  * Seed Likes to uploaded Images
  */
-// let usersIds = [];
-// let postIds = [];
 
-// const userSnap = await getDocs(collection(db, "Users2"));
-// userSnap.forEach((doc) => {
-//   usersIds.push(doc.id);
-// });
-
-// const postSnap = await getDocs(collection(db, "Posts"));
-// postSnap.forEach((doc) => {
-//   postIds.push(doc.id);
-// });
-
-// const seedLikes = async () => {
-//   const addLikes = async (post, user) => {
-//     await addDoc(collection(db, "Posts", post, "Likes"), {
-//       userId: user,
+// (async () => {
+//   const usersIds = [];
+//   const postIds = [];
+//
+//   const userSnap = await getDocs(collection(db, "Users2"));
+//   userSnap.forEach((doc) => {
+//     usersIds.push(doc.id);
+//   });
+//
+//   const postSnap = await getDocs(collection(db, "Posts"));
+//   postSnap.forEach((doc) => {
+//     postIds.push(doc.id);
+//   });
+//
+//   const seedLikes = async () => {
+//     const addLikes = async (post, user) => {
+//       await addDoc(collection(db, "Posts", post, "Likes"), {
+//         userId: user,
+//       });
+//     };
+//
+//     postIds.forEach((post) => {
+//       usersIds.forEach((user) => {
+//         addLikes(post, user);
+//       });
 //     });
 //   };
-
-//   postIds.forEach((post) => {
-//     usersIds.forEach((user) => {
-//       addLikes(post, user);
-//     });
-//   });
-// };
-
+//   seedLikes();
+// })();
+//
+//
+//
 /**
  * Seed Comments to uploaded Images
  */
 
-//   let usersData = [];
-//   let postIds = [];
+// (async () => {
+//   const usersData = [];
+//   const postIds = [];
 //   const userSnap = await getDocs(collection(db, "Users2"));
 //   userSnap.forEach((doc) => {
 //     usersData.push({ id: doc.id, data: doc.data() });
@@ -100,14 +106,13 @@ import { db } from "../src/firebase";
 //     postIds.push(doc.id);
 //   });
 //   const fakecomment = faker.lorem.paragraph({ min: 2, max: 4 });
-
+//
 //   const seedComments = async (posts, users) => {
 //     const addComment = async (post, user) => {
 //       await addDoc(collection(db, "Posts", post, "Comments"), {
 //         comment: fakecomment,
 //         postId: post,
-//         userId: user.id,
-//         user: user.data,
+//         user: { ...user.data, uid: user.id },
 //         createdAt: serverTimestamp(),
 //       });
 //     };
@@ -118,3 +123,4 @@ import { db } from "../src/firebase";
 //     });
 //   };
 //   seedComments(postIds, usersData);
+// })();
