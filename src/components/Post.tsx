@@ -45,7 +45,7 @@ export type PostData = {
     email: string;
     photoUrl: string;
     createdAt: { seconds: number; nanoseconds: number };
-    userId: string;
+    uid: string;
   };
 };
 
