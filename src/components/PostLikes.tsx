@@ -5,6 +5,7 @@ import {
   onSnapshot,
   collection,
   query,
+  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
@@ -27,9 +28,12 @@ const PostLikes = ({ postId }: PostLikesProps) => {
   const currentUser = useAppStore((state) => state.user);
 
   const addFavorite = async (pId: string) => {
-    await addDoc(collection(db, "Users2", `${currentUser.uid}`, "Favorites"), {
-      postId: pId,
-    });
+    await setDoc(
+      doc(db, "Users2", `${currentUser.uid}`, "Favorites", `${pId}`),
+      {
+        postId: pId,
+      }
+    );
     await addDoc(collection(db, "Posts", `${pId}`, "Likes"), {
       userId: currentUser.uid,
     });
