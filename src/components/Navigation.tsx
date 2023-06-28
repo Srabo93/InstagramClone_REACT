@@ -2,6 +2,8 @@ import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { DrawerMenu } from "./DrawerMenu";
 import { Link, Outlet } from "react-router-dom";
 import CameraIcon from "@mui/icons-material/Camera";
+import LoggedIn from "./LoggedIn";
+import LoggedOut from "./LoggedOut";
 
 const Navigation = () => {
   return (
@@ -20,15 +22,19 @@ const Navigation = () => {
               </Typography>
             </Link>
           </Typography>
-          <DrawerMenu />
-          <Typography>
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to="/login"
-            >
-              Login
-            </Link>
-          </Typography>
+          <LoggedIn>
+            <DrawerMenu />
+          </LoggedIn>
+          <LoggedOut>
+            <Typography>
+              <Link
+                style={{ textDecoration: "none", color: "inherit" }}
+                to="/login"
+              >
+                Login
+              </Link>
+            </Typography>
+          </LoggedOut>
         </Toolbar>
       </AppBar>
       <Outlet />

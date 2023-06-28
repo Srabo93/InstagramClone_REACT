@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import { Box, TextareaAutosize, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import useAppStore from "../store";
+import LoggedIn from "./LoggedIn";
 
 const PostAddComment = ({ postId }: { postId: string }) => {
   const [comment, setComment] = useState("");
@@ -24,7 +25,7 @@ const PostAddComment = ({ postId }: { postId: string }) => {
 
   return (
     <>
-      {currentUser.uid !== "" ? (
+      <LoggedIn>
         <Box
           sx={{
             display: "flex",
@@ -49,9 +50,7 @@ const PostAddComment = ({ postId }: { postId: string }) => {
             Send
           </Button>
         </Box>
-      ) : (
-        <></>
-      )}
+      </LoggedIn>
     </>
   );
 };

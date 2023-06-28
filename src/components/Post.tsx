@@ -14,6 +14,7 @@ import Comment from "@mui/icons-material/Comment";
 import PostComments from "./PostComments";
 import PostLikes from "./PostLikes";
 import { Collapse } from "@mui/material";
+import LoggedIn from "./LoggedIn";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -77,7 +78,9 @@ const Post = ({ post }: PostProps) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <PostLikes postId={post.id} />
+        <LoggedIn>
+          <PostLikes postId={post.id} />
+        </LoggedIn>
         <IconButton sx={{ ml: 3 }} color="primary" aria-label="share">
           <ShareIcon />
         </IconButton>

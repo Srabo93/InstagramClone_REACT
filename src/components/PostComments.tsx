@@ -12,6 +12,7 @@ import {
 import PostCommentsSkeleton from "./PostCommentsSkeleton";
 import PostAddComment from "./PostAddComment";
 import PostCommentActions from "./PostCommentActions";
+import LoggedIn from "./LoggedIn";
 
 type PostCommentsProps = {
   postId: string;
@@ -79,7 +80,9 @@ const PostComments = ({ postId }: PostCommentsProps) => {
             <Typography mt={2} paragraph>
               {comment.comment}
             </Typography>
-            <PostCommentActions postId={postId} comment={comment} />
+            <LoggedIn>
+              <PostCommentActions postId={postId} comment={comment} />
+            </LoggedIn>
           </Box>
         ))}
       </CardContent>
