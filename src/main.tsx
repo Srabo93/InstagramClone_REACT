@@ -5,7 +5,6 @@ import "./index.css";
 import { RouterProvider } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage.tsx";
-import ProfilePage from "./components/ProfilePage.tsx";
 import UploadsPage from "./components/UploadsPage.tsx";
 import FavoritesPage from "./components/FavoritesPage.tsx";
 import HomePage from "./components/HomePage.tsx";
@@ -19,14 +18,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
-      {
-        path: "/profile",
-        element: (
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        ),
-      },
       {
         path: "/uploads",
         element: (
