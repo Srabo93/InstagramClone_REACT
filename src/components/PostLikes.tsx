@@ -81,7 +81,7 @@ const PostLikes = ({ postId }: PostLikesProps) => {
 
   const likedButton = (
     <IconButton
-      aria-label="add to favorites"
+      aria-label="remove from favorites"
       onClick={() => removeFavorite(postId)}
     >
       <FavoriteIcon color="primary" />
