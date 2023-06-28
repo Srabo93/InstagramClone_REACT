@@ -11,7 +11,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -31,11 +30,21 @@ export const DrawerMenu = () => {
   const logOut = async () => {
     try {
       await signOut(auth);
-      updateUser(false, "");
-      console.log("logged out");
+      updateUser({
+        displayName: "",
+        email: "",
+        photoURL: "",
+        uid: "",
+        createdAt: "",
+      });
     } catch (error) {
-      updateUser(false, "");
-      console.log(error);
+      updateUser({
+        displayName: "",
+        email: "",
+        photoURL: "",
+        uid: "",
+        createdAt: "",
+      });
     }
   };
   const toggleDrawer =
@@ -52,12 +61,7 @@ export const DrawerMenu = () => {
         setState({ ...state, [anchor]: open });
       };
 
-  const icons = [
-    <AccountCircleIcon />,
-    <FavoriteIcon />,
-    <CloudUploadIcon />,
-    <LogoutIcon />,
-  ];
+  const icons = [<FavoriteIcon />, <CloudUploadIcon />, <LogoutIcon />];
 
   const list = (anchor: Anchor) => (
     <Box
@@ -66,7 +70,7 @@ export const DrawerMenu = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Profile", "Favorites", "Uploads", "Logout"].map((text, index) => (
+        {["Favorites", "Uploads", "Logout"].map((text, index) => (
           <ListItem key={text} disablePadding>
             {text === "Logout" ? (
               <Link
