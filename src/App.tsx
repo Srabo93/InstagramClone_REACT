@@ -29,6 +29,7 @@ export default App;
  *        - add loading skeletons
  *        - refactor components/logic into reusable parts/hooks
  *
+ * INFO: Fix fail Caption Title issue, its caption and description
  * TODO: Pages
  *        -add Uploads Page
  *
