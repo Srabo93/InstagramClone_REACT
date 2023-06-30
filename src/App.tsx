@@ -27,11 +27,9 @@ export default App;
 /**
  * TODO: General
  *        - add loading skeletons
- *        - set Authenticated Actions
  *        - refactor components/logic into reusable parts/hooks
- *        - use Performance Hooks to optimize speed
  *
  * TODO: Pages
- *        -add Profile Page
+ *        -add Uploads Page
  *
  */
