@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { query, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { Typography } from "@mui/material";
+import { Skeleton } from "@mui/material";
 import { ImageList, ImageListItem } from "@mui/material";
 import useAppStore from "../store";
 import { PostData } from "./Post";
@@ -83,9 +83,12 @@ const FavoritesPageGrid = ({
           {renderImgGrid}
         </ImageList>
       ) : (
-        <Typography variant="body1" textAlign="center">
-          No Favorites Found
-        </Typography>
+        <Skeleton
+          sx={{ bgcolor: "secondary" }}
+          variant="rectangular"
+          width={500}
+          height={418}
+        />
       )}
     </>
   );
