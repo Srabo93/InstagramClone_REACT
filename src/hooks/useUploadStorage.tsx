@@ -26,7 +26,7 @@ const useUploadStorage = (file: FormData | undefined): UploadStorageResult => {
     if (
       file === undefined ||
       file.file === undefined ||
-      file.caption === undefined ||
+      file.description === undefined ||
       file.title === undefined
     ) {
       return;
@@ -55,7 +55,7 @@ const useUploadStorage = (file: FormData | undefined): UploadStorageResult => {
         const imageUrl = await getDownloadURL(uploadImages.snapshot.ref);
         await addDoc(collection(db, "Posts"), {
           title: file.title,
-          caption: file.caption,
+          description: file.description,
           imageUrl: imageUrl,
           fileName: file.file.name,
           createdAt: serverTimestamp(),

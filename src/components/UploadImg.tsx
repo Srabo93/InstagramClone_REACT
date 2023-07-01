@@ -17,13 +17,13 @@ const validationSchema = z.object({
   image: z
     .instanceof(File)
     .refine((value) => value !== null, { message: "Image is required" }),
-  caption: z.string().min(1, { message: "Caption is required" }),
+  description: z.string().min(1, { message: "description is required" }),
   title: z.string().min(1, { message: "Title is required" }),
 });
 
 export type FormData = {
   file: File;
-  caption: string;
+  description: string;
   title: string;
 };
 
@@ -34,12 +34,12 @@ const UploadImg = () => {
 
   const handleFormSubmit = (values: {
     image: File;
-    caption: string;
+    description: string;
     title: string;
   }) => {
     setFormData({
       file: values.image,
-      caption: values.caption,
+      description: values.description,
       title: values.title,
     });
   };
@@ -68,7 +68,7 @@ const UploadImg = () => {
         )}
         {error && <Alert severity="error">{error}</Alert>}
         <Formik
-          initialValues={{ image: null, caption: "", title: "" }}
+          initialValues={{ image: null, description: "", title: "" }}
           validate={(values) => {
             try {
               validationSchema.parse(values);
@@ -151,20 +151,20 @@ const UploadImg = () => {
                   flexDirection: "column",
                 }}
               >
-                <CustomLabel htmlFor="caption">Caption:</CustomLabel>
+                <CustomLabel htmlFor="description">Description:</CustomLabel>
                 <TextareaAutosize
-                  id="caption"
-                  name="caption"
-                  placeholder="Enter a caption"
+                  id="description"
+                  name="description"
+                  placeholder="Enter a description"
                   minRows={5}
                   style={{ width: "300px" }}
                   onChange={(event) => {
-                    setFieldValue("caption", event.target.value || null);
+                    setFieldValue("description", event.target.value || null);
                   }}
                 />
-                {errors.caption && touched.caption && (
+                {errors.description && touched.description && (
                   <ErrorMessage
-                    name="caption"
+                    name="description"
                     component={Alert}
                     severity="error"
                     sx={{ mt: 3 }}
