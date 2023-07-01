@@ -1,27 +1,46 @@
 import { useEffect, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getCountFromServer,
+  limit,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
 import { db } from "../firebase";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import Post from "./Post";
 import PostSkeleton from "./PostSkeleton";
 import { PostData } from "./Post";
+import ScrollTopButton from "./ScrollTopButton";
 
 const HomePage = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
+  const [postsLimit, setPostsLimit] = useState(10);
+  const [collectionLength, setCollectionLength] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const allDocs = await getCountFromServer(collection(db, "Posts"));
+      setCollectionLength(allDocs.data().count);
+    })();
+  }, []);
 
   useEffect(
     () =>
-      onSnapshot(collection(db, "Posts"), (snapshot) => {
-        const postDocuments: PostData[] = [];
-        snapshot.forEach((doc) => {
-          postDocuments.push({
-            ...(doc.data() as PostData),
-            id: doc.id,
+      onSnapshot(
+        query(collection(db, "Posts"), limit(postsLimit)),
+        (snapshot) => {
+          const postDocuments: PostData[] = [];
+          snapshot.forEach((doc) => {
+            postDocuments.push({
+              ...(doc.data() as PostData),
+              id: doc.id,
+            });
           });
-        });
-        setPosts(postDocuments);
-      }),
-    []
+          setPosts(postDocuments);
+        }
+      ),
+    [postsLimit, collectionLength]
   );
 
   return (
@@ -39,6 +58,15 @@ const HomePage = () => {
       {posts?.map((post: PostData) => (
         <Post post={post} key={post.id} />
       ))}
+      <Button
+        disabled={collectionLength < postsLimit}
+        variant="outlined"
+        sx={{ my: 3 }}
+        onClick={() => setPostsLimit((state) => state + 10)}
+      >
+        Load More...
+      </Button>
+      <ScrollTopButton />
     </Container>
   );
 };
