@@ -35,7 +35,7 @@ type PostProps = {
   post: PostData;
 };
 export type PostData = {
-  caption: string;
+  description: string;
   createdAt: { seconds: number; nanoseconds: number };
   fileName: string;
   id: string;
@@ -74,7 +74,7 @@ const Post = ({ post }: PostProps) => {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {post.caption}
+          {post.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

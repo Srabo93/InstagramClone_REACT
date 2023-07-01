@@ -39,12 +39,12 @@ import { db } from "../src/firebase";
 //   });
 //
 //   userData.forEach(async (user) => {
-//     const fakecaption = faker.lorem.paragraph(2);
+//     const fakedescription = faker.lorem.paragraph(2);
 //     const fakeimg = faker.image.urlPicsumPhotos();
 //     const faketitle = faker.lorem.words({ min: 1, max: 3 });
 //     await addDoc(collection(db, "Posts"), {
 //       title: faketitle,
-//       caption: fakecaption,
+//       description: fakedescription,
 //       imageUrl: fakeimg,
 //       user: { ...user.data, uid: user.id },
 //       fileName: fakeimg,
@@ -76,6 +76,7 @@ import { db } from "../src/firebase";
 //     const addLikes = async (post, user) => {
 //       await addDoc(collection(db, "Posts", post, "Likes"), {
 //         userId: user,
+//         postId: post
 //       });
 //     };
 //
