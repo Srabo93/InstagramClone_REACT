@@ -8,7 +8,6 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
