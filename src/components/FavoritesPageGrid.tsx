@@ -113,7 +113,7 @@ const FavoritesPageGrid = ({
         <Skeleton
           sx={{ bgcolor: "secondary" }}
           variant="rectangular"
-          width={500}
+          maxWidth={500}
           height={418}
         />
       )}
