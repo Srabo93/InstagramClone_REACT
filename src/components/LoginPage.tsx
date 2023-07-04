@@ -3,10 +3,11 @@ import { LoginOutlined } from "@mui/icons-material";
 import GithubLogin from "./GithubLogin";
 import GoogleLogin from "./GoogleLogin";
 import TwitterLogin from "./TwitterLogin";
+import PageWrapper from "./PageWrapper";
 
 const LoginPage = () => {
   return (
-    <Container maxWidth="md" sx={{ mt: 10 }}>
+    <PageWrapper>
       <Box
         component={Paper}
         sx={{
@@ -30,7 +31,7 @@ const LoginPage = () => {
           <GithubLogin />
         </Stack>
       </Box>
-    </Container>
+    </PageWrapper>
   );
 };
 

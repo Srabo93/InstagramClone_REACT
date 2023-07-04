@@ -14,7 +14,7 @@ const PageWrapper = ({
         <Container
           maxWidth="md"
           sx={{
-            mt: 10,
+            mt: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -28,7 +28,7 @@ const PageWrapper = ({
         <Container
           maxWidth="md"
           sx={{
-            mt: 10,
+            mt: 8,
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
