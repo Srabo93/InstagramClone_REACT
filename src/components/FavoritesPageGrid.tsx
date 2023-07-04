@@ -111,9 +111,8 @@ const FavoritesPageGrid = ({
         </ImageList>
       ) : (
         <Skeleton
-          sx={{ bgcolor: "secondary" }}
+          sx={{ bgcolor: "secondary", maxWidth: "500px" }}
           variant="rectangular"
-          maxWidth={500}
           height={418}
         />
       )}
