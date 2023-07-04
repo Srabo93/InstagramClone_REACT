@@ -27,7 +27,6 @@ const useAuth = () => {
           } as AuthUser);
         } else {
           setAuthUser(undefined);
-          console.log("No User Logged In");
         }
         return () => {
           unsubscribe;

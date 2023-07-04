@@ -6,7 +6,7 @@ import TwitterLogin from "./TwitterLogin";
 
 const LoginPage = () => {
   return (
-    <Container maxWidth="sm" sx={{ mt: 10 }}>
+    <Container maxWidth="md" sx={{ mt: 10 }}>
       <Box
         component={Paper}
         sx={{
@@ -17,7 +17,7 @@ const LoginPage = () => {
           flexDirection: "column",
           alignItems: "center",
           minHeight: "80vh",
-          maxWidth: "50vw",
+          maxWidth: "100vw",
         }}
       >
         <LoginOutlined color="primary" fontSize="large" />
