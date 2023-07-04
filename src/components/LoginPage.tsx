@@ -11,13 +11,13 @@ const LoginPage = () => {
       <Box
         component={Paper}
         sx={{
-          my: 8,
+          my: 2,
           mx: 4,
-          py: 2,
+          p: 4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          minHeight: "80vh",
+          maxHeight: "80vh",
           maxWidth: "100vw",
         }}
       >
