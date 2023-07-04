@@ -35,6 +35,7 @@ const PostLikes = ({ postId }: PostLikesProps) => {
     await updateDoc(userRef, {
       favorites: arrayUnion(pId),
     });
+
     await addDoc(collection(db, "Posts", `${pId}`, "Likes"), {
       userId: currentUser.uid,
     });

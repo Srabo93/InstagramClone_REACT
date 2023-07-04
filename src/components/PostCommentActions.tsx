@@ -1,5 +1,6 @@
 import {
   doc,
+  setDoc,
   updateDoc,
   increment,
   deleteDoc,
@@ -33,10 +34,12 @@ const PostCommentActions = ({
     () =>
       onSnapshot(userRef, (doc) => {
         const data = doc.data();
-        if (data) {
+        if (data?.commentsLikes) {
           const likeData: string[] = [...data.commentsLikes];
-          const dislikeData: string[] = [...data.commentsDislikes];
           setCommentLikes(likeData);
+        }
+        if (data?.commentsDislikes) {
+          const dislikeData: string[] = [...data.commentsDislikes];
           setCommentDislikes(dislikeData);
         }
       }),
@@ -48,6 +51,9 @@ const PostCommentActions = ({
       likes: increment(1),
     });
 
+    // await setDoc(userRef, {
+    //   commentsLikes: [],
+    // });
     await updateDoc(userRef, {
       commentsLikes: arrayUnion(comment.id),
     });
@@ -57,6 +63,9 @@ const PostCommentActions = ({
     await updateDoc(commentRef, {
       dislikes: increment(1),
     });
+    // await setDoc(userRef, {
+    //   commentsDislikes: [],
+    // });
     await updateDoc(userRef, {
       commentsDislikes: arrayUnion(comment.id),
     });
