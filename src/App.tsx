@@ -28,6 +28,5 @@ export default App;
  * TODO: General
  *        - add loading skeletons
  *        - refactor components/logic into reusable parts/hooks
- *        - make comment like/dislike unique
  *        - delete favorites
  */
