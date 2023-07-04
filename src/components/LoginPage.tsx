@@ -1,4 +1,4 @@
-import { Box, Paper, Typography, Container, Stack } from "@mui/material";
+import { Box, Paper, Typography, Stack } from "@mui/material";
 import { LoginOutlined } from "@mui/icons-material";
 import GithubLogin from "./GithubLogin";
 import GoogleLogin from "./GoogleLogin";
