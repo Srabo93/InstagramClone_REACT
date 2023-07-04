@@ -56,6 +56,10 @@ const Post = ({ post }: PostProps) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const copyToClipboardHandler = (imageUrl: string) => {
+    navigator.clipboard.writeText(imageUrl);
+  };
+
   return (
     <Card sx={{ maxWidth: "80%", minWidth: "80%", m: 3 }}>
       <CardHeader
@@ -81,7 +85,12 @@ const Post = ({ post }: PostProps) => {
         <LoggedIn>
           <PostLikes postId={post.id} />
         </LoggedIn>
-        <IconButton sx={{ ml: 3 }} color="primary" aria-label="share">
+        <IconButton
+          sx={{ ml: 3 }}
+          color="primary"
+          aria-label="share"
+          onClick={() => copyToClipboardHandler(post.imageUrl)}
+        >
           <ShareIcon />
         </IconButton>
         <ExpandMore
