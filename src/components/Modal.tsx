@@ -30,7 +30,7 @@ const Modal = ({
         }}
       >
         <img
-          src={favorite.imageUrl}
+          src={favorite?.imageUrl}
           style={{
             maxHeight: "80%",
             maxWidth: "60%",

@@ -57,7 +57,7 @@ const useUploadStorage = (file: FormData | undefined): UploadStorageResult => {
           title: file.title,
           description: file.description,
           imageUrl: imageUrl,
-          fileName: file.file.name,
+          fileName: file.file?.name,
           createdAt: serverTimestamp(),
           user: currentUser,
         });
