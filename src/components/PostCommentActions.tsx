@@ -49,10 +49,6 @@ const PostCommentActions = ({
     await updateDoc(commentRef, {
       likes: increment(1),
     });
-
-    // await setDoc(userRef, {
-    //   commentsLikes: [],
-    // });
     await updateDoc(userRef, {
       commentsLikes: arrayUnion(comment.id),
     });
@@ -62,9 +58,6 @@ const PostCommentActions = ({
     await updateDoc(commentRef, {
       dislikes: increment(1),
     });
-    // await setDoc(userRef, {
-    //   commentsDislikes: [],
-    // });
     await updateDoc(userRef, {
       commentsDislikes: arrayUnion(comment.id),
     });
