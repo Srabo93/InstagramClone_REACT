@@ -8,6 +8,7 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
+  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
@@ -28,9 +29,10 @@ export type Like = {
 const PostLikes = ({ postId }: PostLikesProps) => {
   const [likes, setLikes] = useState<Like[]>([]);
   const currentUser = useAppStore((state) => state.user);
+  const userRef = doc(db, "Users2", `${currentUser.uid}`);
 
   const addFavorite = async (pId: string) => {
-    await updateDoc(doc(db, "Users2", `${currentUser.uid}`), {
+    await updateDoc(userRef, {
       favorites: arrayUnion(pId),
     });
     await addDoc(collection(db, "Posts", `${pId}`, "Likes"), {
