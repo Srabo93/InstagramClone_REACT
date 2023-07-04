@@ -8,41 +8,34 @@ import FavoritesPageGrid from "./FavoritesPageGrid";
 import PageWrapper from "./PageWrapper";
 import { PostData } from "./Post";
 
-export type Favorite = {
-  postId: string;
-  id: string;
-};
-
 const FavoritesPage = () => {
   const [backdrop, setBackdrop] = useState(false);
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
-  const [favoriteData, setFavoriteData] = useState<PostData | null>(null);
+  const [posts, setPosts] = useState<PostData[]>();
+  const [favorite, setFavorite] = useState<PostData>();
   const currentUser = useAppStore((state) => state.user);
 
   useEffect(() => {
     let cleanup = false;
-    const fetchFavoriteIds = async () => {
+    const fetchPosts = async () => {
       try {
-        const q = query(
-          collection(db, "Users2", `${currentUser.uid}`, "Favorites")
-        );
-        const favoriteDataArray: Favorite[] = [];
-        const queryFavorites = await getDocs(q);
+        const q = query(collection(db, "Posts"));
+        const postsArray: PostData[] = [];
+        const queryPosts = await getDocs(q);
 
-        queryFavorites.forEach((doc) => {
-          const likeData = doc.data();
-          likeData.id = doc.id;
-          favoriteDataArray.push(likeData as Favorite);
+        queryPosts.forEach((post) => {
+          const postData = post.data();
+          postData.id = post.id;
+          postsArray.push(postData as PostData);
         });
         if (!cleanup) {
-          setFavorites(favoriteDataArray);
+          setPosts(postsArray);
         }
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchFavoriteIds();
+    fetchPosts();
 
     return () => {
       cleanup = true;
@@ -61,13 +54,13 @@ const FavoritesPage = () => {
           Your Favorites
         </Typography>
         <FavoritesPageGrid
-          favorites={favorites}
-          onSetFavorite={setFavoriteData}
+          posts={posts}
+          onSetFavorite={setFavorite}
           onSetBackdrop={setBackdrop}
         />
         {backdrop && (
           <Modal
-            favorite={favoriteData}
+            favorite={favorite}
             open={backdrop}
             onSetBackdrop={setBackdrop}
           />

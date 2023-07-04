@@ -5,7 +5,9 @@ import {
   onSnapshot,
   collection,
   query,
-  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
@@ -28,12 +30,9 @@ const PostLikes = ({ postId }: PostLikesProps) => {
   const currentUser = useAppStore((state) => state.user);
 
   const addFavorite = async (pId: string) => {
-    await setDoc(
-      doc(db, "Users2", `${currentUser.uid}`, "Favorites", `${pId}`),
-      {
-        postId: pId,
-      }
-    );
+    await updateDoc(doc(db, "Users2", `${currentUser.uid}`), {
+      favorites: arrayUnion(pId),
+    });
     await addDoc(collection(db, "Posts", `${pId}`, "Likes"), {
       userId: currentUser.uid,
     });
@@ -41,15 +40,9 @@ const PostLikes = ({ postId }: PostLikesProps) => {
 
   const removeFavorite = async (pId: string) => {
     const likesId = likes.filter((like) => like.userId === currentUser?.uid);
-    const userRef = doc(
-      db,
-      "Users2",
-      `${currentUser.uid}`,
-      "Favorites",
-      `${pId}`
-    );
+    const userRef = doc(db, "Users2", `${currentUser.uid}`);
     const likesRef = doc(db, "Posts", `${pId}`, "Likes", likesId[0].id);
-    await deleteDoc(userRef);
+    await updateDoc(userRef, { favorites: arrayRemove(pId) });
     await deleteDoc(likesRef);
   };
 

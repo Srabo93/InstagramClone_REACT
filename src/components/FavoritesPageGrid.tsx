@@ -1,55 +1,49 @@
 import { useEffect, useState } from "react";
-import { query, collection, getDocs } from "firebase/firestore";
+import {
+  onSnapshot,
+  doc,
+  deleteDoc,
+  updateDoc,
+  arrayRemove,
+  collection,
+  query,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import { Skeleton } from "@mui/material";
-import { ImageList, ImageListItem } from "@mui/material";
+import {
+  ImageListItemBar,
+  IconButton,
+  ImageList,
+  ImageListItem,
+} from "@mui/material";
 import useAppStore from "../store";
 import { PostData } from "./Post";
-import { Favorite } from "./FavoritesPage";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const FavoritesPageGrid = ({
   onSetFavorite,
   onSetBackdrop,
-  favorites,
+  posts,
 }: {
   onSetFavorite: (favourite: PostData) => void;
   onSetBackdrop: (arg: boolean) => void;
-  favorites: Favorite[];
+  posts: PostData[];
 }) => {
-  const [posts, setPosts] = useState<PostData[]>();
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
+  const favorites = posts?.filter((post) => favoriteIds.includes(post.id));
   const currentUser = useAppStore((state) => state.user);
 
-  const userFavorites = posts?.filter((post) =>
-    favorites?.some((favorite) => favorite.postId === post.id)
-  );
-
-  useEffect(() => {
-    let cleanup = false;
-    const fetchFavorites = async () => {
-      try {
-        const q = query(collection(db, "Posts"));
-        const postsData: PostData[] = [];
-        const queryPosts = await getDocs(q);
-
-        queryPosts.forEach((doc) => {
-          const updatedPost = doc.data();
-          updatedPost.id = doc.id;
-          postsData.push(updatedPost as PostData);
-        });
-        if (!cleanup) {
-          setPosts(postsData);
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "Users2", `${currentUser.uid}`), (user) => {
+        const favoriteIdsArray = user.data()?.favorites;
+        if (favoriteIdsArray) {
+          setFavoriteIds(favoriteIdsArray);
         }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchFavorites();
-
-    return () => {
-      cleanup = true;
-    };
-  }, [currentUser.uid]);
+      }),
+    []
+  );
 
   const modulHandler = (favorite: PostData) => {
     onSetFavorite(favorite);
@@ -63,7 +57,23 @@ const FavoritesPageGrid = ({
     cursor: "pointer",
   };
 
-  const renderImgGrid = userFavorites?.map((favorite) => (
+  const deleteHandler = async (pId: string) => {
+    await updateDoc(doc(db, "Users2", `${currentUser.uid}`), {
+      favorites: arrayRemove(pId),
+    });
+    const q = query(collection(db, "Posts", `${pId}`, "Likes"));
+    const likes = await getDocs(q);
+    let likeId;
+    likes.forEach((like) => {
+      if (like.data().userId === currentUser.uid) {
+        return (likeId = like.id);
+      }
+    });
+    const likesRef = doc(db, "Posts", `${pId}`, "Likes", `${likeId}`);
+    await deleteDoc(likesRef);
+  };
+
+  const renderImgGrid = favorites?.map((favorite) => (
     <ImageListItem key={favorite.id}>
       <img
         style={style}
@@ -72,6 +82,23 @@ const FavoritesPageGrid = ({
         loading="lazy"
         onClick={() => modulHandler(favorite)}
         alt="randomimg"
+      />
+      <ImageListItemBar
+        sx={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+            "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+        }}
+        position="top"
+        actionIcon={
+          <IconButton
+            sx={{ color: "white" }}
+            onClick={() => deleteHandler(favorite.id)}
+          >
+            <DeleteForeverIcon />
+          </IconButton>
+        }
+        actionPosition="left"
       />
     </ImageListItem>
   ));
