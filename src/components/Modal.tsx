@@ -8,7 +8,7 @@ const Modal = ({
   open,
   onSetBackdrop,
 }: {
-  favorite: PostData;
+  favorite: PostData | null;
   open: boolean;
   onSetBackdrop: (arg: boolean) => void;
 }) => {

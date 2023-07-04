@@ -10,8 +10,8 @@ import { PostData } from "./Post";
 
 const FavoritesPage = () => {
   const [backdrop, setBackdrop] = useState(false);
-  const [posts, setPosts] = useState<PostData[]>();
-  const [favorite, setFavorite] = useState<PostData>();
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const [favorite, setFavorite] = useState<PostData | null>(null);
   const currentUser = useAppStore((state) => state.user);
 
   useEffect(() => {

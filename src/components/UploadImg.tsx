@@ -22,7 +22,7 @@ const validationSchema = z.object({
 });
 
 export type FormData = {
-  file: File;
+  file: File | undefined;
   description: string;
   title: string;
 };
@@ -33,7 +33,7 @@ const UploadImg = () => {
   const { progress, error } = useUploadStorage(formData);
 
   const handleFormSubmit = (values: {
-    image: File;
+    image: File | undefined;
     description: string;
     title: string;
   }) => {
@@ -68,7 +68,7 @@ const UploadImg = () => {
         )}
         {error && <Alert severity="error">{error}</Alert>}
         <Formik
-          initialValues={{ image: null, description: "", title: "" }}
+          initialValues={{ image: undefined, description: "", title: "" }}
           validate={(values) => {
             try {
               validationSchema.parse(values);
