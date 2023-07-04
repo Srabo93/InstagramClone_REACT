@@ -5,6 +5,7 @@ import {
   deleteDoc,
   arrayUnion,
   onSnapshot,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { Button, ButtonGroup, Typography } from "@mui/material";
@@ -14,6 +15,7 @@ import { Comment } from "./PostComments";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useAppStore from "../store";
 import { useEffect, useState } from "react";
+import { FirebaseError } from "firebase/app";
 
 const PostCommentActions = ({
   postId,
@@ -49,18 +51,36 @@ const PostCommentActions = ({
     await updateDoc(commentRef, {
       likes: increment(1),
     });
-    await updateDoc(userRef, {
-      commentsLikes: arrayUnion(comment.id),
-    });
+    try {
+      await updateDoc(userRef, {
+        commentsLikes: arrayUnion(comment.id),
+      });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setDoc(userRef, { commentsLikes: [] });
+        await updateDoc(userRef, {
+          commentsLikes: arrayUnion(comment.id),
+        });
+      }
+    }
   };
 
   const addDislikeHandler = async () => {
     await updateDoc(commentRef, {
       dislikes: increment(1),
     });
-    await updateDoc(userRef, {
-      commentsDislikes: arrayUnion(comment.id),
-    });
+    try {
+      await updateDoc(userRef, {
+        commentsDislikes: arrayUnion(comment.id),
+      });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setDoc(userRef, { commentsDislikes: [] });
+        await updateDoc(userRef, {
+          commentsDislikes: arrayUnion(comment.id),
+        });
+      }
+    }
   };
 
   const deleteCommentHandler = async () => {

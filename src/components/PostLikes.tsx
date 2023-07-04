@@ -8,6 +8,7 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
+  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
@@ -15,6 +16,7 @@ import { Stack, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import useAppStore from "../store";
+import { FirebaseError } from "firebase/app";
 
 type PostLikesProps = {
   postId: string;
@@ -31,9 +33,18 @@ const PostLikes = ({ postId }: PostLikesProps) => {
   const userRef = doc(db, "Users2", `${currentUser.uid}`);
 
   const addFavorite = async (pId: string) => {
-    await updateDoc(userRef, {
-      favorites: arrayUnion(pId),
-    });
+    try {
+      await updateDoc(userRef, {
+        favorites: arrayUnion(pId),
+      });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setDoc(userRef, { favorites: [] });
+        await updateDoc(userRef, {
+          favorites: arrayUnion(pId),
+        });
+      }
+    }
 
     await addDoc(collection(db, "Posts", `${pId}`, "Likes"), {
       userId: currentUser.uid,
