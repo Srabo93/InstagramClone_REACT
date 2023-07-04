@@ -24,9 +24,3 @@ const App = () => {
 };
 
 export default App;
-/**
- * TODO: General
- *        - add loading skeletons
- *        - refactor components/logic into reusable parts/hooks
- *        - delete favorites
- */
