@@ -15,7 +15,6 @@ const usePaginatedComments = (
 ) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
-  console.log("hallo");
   useEffect(
     () =>
       onSnapshot(
@@ -27,8 +26,6 @@ const usePaginatedComments = (
         (snapshot) => {
           const commentDocuments: Comment[] = [];
           snapshot.forEach((comment) => {
-            console.log(comment);
-
             const updatedComment = comment.data();
             updatedComment.id = comment.id;
             commentDocuments.push(updatedComment as Comment);
