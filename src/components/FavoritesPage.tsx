@@ -1,46 +1,15 @@
-import { useEffect, useState } from "react";
-import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
-import useAppStore from "../store";
+import { useState } from "react";
 import Modal from "./Modal";
 import { Box, Typography } from "@mui/material";
 import FavoritesPageGrid from "./FavoritesPageGrid";
 import PageWrapper from "./PageWrapper";
 import { PostData } from "./Post";
+import useFavorites from "../hooks/useFavorites";
 
 const FavoritesPage = () => {
   const [backdrop, setBackdrop] = useState(false);
-  const [posts, setPosts] = useState<PostData[]>([]);
   const [favorite, setFavorite] = useState<PostData | null>(null);
-  const currentUser = useAppStore((state) => state.user);
-
-  useEffect(() => {
-    let cleanup = false;
-    const fetchPosts = async () => {
-      try {
-        const q = query(collection(db, "Posts"));
-        const postsArray: PostData[] = [];
-        const queryPosts = await getDocs(q);
-
-        queryPosts.forEach((post) => {
-          const postData = post.data();
-          postData.id = post.id;
-          postsArray.push(postData as PostData);
-        });
-        if (!cleanup) {
-          setPosts(postsArray);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchPosts();
-
-    return () => {
-      cleanup = true;
-    };
-  }, [currentUser.uid]);
+  const [posts] = useFavorites();
 
   return (
     <PageWrapper>
