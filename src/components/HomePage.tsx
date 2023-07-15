@@ -10,7 +10,7 @@ import usePaginatedPosts from "../hooks/usePaginatedPosts";
 const HomePage = () => {
   const [postsLimit, setPostsLimit] = useState(10);
   const [collectionLength] = useCountDocs("Posts");
-  const [posts] = usePaginatedPosts(postsLimit, collectionLength, "Posts");
+  const [posts] = usePaginatedPosts(postsLimit, "Posts");
 
   return (
     <Container

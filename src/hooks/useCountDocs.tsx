@@ -6,10 +6,17 @@ const useCountDocs = (collectionName: string) => {
   const [collectionLength, setCollectionLength] = useState(0);
 
   useEffect(() => {
-    (async () => {
-      const allDocs = await getCountFromServer(collection(db, collectionName));
-      setCollectionLength(allDocs.data().count);
-    })();
+    try {
+      (async () => {
+        const allDocs = await getCountFromServer(
+          collection(db, collectionName)
+        );
+        setCollectionLength(allDocs.data().count);
+        console.log(allDocs);
+      })();
+    } catch (error) {
+      console.log(error);
+    }
   }, [collectionName]);
 
   return [collectionLength];

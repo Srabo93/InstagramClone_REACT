@@ -3,11 +3,7 @@ import { collection, limit, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase";
 import { PostData } from "../components/Post";
 
-const usePaginatedPosts = (
-  postsLimit: number,
-  collectionLength: number,
-  collectionName: string
-) => {
+const usePaginatedPosts = (postsLimit: number, collectionName: string) => {
   const [posts, setPosts] = useState<PostData[]>([]);
 
   useEffect(
@@ -25,7 +21,7 @@ const usePaginatedPosts = (
           setPosts(postDocuments);
         }
       ),
-    [postsLimit, collectionLength, collectionName]
+    [postsLimit, collectionName]
   );
   return [posts];
 };

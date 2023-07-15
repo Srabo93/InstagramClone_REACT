@@ -1,9 +1,8 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { useState } from "react";
 import {
   Avatar,
   Box,
+  Button,
   CardContent,
   Divider,
   Stack,
@@ -13,6 +12,8 @@ import PostCommentsSkeleton from "./PostCommentsSkeleton";
 import PostAddComment from "./PostAddComment";
 import PostCommentActions from "./PostCommentActions";
 import LoggedIn from "./LoggedIn";
+import usePaginatedComments from "../hooks/usePaginatedComments";
+import useCountDocs from "../hooks/useCountDocs";
 
 type PostCommentsProps = {
   postId: string;
@@ -35,26 +36,11 @@ export type Comment = {
 };
 
 const PostComments = ({ postId }: PostCommentsProps) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-
-  useEffect(
-    () =>
-      onSnapshot(
-        query(
-          collection(db, "Posts", `${postId}`, "Comments"),
-          orderBy("createdAt", "desc")
-        ),
-        (snapshot) => {
-          const commentDocuments: Comment[] = [];
-          snapshot.forEach((comment) => {
-            const updatedComment = comment.data();
-            updatedComment.id = comment.id;
-            commentDocuments.push(updatedComment as Comment);
-          });
-          setComments(commentDocuments);
-        }
-      ),
-    [postId]
+  const [commentsLimit, setCommentsLimit] = useState(10);
+  const [collectionLength] = useCountDocs(`Posts/${postId}/Comments`);
+  const [comments] = usePaginatedComments(
+    commentsLimit,
+    `Posts/${postId}/Comments`
   );
 
   return (
@@ -85,6 +71,14 @@ const PostComments = ({ postId }: PostCommentsProps) => {
             </LoggedIn>
           </Box>
         ))}
+        <Button
+          disabled={collectionLength < commentsLimit}
+          variant="outlined"
+          sx={{ my: 3 }}
+          onClick={() => setCommentsLimit((state) => state + 10)}
+        >
+          Load More...
+        </Button>
       </CardContent>
     </>
   );
