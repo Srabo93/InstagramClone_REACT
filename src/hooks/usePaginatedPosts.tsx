@@ -25,7 +25,7 @@ const usePaginatedPosts = (
           setPosts(postDocuments);
         }
       ),
-    [postsLimit, collectionLength]
+    [postsLimit, collectionLength, collectionName]
   );
   return [posts];
 };
