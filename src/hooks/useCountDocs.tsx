@@ -12,7 +12,6 @@ const useCountDocs = (collectionName: string) => {
           collection(db, collectionName)
         );
         setCollectionLength(allDocs.data().count);
-        console.log(allDocs);
       })();
     } catch (error) {
       console.log(error);
