@@ -1,47 +1,16 @@
-import { useEffect, useState } from "react";
-import {
-  collection,
-  getCountFromServer,
-  limit,
-  onSnapshot,
-  query,
-} from "firebase/firestore";
-import { db } from "../firebase";
+import { useState } from "react";
 import { Button, Container } from "@mui/material";
 import Post from "./Post";
 import PostSkeleton from "./PostSkeleton";
 import { PostData } from "./Post";
 import ScrollTopButton from "./ScrollTopButton";
+import useCountDocs from "../hooks/useCountDocs";
+import usePaginatedPosts from "../hooks/usePaginatedPosts";
 
 const HomePage = () => {
-  const [posts, setPosts] = useState<PostData[]>([]);
   const [postsLimit, setPostsLimit] = useState(10);
-  const [collectionLength, setCollectionLength] = useState(0);
-
-  useEffect(() => {
-    (async () => {
-      const allDocs = await getCountFromServer(collection(db, "Posts"));
-      setCollectionLength(allDocs.data().count);
-    })();
-  }, []);
-
-  useEffect(
-    () =>
-      onSnapshot(
-        query(collection(db, "Posts"), limit(postsLimit)),
-        (snapshot) => {
-          const postDocuments: PostData[] = [];
-          snapshot.forEach((doc) => {
-            postDocuments.push({
-              ...(doc.data() as PostData),
-              id: doc.id,
-            });
-          });
-          setPosts(postDocuments);
-        }
-      ),
-    [postsLimit, collectionLength]
-  );
+  const [collectionLength] = useCountDocs("Posts");
+  const [posts] = usePaginatedPosts(postsLimit, collectionLength, "Posts");
 
   return (
     <Container
